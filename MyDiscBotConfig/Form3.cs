@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace MyDiscBotConfig
 {
-    public partial class GoogleResultsForm : Form
+    public partial class GoogleHelpForm : Form
     {
-        public GoogleResultsForm()
+        public GoogleHelpForm()
         {
             InitializeComponent();
         }
@@ -25,6 +25,11 @@ namespace MyDiscBotConfig
         private void GoogleResultsForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void SheetQuickStart_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(SheetQuickStart.Text);
         }
     }
 }

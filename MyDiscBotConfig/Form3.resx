@@ -117,4 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="textBox1.Text" xml:space="preserve">
+    <value>To use the integration with Google sheets you will need to create an API token and access and use the resulting credentials here. 
+This will allow for the dynamic reconfigurations of gather at postion based on the google spreadsheet. Uncheck the box to disable using google
+
+Please visit the following URL click the big blue enable API button in the middle of the screen to get a credentials.json
+
+https://developers.google.com/sheets/api/quickstart/nodejs</value>
+  </data>
 </root>

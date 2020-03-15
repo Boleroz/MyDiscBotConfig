@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyDiscBotConfigForm));
-            this.label1 = new System.Windows.Forms.Label();
             this.LoadButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -84,11 +83,19 @@
             this.GNBotLogMain = new System.Windows.Forms.TextBox();
             this.MainLogName = new System.Windows.Forms.TextBox();
             this.LogFileNameMask = new System.Windows.Forms.TextBox();
-            this.label57 = new System.Windows.Forms.Label();
+            this.announceStatus = new System.Windows.Forms.NumericUpDown();
+            this.postStatusScreenshots = new System.Windows.Forms.CheckBox();
+            this.GNBotWindowX = new System.Windows.Forms.NumericUpDown();
+            this.GNBotWindowY = new System.Windows.Forms.NumericUpDown();
+            this.GNBotWindowWidth = new System.Windows.Forms.NumericUpDown();
+            this.GNBotWindowHeight = new System.Windows.Forms.NumericUpDown();
+            this.label59 = new System.Windows.Forms.Label();
+            this.LoadPointer = new System.Windows.Forms.Label();
             this.ConfigurationTabs = new System.Windows.Forms.TabControl();
             this.BasicConfig = new System.Windows.Forms.TabPage();
+            this.label31 = new System.Windows.Forms.Label();
             this.label55 = new System.Windows.Forms.Label();
-            this.label56 = new System.Windows.Forms.Label();
+            this.LauncherPathPointer = new System.Windows.Forms.Label();
             this.useDiscord = new System.Windows.Forms.CheckBox();
             this.label44 = new System.Windows.Forms.Label();
             this.label42 = new System.Windows.Forms.Label();
@@ -138,6 +145,11 @@
             this.label49 = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
             this.AdvancedConfig = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label63 = new System.Windows.Forms.Label();
+            this.label62 = new System.Windows.Forms.Label();
+            this.label61 = new System.Windows.Forms.Label();
+            this.label60 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label46 = new System.Windows.Forms.Label();
@@ -146,34 +158,49 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.announceStatus = new System.Windows.Forms.NumericUpDown();
-            this.postStatusScreenshots = new System.Windows.Forms.CheckBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.StopDiscBot = new System.Windows.Forms.Button();
+            this.label64 = new System.Windows.Forms.Label();
+            this.DiscBotExePath = new System.Windows.Forms.Label();
+            this.StartDiscBot = new System.Windows.Forms.Button();
+            this.MaxLines = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.DiscBotOutput = new System.Windows.Forms.ListBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ManifestLocation = new System.Windows.Forms.TextBox();
+            this.DownloadAllButton = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.FileGridView = new System.Windows.Forms.DataGridView();
+            this.DownloadStatusLabel = new System.Windows.Forms.Label();
+            this.DownloadStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FileUrl = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GNBotRestartInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaximumFailures)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimumCycleTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.announceStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GNBotWindowX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GNBotWindowY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GNBotWindowWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GNBotWindowHeight)).BeginInit();
             this.ConfigurationTabs.SuspendLayout();
             this.BasicConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GNBotThreads)).BeginInit();
             this.GoogleSheet.SuspendLayout();
             this.AdvancedConfig.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.announceStatus)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FileGridView)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(0, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(231, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "LSS Configuration Manager";
             // 
             // LoadButton
             // 
             this.LoadButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.LoadButton.Location = new System.Drawing.Point(604, 4);
+            this.LoadButton.Location = new System.Drawing.Point(600, 3);
             this.LoadButton.Name = "LoadButton";
             this.LoadButton.Size = new System.Drawing.Size(75, 23);
             this.LoadButton.TabIndex = 1;
@@ -183,7 +210,7 @@
             // 
             // SaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(681, 4);
+            this.SaveButton.Location = new System.Drawing.Point(681, 3);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 999;
@@ -198,17 +225,17 @@
             // BotConfig
             // 
             this.BotConfig.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.BotConfig.Location = new System.Drawing.Point(283, 8);
+            this.BotConfig.Location = new System.Drawing.Point(74, 8);
             this.BotConfig.Name = "BotConfig";
             this.BotConfig.ReadOnly = true;
-            this.BotConfig.Size = new System.Drawing.Size(284, 13);
+            this.BotConfig.Size = new System.Drawing.Size(485, 13);
             this.BotConfig.TabIndex = 0;
             this.BotConfig.Text = "./mybot.json";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(228, 8);
+            this.label9.Location = new System.Drawing.Point(12, 8);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(56, 13);
             this.label9.TabIndex = 18;
@@ -529,7 +556,7 @@
             this.label45.BackColor = System.Drawing.SystemColors.Highlight;
             this.label45.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label45.ForeColor = System.Drawing.Color.White;
-            this.label45.Location = new System.Drawing.Point(375, 53);
+            this.label45.Location = new System.Drawing.Point(431, 54);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(21, 15);
             this.label45.TabIndex = 1134;
@@ -539,7 +566,7 @@
             // GoogleSpreadsheetID
             // 
             this.GoogleSpreadsheetID.Enabled = false;
-            this.GoogleSpreadsheetID.Location = new System.Drawing.Point(135, 50);
+            this.GoogleSpreadsheetID.Location = new System.Drawing.Point(191, 51);
             this.GoogleSpreadsheetID.Name = "GoogleSpreadsheetID";
             this.GoogleSpreadsheetID.Size = new System.Drawing.Size(236, 20);
             this.GoogleSpreadsheetID.TabIndex = 1132;
@@ -572,7 +599,7 @@
             // GoogleTokenFilePath
             // 
             this.GoogleTokenFilePath.Enabled = false;
-            this.GoogleTokenFilePath.Location = new System.Drawing.Point(135, 28);
+            this.GoogleTokenFilePath.Location = new System.Drawing.Point(191, 29);
             this.GoogleTokenFilePath.Name = "GoogleTokenFilePath";
             this.GoogleTokenFilePath.Size = new System.Drawing.Size(236, 20);
             this.GoogleTokenFilePath.TabIndex = 1127;
@@ -584,10 +611,11 @@
             // useGoogle
             // 
             this.useGoogle.AutoSize = true;
-            this.useGoogle.Location = new System.Drawing.Point(119, 8);
+            this.useGoogle.Location = new System.Drawing.Point(8, 29);
             this.useGoogle.Name = "useGoogle";
-            this.useGoogle.Size = new System.Drawing.Size(15, 14);
+            this.useGoogle.Size = new System.Drawing.Size(96, 17);
             this.useGoogle.TabIndex = 1126;
+            this.useGoogle.Text = "Enable Google";
             this.toolTip1.SetToolTip(this.useGoogle, "Enable or disable the use of google sheets downloading for the gathers csv");
             this.useGoogle.UseVisualStyleBackColor = true;
             this.useGoogle.CheckedChanged += new System.EventHandler(this.useGoogle_CheckedChanged_1);
@@ -595,7 +623,7 @@
             // GoogleCredentialsFilePath
             // 
             this.GoogleCredentialsFilePath.Enabled = false;
-            this.GoogleCredentialsFilePath.Location = new System.Drawing.Point(135, 6);
+            this.GoogleCredentialsFilePath.Location = new System.Drawing.Point(191, 7);
             this.GoogleCredentialsFilePath.Name = "GoogleCredentialsFilePath";
             this.GoogleCredentialsFilePath.Size = new System.Drawing.Size(236, 20);
             this.GoogleCredentialsFilePath.TabIndex = 1123;
@@ -732,22 +760,138 @@
             this.toolTip1.SetToolTip(this.LogFileNameMask, "What is the naming convention? You shuoldn\'t have to change this. ");
             this.LogFileNameMask.TextChanged += new System.EventHandler(this.LogFileNameMask_TextChanged);
             // 
-            // label57
+            // announceStatus
             // 
-            this.label57.AutoSize = true;
-            this.label57.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label57.ForeColor = System.Drawing.Color.Red;
-            this.label57.Location = new System.Drawing.Point(573, 5);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(29, 20);
-            this.label57.TabIndex = 1025;
-            this.label57.Text = ">>";
+            this.announceStatus.Enabled = false;
+            this.announceStatus.Location = new System.Drawing.Point(499, 300);
+            this.announceStatus.Maximum = new decimal(new int[] {
+            1440,
+            0,
+            0,
+            0});
+            this.announceStatus.Name = "announceStatus";
+            this.announceStatus.Size = new System.Drawing.Size(40, 20);
+            this.announceStatus.TabIndex = 1163;
+            this.toolTip1.SetToolTip(this.announceStatus, "Should the status be announced on discord? How often?");
+            this.announceStatus.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.announceStatus.ValueChanged += new System.EventHandler(this.announceStatus_ValueChanged_1);
+            // 
+            // postStatusScreenshots
+            // 
+            this.postStatusScreenshots.AutoSize = true;
+            this.postStatusScreenshots.Enabled = false;
+            this.postStatusScreenshots.Location = new System.Drawing.Point(544, 303);
+            this.postStatusScreenshots.Name = "postStatusScreenshots";
+            this.postStatusScreenshots.Size = new System.Drawing.Size(174, 17);
+            this.postStatusScreenshots.TabIndex = 1164;
+            this.postStatusScreenshots.Text = "Post status update screenshots";
+            this.toolTip1.SetToolTip(this.postStatusScreenshots, "Include a screenshot with status updates?");
+            this.postStatusScreenshots.UseVisualStyleBackColor = true;
+            this.postStatusScreenshots.CheckedChanged += new System.EventHandler(this.postStatusScreenshots_CheckedChanged_1);
+            // 
+            // GNBotWindowX
+            // 
+            this.GNBotWindowX.Location = new System.Drawing.Point(27, 15);
+            this.GNBotWindowX.Maximum = new decimal(new int[] {
+            1440,
+            0,
+            0,
+            0});
+            this.GNBotWindowX.Name = "GNBotWindowX";
+            this.GNBotWindowX.Size = new System.Drawing.Size(41, 20);
+            this.GNBotWindowX.TabIndex = 1173;
+            this.toolTip1.SetToolTip(this.GNBotWindowX, "the X cooridnate for the bot window");
+            this.GNBotWindowX.ValueChanged += new System.EventHandler(this.GNBotWindowX_ValueChanged);
+            // 
+            // GNBotWindowY
+            // 
+            this.GNBotWindowY.Location = new System.Drawing.Point(87, 15);
+            this.GNBotWindowY.Maximum = new decimal(new int[] {
+            1440,
+            0,
+            0,
+            0});
+            this.GNBotWindowY.Name = "GNBotWindowY";
+            this.GNBotWindowY.Size = new System.Drawing.Size(41, 20);
+            this.GNBotWindowY.TabIndex = 1174;
+            this.toolTip1.SetToolTip(this.GNBotWindowY, "the X cooridnate for the bot window");
+            this.GNBotWindowY.ValueChanged += new System.EventHandler(this.GNBotWindowY_ValueChanged);
+            // 
+            // GNBotWindowWidth
+            // 
+            this.GNBotWindowWidth.Location = new System.Drawing.Point(27, 38);
+            this.GNBotWindowWidth.Maximum = new decimal(new int[] {
+            1440,
+            0,
+            0,
+            0});
+            this.GNBotWindowWidth.Name = "GNBotWindowWidth";
+            this.GNBotWindowWidth.Size = new System.Drawing.Size(41, 20);
+            this.GNBotWindowWidth.TabIndex = 1175;
+            this.toolTip1.SetToolTip(this.GNBotWindowWidth, "the X cooridnate for the bot window");
+            this.GNBotWindowWidth.Value = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.GNBotWindowWidth.ValueChanged += new System.EventHandler(this.GNBotWindowWidth_ValueChanged);
+            // 
+            // GNBotWindowHeight
+            // 
+            this.GNBotWindowHeight.Location = new System.Drawing.Point(87, 38);
+            this.GNBotWindowHeight.Maximum = new decimal(new int[] {
+            1440,
+            0,
+            0,
+            0});
+            this.GNBotWindowHeight.Name = "GNBotWindowHeight";
+            this.GNBotWindowHeight.Size = new System.Drawing.Size(41, 20);
+            this.GNBotWindowHeight.TabIndex = 1176;
+            this.toolTip1.SetToolTip(this.GNBotWindowHeight, "the X cooridnate for the bot window");
+            this.GNBotWindowHeight.Value = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.GNBotWindowHeight.ValueChanged += new System.EventHandler(this.GNBotWindowHeight_ValueChanged);
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.BackColor = System.Drawing.SystemColors.Highlight;
+            this.label59.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label59.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label59.ForeColor = System.Drawing.Color.White;
+            this.label59.Location = new System.Drawing.Point(8, 4);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(17, 18);
+            this.label59.TabIndex = 1139;
+            this.label59.Text = "?";
+            this.toolTip1.SetToolTip(this.label59, "Click for help on using Discord");
+            this.label59.Click += new System.EventHandler(this.label59_Click);
+            // 
+            // LoadPointer
+            // 
+            this.LoadPointer.AutoSize = true;
+            this.LoadPointer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadPointer.ForeColor = System.Drawing.Color.Red;
+            this.LoadPointer.Location = new System.Drawing.Point(565, 3);
+            this.LoadPointer.Name = "LoadPointer";
+            this.LoadPointer.Size = new System.Drawing.Size(29, 20);
+            this.LoadPointer.TabIndex = 1025;
+            this.LoadPointer.Text = ">>";
             // 
             // ConfigurationTabs
             // 
             this.ConfigurationTabs.Controls.Add(this.BasicConfig);
             this.ConfigurationTabs.Controls.Add(this.GoogleSheet);
             this.ConfigurationTabs.Controls.Add(this.AdvancedConfig);
+            this.ConfigurationTabs.Controls.Add(this.tabPage1);
+            this.ConfigurationTabs.Controls.Add(this.tabPage2);
             this.ConfigurationTabs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.ConfigurationTabs.Location = new System.Drawing.Point(4, 31);
             this.ConfigurationTabs.Name = "ConfigurationTabs";
@@ -762,7 +906,7 @@
             this.BasicConfig.Controls.Add(this.announceStatus);
             this.BasicConfig.Controls.Add(this.postStatusScreenshots);
             this.BasicConfig.Controls.Add(this.label55);
-            this.BasicConfig.Controls.Add(this.label56);
+            this.BasicConfig.Controls.Add(this.LauncherPathPointer);
             this.BasicConfig.Controls.Add(this.label47);
             this.BasicConfig.Controls.Add(this.useDiscord);
             this.BasicConfig.Controls.Add(this.label30);
@@ -836,6 +980,15 @@
             this.BasicConfig.TabIndex = 0;
             this.BasicConfig.Text = "Basic Configuration";
             // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(404, 304);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(89, 13);
+            this.label31.TabIndex = 1165;
+            this.label31.Text = "Announce Status";
+            // 
             // label55
             // 
             this.label55.AutoSize = true;
@@ -845,16 +998,16 @@
             this.label55.TabIndex = 1128;
             this.label55.Text = "Directory";
             // 
-            // label56
+            // LauncherPathPointer
             // 
-            this.label56.AutoSize = true;
-            this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label56.ForeColor = System.Drawing.Color.Red;
-            this.label56.Location = new System.Drawing.Point(713, 28);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(29, 20);
-            this.label56.TabIndex = 1127;
-            this.label56.Text = "<<";
+            this.LauncherPathPointer.AutoSize = true;
+            this.LauncherPathPointer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LauncherPathPointer.ForeColor = System.Drawing.Color.Red;
+            this.LauncherPathPointer.Location = new System.Drawing.Point(713, 28);
+            this.LauncherPathPointer.Name = "LauncherPathPointer";
+            this.LauncherPathPointer.Size = new System.Drawing.Size(29, 20);
+            this.LauncherPathPointer.TabIndex = 1127;
+            this.LauncherPathPointer.Text = "<<";
             // 
             // useDiscord
             // 
@@ -1239,6 +1392,7 @@
             // GoogleSheet
             // 
             this.GoogleSheet.BackColor = System.Drawing.SystemColors.Control;
+            this.GoogleSheet.Controls.Add(this.label59);
             this.GoogleSheet.Controls.Add(this.GoogleButton);
             this.GoogleSheet.Controls.Add(this.Output);
             this.GoogleSheet.Controls.Add(this.label53);
@@ -1285,38 +1439,38 @@
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(430, 33);
+            this.label53.Location = new System.Drawing.Point(461, 33);
             this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(89, 13);
+            this.label53.Size = new System.Drawing.Size(57, 13);
             this.label53.TabIndex = 1136;
-            this.label53.Text = "Spreadsheet Tab";
+            this.label53.Text = "Tab Name";
             this.label53.Click += new System.EventHandler(this.label53_Click);
             // 
             // label52
             // 
             this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(430, 10);
+            this.label52.Location = new System.Drawing.Point(461, 9);
             this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(94, 13);
+            this.label52.Size = new System.Drawing.Size(57, 13);
             this.label52.TabIndex = 1135;
-            this.label52.Text = "Google App Name";
+            this.label52.Text = "App Name";
             this.label52.Click += new System.EventHandler(this.label52_Click);
             // 
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(8, 54);
+            this.label54.Location = new System.Drawing.Point(101, 54);
             this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(121, 13);
+            this.label54.Size = new System.Drawing.Size(84, 13);
             this.label54.TabIndex = 1133;
-            this.label54.Text = "Google Spreadsheed ID";
+            this.label54.Text = "Spreadsheed ID";
             // 
             // label50
             // 
             this.label50.AutoSize = true;
             this.label50.BackColor = System.Drawing.SystemColors.ControlDark;
             this.label50.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label50.Location = new System.Drawing.Point(381, 31);
+            this.label50.Location = new System.Drawing.Point(437, 32);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(18, 15);
             this.label50.TabIndex = 1129;
@@ -1326,18 +1480,18 @@
             // label51
             // 
             this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(8, 32);
+            this.label51.Location = new System.Drawing.Point(128, 32);
             this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(94, 13);
+            this.label51.Size = new System.Drawing.Size(57, 13);
             this.label51.TabIndex = 1128;
-            this.label51.Text = "Google Token File";
+            this.label51.Text = "Token File";
             // 
             // label49
             // 
             this.label49.AutoSize = true;
             this.label49.BackColor = System.Drawing.SystemColors.ControlDark;
             this.label49.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label49.Location = new System.Drawing.Point(381, 9);
+            this.label49.Location = new System.Drawing.Point(437, 10);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(18, 15);
             this.label49.TabIndex = 1125;
@@ -1347,15 +1501,16 @@
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(8, 10);
+            this.label48.Location = new System.Drawing.Point(110, 9);
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(112, 13);
+            this.label48.Size = new System.Drawing.Size(75, 13);
             this.label48.TabIndex = 1124;
-            this.label48.Text = "Google Credentials file";
+            this.label48.Text = "Credentials file";
             // 
             // AdvancedConfig
             // 
             this.AdvancedConfig.BackColor = System.Drawing.SystemColors.Control;
+            this.AdvancedConfig.Controls.Add(this.groupBox1);
             this.AdvancedConfig.Controls.Add(this.label58);
             this.AdvancedConfig.Controls.Add(this.GNBotLogMask);
             this.AdvancedConfig.Controls.Add(this.label12);
@@ -1380,6 +1535,60 @@
             this.AdvancedConfig.Size = new System.Drawing.Size(748, 370);
             this.AdvancedConfig.TabIndex = 3;
             this.AdvancedConfig.Text = "Advanced Configuration";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.GNBotWindowHeight);
+            this.groupBox1.Controls.Add(this.label63);
+            this.groupBox1.Controls.Add(this.GNBotWindowX);
+            this.groupBox1.Controls.Add(this.label62);
+            this.groupBox1.Controls.Add(this.GNBotWindowY);
+            this.groupBox1.Controls.Add(this.label61);
+            this.groupBox1.Controls.Add(this.GNBotWindowWidth);
+            this.groupBox1.Controls.Add(this.label60);
+            this.groupBox1.Location = new System.Drawing.Point(596, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(142, 65);
+            this.groupBox1.TabIndex = 1181;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "GNBot window location";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Location = new System.Drawing.Point(71, 42);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(15, 13);
+            this.label63.TabIndex = 1180;
+            this.label63.Text = "H";
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(7, 42);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(18, 13);
+            this.label62.TabIndex = 1179;
+            this.label62.Text = "W";
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(71, 19);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(14, 13);
+            this.label61.TabIndex = 1178;
+            this.label61.Text = "Y";
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(7, 19);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(14, 13);
+            this.label60.TabIndex = 1177;
+            this.label60.Text = "X";
             // 
             // label58
             // 
@@ -1453,47 +1662,210 @@
             this.label10.TabIndex = 1155;
             this.label10.Text = "Log Mask";
             // 
-            // label31
+            // tabPage1
             // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(404, 304);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(89, 13);
-            this.label31.TabIndex = 1165;
-            this.label31.Text = "Announce Status";
+            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.StopDiscBot);
+            this.tabPage1.Controls.Add(this.label64);
+            this.tabPage1.Controls.Add(this.DiscBotExePath);
+            this.tabPage1.Controls.Add(this.StartDiscBot);
+            this.tabPage1.Controls.Add(this.MaxLines);
+            this.tabPage1.Controls.Add(this.numericUpDown1);
+            this.tabPage1.Controls.Add(this.DiscBotOutput);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(748, 370);
+            this.tabPage1.TabIndex = 4;
+            this.tabPage1.Text = "Run Discord Bot";
             // 
-            // announceStatus
+            // StopDiscBot
             // 
-            this.announceStatus.Enabled = false;
-            this.announceStatus.Location = new System.Drawing.Point(499, 300);
-            this.announceStatus.Maximum = new decimal(new int[] {
-            1440,
+            this.StopDiscBot.Enabled = false;
+            this.StopDiscBot.Location = new System.Drawing.Point(677, 8);
+            this.StopDiscBot.Name = "StopDiscBot";
+            this.StopDiscBot.Size = new System.Drawing.Size(58, 23);
+            this.StopDiscBot.TabIndex = 1032;
+            this.StopDiscBot.Text = "Stop";
+            this.StopDiscBot.UseVisualStyleBackColor = true;
+            this.StopDiscBot.Click += new System.EventHandler(this.StopDiscBot_Click);
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.label64.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label64.Location = new System.Drawing.Point(582, 13);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(18, 15);
+            this.label64.TabIndex = 1031;
+            this.label64.Text = "...";
+            this.label64.Click += new System.EventHandler(this.label64_Click);
+            // 
+            // DiscBotExePath
+            // 
+            this.DiscBotExePath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DiscBotExePath.Location = new System.Drawing.Point(184, 12);
+            this.DiscBotExePath.Name = "DiscBotExePath";
+            this.DiscBotExePath.Size = new System.Drawing.Size(394, 18);
+            this.DiscBotExePath.TabIndex = 4;
+            this.DiscBotExePath.Text = "MyBot-win.exe";
+            this.DiscBotExePath.Click += new System.EventHandler(this.DiscBotExePath_Click);
+            // 
+            // StartDiscBot
+            // 
+            this.StartDiscBot.Location = new System.Drawing.Point(613, 8);
+            this.StartDiscBot.Name = "StartDiscBot";
+            this.StartDiscBot.Size = new System.Drawing.Size(58, 23);
+            this.StartDiscBot.TabIndex = 3;
+            this.StartDiscBot.Text = "Start";
+            this.StartDiscBot.UseVisualStyleBackColor = true;
+            this.StartDiscBot.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // MaxLines
+            // 
+            this.MaxLines.AutoSize = true;
+            this.MaxLines.Location = new System.Drawing.Point(7, 13);
+            this.MaxLines.Name = "MaxLines";
+            this.MaxLines.Size = new System.Drawing.Size(100, 13);
+            this.MaxLines.TabIndex = 2;
+            this.MaxLines.Text = "Maximum Log Lines";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(113, 11);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            1000000,
             0,
             0,
             0});
-            this.announceStatus.Name = "announceStatus";
-            this.announceStatus.Size = new System.Drawing.Size(40, 20);
-            this.announceStatus.TabIndex = 1163;
-            this.toolTip1.SetToolTip(this.announceStatus, "Should the status be announced on discord? How often?");
-            this.announceStatus.Value = new decimal(new int[] {
-            60,
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(65, 20);
+            this.numericUpDown1.TabIndex = 1;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1000,
             0,
             0,
             0});
-            this.announceStatus.ValueChanged += new System.EventHandler(this.announceStatus_ValueChanged_1);
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
-            // postStatusScreenshots
+            // DiscBotOutput
             // 
-            this.postStatusScreenshots.AutoSize = true;
-            this.postStatusScreenshots.Enabled = false;
-            this.postStatusScreenshots.Location = new System.Drawing.Point(544, 303);
-            this.postStatusScreenshots.Name = "postStatusScreenshots";
-            this.postStatusScreenshots.Size = new System.Drawing.Size(174, 17);
-            this.postStatusScreenshots.TabIndex = 1164;
-            this.postStatusScreenshots.Text = "Post status update screenshots";
-            this.toolTip1.SetToolTip(this.postStatusScreenshots, "Include a screenshot with status updates?");
-            this.postStatusScreenshots.UseVisualStyleBackColor = true;
-            this.postStatusScreenshots.CheckedChanged += new System.EventHandler(this.postStatusScreenshots_CheckedChanged_1);
+            this.DiscBotOutput.FormattingEnabled = true;
+            this.DiscBotOutput.HorizontalScrollbar = true;
+            this.DiscBotOutput.Location = new System.Drawing.Point(0, 39);
+            this.DiscBotOutput.Name = "DiscBotOutput";
+            this.DiscBotOutput.Size = new System.Drawing.Size(745, 329);
+            this.DiscBotOutput.TabIndex = 0;
+            this.DiscBotOutput.SelectedIndexChanged += new System.EventHandler(this.DiscBotOutput_SelectedIndexChanged);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.DownloadStatusLabel);
+            this.tabPage2.Controls.Add(this.FileGridView);
+            this.tabPage2.Controls.Add(this.progressBar);
+            this.tabPage2.Controls.Add(this.button2);
+            this.tabPage2.Controls.Add(this.label1);
+            this.tabPage2.Controls.Add(this.ManifestLocation);
+            this.tabPage2.Controls.Add(this.DownloadAllButton);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(748, 370);
+            this.tabPage2.TabIndex = 5;
+            this.tabPage2.Text = "Download Manager";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(66, 13);
+            this.label1.TabIndex = 1171;
+            this.label1.Text = "File Manifest";
+            // 
+            // ManifestLocation
+            // 
+            this.ManifestLocation.Location = new System.Drawing.Point(78, 10);
+            this.ManifestLocation.Name = "ManifestLocation";
+            this.ManifestLocation.Size = new System.Drawing.Size(567, 20);
+            this.ManifestLocation.TabIndex = 1170;
+            this.ManifestLocation.Text = "https://raw.githubusercontent.com/Boleroz/MyDiscBot/master/FileManifest.json";
+            this.toolTip1.SetToolTip(this.ManifestLocation, "What discord channel should the bot accept global commands from?");
+            // 
+            // DownloadAllButton
+            // 
+            this.DownloadAllButton.Enabled = false;
+            this.DownloadAllButton.Location = new System.Drawing.Point(592, 343);
+            this.DownloadAllButton.Name = "DownloadAllButton";
+            this.DownloadAllButton.Size = new System.Drawing.Size(141, 21);
+            this.DownloadAllButton.TabIndex = 1169;
+            this.DownloadAllButton.Text = "Download All";
+            this.DownloadAllButton.UseVisualStyleBackColor = true;
+            this.DownloadAllButton.Click += new System.EventHandler(this.DownloadAllButton_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(651, 9);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 1173;
+            this.button2.Text = "Download";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(9, 346);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(554, 13);
+            this.progressBar.TabIndex = 1174;
+            // 
+            // FileGridView
+            // 
+            this.FileGridView.AllowUserToAddRows = false;
+            this.FileGridView.AllowUserToDeleteRows = false;
+            this.FileGridView.AllowUserToResizeColumns = false;
+            this.FileGridView.AllowUserToResizeRows = false;
+            this.FileGridView.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.FileGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.FileGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DownloadStatus,
+            this.FileName,
+            this.FileUrl});
+            this.FileGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.FileGridView.Location = new System.Drawing.Point(9, 38);
+            this.FileGridView.MultiSelect = false;
+            this.FileGridView.Name = "FileGridView";
+            this.FileGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.FileGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.FileGridView.Size = new System.Drawing.Size(724, 271);
+            this.FileGridView.TabIndex = 1175;
+            this.FileGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FileGridView_CellContentClick);
+            // 
+            // DownloadStatusLabel
+            // 
+            this.DownloadStatusLabel.Location = new System.Drawing.Point(6, 321);
+            this.DownloadStatusLabel.Name = "DownloadStatusLabel";
+            this.DownloadStatusLabel.Size = new System.Drawing.Size(727, 19);
+            this.DownloadStatusLabel.TabIndex = 1176;
+            // 
+            // DownloadStatus
+            // 
+            this.DownloadStatus.HeaderText = "Status";
+            this.DownloadStatus.Name = "DownloadStatus";
+            // 
+            // FileName
+            // 
+            this.FileName.HeaderText = "Name";
+            this.FileName.Name = "FileName";
+            // 
+            // FileUrl
+            // 
+            this.FileUrl.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.FileUrl.HeaderText = "URL";
+            this.FileUrl.Name = "FileUrl";
             // 
             // MyDiscBotConfigForm
             // 
@@ -1502,19 +1874,24 @@
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(765, 462);
             this.Controls.Add(this.ConfigurationTabs);
-            this.Controls.Add(this.label57);
+            this.Controls.Add(this.LoadPointer);
             this.Controls.Add(this.SaveResult);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.BotConfig);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.LoadButton);
-            this.Controls.Add(this.label1);
             this.Name = "MyDiscBotConfigForm";
             this.ShowIcon = false;
+            this.Text = "Discord Manager for Last Shelter: Survival GNBots";
             this.Load += new System.EventHandler(this.MyDiscBotConfigForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GNBotRestartInterval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaximumFailures)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimumCycleTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.announceStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GNBotWindowX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GNBotWindowY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GNBotWindowWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GNBotWindowHeight)).EndInit();
             this.ConfigurationTabs.ResumeLayout(false);
             this.BasicConfig.ResumeLayout(false);
             this.BasicConfig.PerformLayout();
@@ -1523,15 +1900,20 @@
             this.GoogleSheet.PerformLayout();
             this.AdvancedConfig.ResumeLayout(false);
             this.AdvancedConfig.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.announceStatus)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FileGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button LoadButton;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
@@ -1540,10 +1922,10 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox SaveResult;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.Label LoadPointer;
         private System.Windows.Forms.TabControl ConfigurationTabs;
         private System.Windows.Forms.TabPage BasicConfig;
-        private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.Label LauncherPathPointer;
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.CheckBox useDiscord;
         private System.Windows.Forms.Label label30;
@@ -1626,7 +2008,6 @@
         private System.Windows.Forms.TextBox GoogleCredentialsFilePath;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Button GoogleButton;
-        public System.Windows.Forms.TextBox Output;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.TabPage AdvancedConfig;
         private System.Windows.Forms.Label label58;
@@ -1650,5 +2031,35 @@
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.NumericUpDown announceStatus;
         private System.Windows.Forms.CheckBox postStatusScreenshots;
+        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.Label label61;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.NumericUpDown GNBotWindowHeight;
+        private System.Windows.Forms.NumericUpDown GNBotWindowWidth;
+        private System.Windows.Forms.NumericUpDown GNBotWindowY;
+        private System.Windows.Forms.NumericUpDown GNBotWindowX;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TextBox Output;
+        private System.Windows.Forms.Label MaxLines;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.ListBox DiscBotOutput;
+        private System.Windows.Forms.Button StartDiscBot;
+        private System.Windows.Forms.Label DiscBotExePath;
+        private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.Button StopDiscBot;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox ManifestLocation;
+        private System.Windows.Forms.Button DownloadAllButton;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.DataGridView FileGridView;
+        private System.Windows.Forms.Label DownloadStatusLabel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DownloadStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FileUrl;
     }
 }

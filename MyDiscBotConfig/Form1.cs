@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 */
@@ -24,6 +23,11 @@ using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using System.Threading;
+using System.Diagnostics;
+using System.Net;
+using System.Linq;
+using System.Security.Principal;
+
 
 namespace MyDiscBotConfig
 {
@@ -32,6 +36,9 @@ namespace MyDiscBotConfig
     public partial class MyDiscBotConfigForm : Form
     {
         private DiscBotConfig config = new DiscBotConfig();
+        Process DiscBotProcess = new Process();
+        delegate void DiscBotProcessDelegate(String msg);
+        private Queue<string> _files = new Queue<string>();
 
         public MyDiscBotConfigForm()
         {
@@ -51,7 +58,40 @@ namespace MyDiscBotConfig
             Status.Enabled = false;
             Announce.Enabled = false;
             Announcement.Enabled = false;
+            if ( !IsAdmin() )
+            {
+                StartDiscBot.Enabled = false;
+                StartDiscBot.Text = "Admin?";
+            }
+            if ( File.Exists(BotConfig.Text) )
+            {
+                if (File.Exists(DiscBotExePath.Text))
+                {
+                    DiscBotExePath.Text = getDirectory(BotConfig.Text) + DiscBotExePath.Text;
+                    if (IsAdmin())
+                    {
+                        StartDiscBot.Enabled = true;
+                        StartDiscBot.Text = "Start";
+                    }
+                }
+                LoadPointer.Visible = false;
+                LauncherPathPointer.Visible = false;
+                loadBotConfig();
+            } else
+            {
+                StartDiscBot.Enabled = false;
+                LoadPointer.Visible = true;
+                LauncherPathPointer.Visible = true;
+            }
+        }
 
+        private bool IsAdmin()
+        {
+            using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
+            {
+                WindowsPrincipal principal = new WindowsPrincipal(identity);
+                return principal.IsInRole(WindowsBuiltInRole.Administrator);
+            };
         }
 
         private void loadBotConfig()
@@ -141,6 +181,7 @@ namespace MyDiscBotConfig
             GoogleTokenFilePath.Text = config.GoogleTokenFile;
             GoogleSpreadsheetWorksheetName.Text = config.GoogleWorksheetName;
             GoogleAppName.Text = config.GoogleAppName;
+            GoogleButton.Enabled = false;
             if ( config.UseGoogle > 0 )
             {
                 config.UseGoogle = 1;
@@ -168,8 +209,91 @@ namespace MyDiscBotConfig
                 GNBotRestartInterval.Enabled = true;
                 GNBotRestartInterval.Value = config.GNBotRestartInterval;
             }
+            GNBotWindowX.Value = config.MoveGNBotWindow[0];
+            GNBotWindowY.Value = config.MoveGNBotWindow[1];
+            GNBotWindowWidth.Value = config.MoveGNBotWindow[2];
+            GNBotWindowHeight.Value = config.MoveGNBotWindow[3];
         }
 
+        void LaunchDiscBotProcess(string DiscBotExe = "MyBot-Win.exe")
+        {
+            DiscBotProcess.EnableRaisingEvents = true;
+            DiscBotProcess.OutputDataReceived += new System.Diagnostics.DataReceivedEventHandler(DiscBotProcess_OutputDataReceived);
+            DiscBotProcess.ErrorDataReceived += new System.Diagnostics.DataReceivedEventHandler(DiscBotProcess_ErrorDataReceived);
+            DiscBotProcess.Exited += new System.EventHandler(DiscBotProcess_Exited);
+
+            DiscBotProcess.StartInfo.FileName = DiscBotExe;
+            DiscBotProcess.StartInfo.Arguments = null;
+            DiscBotProcess.StartInfo.UseShellExecute = false;
+            DiscBotProcess.StartInfo.Verb = "runas";
+            DiscBotProcess.StartInfo.RedirectStandardError = true;
+            DiscBotProcess.StartInfo.RedirectStandardOutput = true;
+            DiscBotProcess.StartInfo.CreateNoWindow = true;
+            DiscBotProcess.StartInfo.WorkingDirectory = getDirectory(DiscBotExe);
+
+            DiscBotProcess.Start();
+            try
+            {
+                DiscBotProcess.BeginErrorReadLine();
+            }
+            //            catch (InvalidOperationException e) when (e.Message.Contains("Async"))
+            //            catch (InvalidOperationException e)
+            catch           {
+                //                DiscBotProcess.CancelErrorRead();
+                //                DiscBotProcess.BeginErrorReadLine();
+            }
+            try
+            {
+                DiscBotProcess.BeginOutputReadLine();
+            }
+            catch
+            {
+                //                DiscBotProcess.CancelOutputRead();
+                //                DiscBotProcess.BeginOutputReadLine();
+            }
+            //uncomment to make this a blocking call that waits until the bot process is closed
+            //process.WaitForExit();
+        }
+
+        private void DiscBotProcessOutput(String message = "")
+        {
+            // Check whether the caller must call an invoke method when making method calls to listBoxCCNetOutput because the caller is 
+            // on a different thread than the one the listBoxCCNetOutput control was created on.
+            if (DiscBotOutput.InvokeRequired)
+            {
+                DiscBotProcessDelegate update = new DiscBotProcessDelegate(DiscBotProcessOutput);
+                DiscBotOutput.Invoke(update, message);
+            }
+            else
+            {
+                if (message == null) { message = ""; }
+                DiscBotOutput.Items.Add(message);
+                if (DiscBotOutput.Items.Count > numericUpDown1.Value)
+                { // If the buffer is shrunk, clear the entries
+                    for (int x = (DiscBotOutput.Items.Count - (int)numericUpDown1.Value); x >= 0; x--)
+                    {
+                        DiscBotOutput.Items.RemoveAt(x);
+                    }
+                }
+                DiscBotOutput.SelectedIndex = DiscBotOutput.Items.Count - 1;
+                DiscBotOutput.ClearSelected();
+            }
+        }
+
+        void DiscBotProcess_Exited(object sender, EventArgs e)
+        {
+            DiscBotProcessOutput(string.Format("process exited with code {0}\n", DiscBotProcess.ExitCode.ToString()));
+        }
+
+        void DiscBotProcess_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            DiscBotProcessOutput(e.Data);
+        }
+
+        void DiscBotProcess_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            DiscBotProcessOutput(e.Data);
+        }
 
         private void label6_Click(object sender, EventArgs e)
         {
@@ -340,10 +464,20 @@ namespace MyDiscBotConfig
         private void LoadButton_Click(object sender, EventArgs e)
         {
             BotConfig.Text = FilePicker("Config File | *.json");
-            if ( File.Exists (BotConfig.Text) )
+            if ( File.Exists(BotConfig.Text) )
             {
                 loadBotConfig();
-                populateFormFromConfig();
+                DiscBotExePath.Text = getDirectory(BotConfig.Text) + DiscBotExePath.Text;
+                if (File.Exists(DiscBotExePath.Text) && IsAdmin())
+                {
+                    StartDiscBot.Enabled = true;
+                    StartDiscBot.Text = "Start";
+                } else
+                {
+                    StartDiscBot.Text = "Admin?";
+                }
+                LoadPointer.Visible = false;
+                LauncherPathPointer.Visible = false;
                 SaveResult.Text = "Loaded config from " + BotConfig.Text;
             }
         }
@@ -1017,7 +1151,7 @@ namespace MyDiscBotConfig
 
         private string getDirectory(string directoryPath)
         {
-            return Path.GetDirectoryName(directoryPath).Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.AltDirectorySeparatorChar;
+            return Path.GetDirectoryName(Path.GetFullPath(directoryPath)).Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.AltDirectorySeparatorChar;
         }
 
         private string getFileName(string filePath)
@@ -1356,6 +1490,7 @@ namespace MyDiscBotConfig
                 GoogleSpreadsheetID.Enabled = true;
                 GoogleAppName.Enabled = true;
                 GoogleSpreadsheetWorksheetName.Enabled = true;
+                GoogleButton.Enabled = true;
             } else
             {
                 config.UseGoogle = 0;
@@ -1364,6 +1499,7 @@ namespace MyDiscBotConfig
                 GoogleSpreadsheetID.Enabled = false;
                 GoogleAppName.Enabled = false;
                 GoogleSpreadsheetWorksheetName.Enabled = false;
+                GoogleButton.Enabled = false;
             }
         }
 
@@ -1503,7 +1639,7 @@ namespace MyDiscBotConfig
             config.GNBotRestartInterval = (long)GNBotRestartInterval.Value;
             if ( GNBotRestartInterval.Value <= minimumCycleTime.Value )
             {
-                minimumCycleTime.Value = GNBotRestartInterval.Value - 1;
+                minimumCycleTime.Value = GNBotRestartInterval.Value;
             }
         }
 
@@ -1511,12 +1647,216 @@ namespace MyDiscBotConfig
         {
             if ( GNBotRestartFullCycle.Checked == true )
             {
+                GNBotRestartInterval.Enabled = false;
                 config.GNBotRestartFullCycle = 1;
                 config.GNBotRestartInterval = 0;
             } else
             {
+                GNBotRestartInterval.Enabled = true;
                 config.GNBotRestartFullCycle = 0;
             }
+        }
+
+        private void GNBotWindowX_ValueChanged(object sender, EventArgs e)
+        {
+            config.MoveGNBotWindow[0] = (long)GNBotWindowX.Value;
+        }
+
+        private void GNBotWindowY_ValueChanged(object sender, EventArgs e)
+        {
+            config.MoveGNBotWindow[1] = (long)GNBotWindowY.Value;
+        }
+
+        private void GNBotWindowWidth_ValueChanged(object sender, EventArgs e)
+        {
+            config.MoveGNBotWindow[2] = (long)GNBotWindowWidth.Value;
+        }
+
+        private void GNBotWindowHeight_ValueChanged(object sender, EventArgs e)
+        {
+            config.MoveGNBotWindow[3] = (long)GNBotWindowHeight.Value;
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label59_Click(object sender, EventArgs e)
+        {
+            Form GoogleInstructions = new GoogleHelpForm();
+            this.AddOwnedForm(GoogleInstructions);
+            GoogleInstructions.Show(this);
+            GoogleInstructions.SetDesktopLocation(this.Location.X + 10, this.Location.Y + 10);
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DiscBotOutput_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if ( !File.Exists(DiscBotExePath.Text) )
+            {
+                DiscBotExePath.Text = FilePicker("Executable | *.exe");
+            }
+            if (File.Exists(DiscBotExePath.Text))
+            {
+                LaunchDiscBotProcess(DiscBotExePath.Text);
+                StopDiscBot.Enabled = true;
+                StartDiscBot.Enabled = false;
+            }
+        }
+
+        private void label64_Click(object sender, EventArgs e)
+        {
+            DiscBotExePath.Text = FilePicker("Executable | *.exe");
+            if (File.Exists(DiscBotExePath.Text) && IsAdmin())
+            {
+                StartDiscBot.Enabled = true;
+                StartDiscBot.Text = "Start";
+            } else
+            {
+                StartDiscBot.Text = "Admin?";
+            }
+        }
+
+        private void StopDiscBot_Click(object sender, EventArgs e)
+        {
+            StopDiscBot.Enabled = false;
+            if (!DiscBotProcess.HasExited)
+            {
+                DiscBotProcess.CloseMainWindow();
+                if (!DiscBotProcess.HasExited)
+                { // if it still lives kill it
+                    DiscBotProcess.WaitForExit(30000);
+                    if (!DiscBotProcess.HasExited)
+                    {
+                        DiscBotProcess.Kill();
+                    }
+                }
+                DiscBotProcess.Close();
+            }
+            Thread.Sleep(3000); // wait before allowing starting again
+            StartDiscBot.Enabled = true;
+        }
+
+        private void DiscBotExePath_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Uri uri = new Uri(ManifestLocation.Text);
+            string filename = getFileName(uri.LocalPath);
+            //            WebClient myWebClient = new WebClient();
+            //            myWebClient.DownloadFile(uri.AbsoluteUri, filename);
+            using (WebClient wc = new WebClient())
+            {
+                wc.DownloadProgressChanged += wc_DownloadProgressChanged;
+                wc.DownloadFileCompleted += Wc_DownloadFileCompleted;
+                wc.DownloadFileAsync(uri, filename);
+            }
+        }
+
+        private void Wc_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            loadFileManifest();
+            DownloadAllButton.Enabled = true;
+        }
+
+        // Event to track the progress
+        void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            progressBar.Value = e.ProgressPercentage;
+        }
+
+        private void loadFileManifest()
+        {
+            FileGridView.Rows.Clear();
+            Uri uri = new Uri(ManifestLocation.Text);
+            string filename = getFileName(uri.LocalPath);
+            dynamic filelist = JsonConvert.DeserializeObject(File.ReadAllText(filename));
+            string filestatus = File.Exists(filename) ? "Local File" : "No Local File";
+            // int count = filelist.Count;
+            foreach( var item in filelist ) 
+            {
+                FileGridView.Rows.Add(filestatus, item.Name, item.Value);
+            }
+        }
+
+        private void DownloadFromQueue()
+        {
+            if ( _files.Any() )
+            {
+                string targetFile = _files.Dequeue();
+                int rowIndex = 0;
+                foreach (DataGridViewRow row in FileGridView.Rows)
+                {
+                    if (row.Cells[1].Value.ToString().Equals(targetFile)) {
+                        rowIndex = row.Index;
+                    }
+                }
+                FileGridView.Rows[rowIndex].Cells[0].Value = "Downloading";
+                Uri uri = new Uri(FileGridView.Rows[rowIndex].Cells[2].Value.ToString());
+                string filename = getFileName(uri.LocalPath);
+                DownloadStatusLabel.Text = _files.Count + " files remaining.";
+                using (WebClient wc2 = new WebClient())
+                {
+                    wc2.DownloadProgressChanged += Wc2_DownloadProgressChanged;
+                    wc2.DownloadFileCompleted += Wc2_DownloadFileCompleted;
+                    wc2.QueryString.Add("fileTracker", targetFile);
+                    wc2.DownloadFileAsync(uri, filename);
+                }
+            } else
+            {
+                DownloadStatusLabel.Text = "Done!";
+            }
+        }
+
+        private void DownloadAllButton_Click(object sender, EventArgs e)
+        {
+            DownloadAllButton.Enabled = false;
+            foreach (DataGridViewRow row in FileGridView.Rows)
+            {
+                _files.Enqueue(row.Cells[1].Value.ToString());
+            }
+            DownloadFromQueue();
+        }
+
+        private void Wc2_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            progressBar.Value = e.ProgressPercentage;
+        }
+
+        private void Wc2_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            string targetFile = ((System.Net.WebClient)(sender)).QueryString["fileTracker"];
+            int rowIndex = 0;
+            foreach (DataGridViewRow row in FileGridView.Rows)
+            {
+                if (row.Cells[1].Value.ToString().Equals(targetFile))
+                {
+                    rowIndex = row.Index;
+                }
+            }
+            FileGridView.Rows[rowIndex].Cells[0].Value = "Downloaded";
+            DownloadFromQueue();
+        }
+
+        private void FileGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
         }
     }
 }
