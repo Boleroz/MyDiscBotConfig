@@ -16,7 +16,6 @@ namespace DiscBotJSONManager
     using System.Globalization;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
-
     public partial class GameDayMap
     {
         [JsonProperty("label")]
@@ -79,7 +78,7 @@ namespace DiscBotJSONManager
         public string DuplicateLog { get; set; } = "LssSessions.log";
 
         [JsonProperty("gatherCSV")]
-        public string GatherCsv { get; set; } = "gathers.csv";
+        public string GatherCsv { get; set; } = "";
 
         [JsonProperty("BackupDir")]
         public string BackupDir { get; set; } = "Backup/";
@@ -213,6 +212,12 @@ namespace DiscBotJSONManager
                 
         [JsonProperty("GNBotRestartInterval")]
         public long GNBotRestartInterval { get; set; } = 0;
+
+        [JsonProperty("manageActiveBasesTime")]
+        public long ActiveBaseTimer { get; set; } = 0;
+
+        [JsonProperty("PausedMaster")]
+        public string PausedMaster { get; set; } = "paused";
 
         [JsonProperty("process")]
         public string[] Process { get; set; } = {

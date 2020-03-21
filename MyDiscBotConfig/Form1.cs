@@ -27,6 +27,8 @@ using System.Diagnostics;
 using System.Net;
 using System.Linq;
 using System.Security.Principal;
+using System.Security.Cryptography;
+using System.Text;
 
 
 namespace MyDiscBotConfig
@@ -39,9 +41,26 @@ namespace MyDiscBotConfig
         Process DiscBotProcess = new Process();
         delegate void DiscBotProcessDelegate(String msg);
         private Queue<string> _files = new Queue<string>();
+        private bool discBotRunning = false;
+        private string[] args;
 
         public MyDiscBotConfigForm()
         {
+            args = Environment.GetCommandLineArgs();
+            if (config.GameDayMap == null)
+            {
+                config.GameDayMap = new Dictionary<string, GameDayMap>()
+                {
+                    {  "0", new GameDayMap { Label="Day 7 DD KE", Profile="default"} },
+                    {  "1", new GameDayMap { Label="Day 1 Gather", Profile="default"} },
+                    {  "2", new GameDayMap { Label="Day 2 Build", Profile="default"} },
+                    {  "3", new GameDayMap { Label="Day 3 Research", Profile="default"} },
+                    {  "4", new GameDayMap { Label="Day 4 Hero", Profile="default"} },
+                    {  "5", new GameDayMap { Label="Day 5 Training", Profile="default"} },
+                    {  "6", new GameDayMap { Label="Day 6 KE", Profile="default"} }
+                };
+            }
+
             InitializeComponent();
             BotConfig.Text = Directory.GetCurrentDirectory().Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + "/mybot.json";
             populateFormFromConfig();
@@ -58,25 +77,17 @@ namespace MyDiscBotConfig
             Status.Enabled = false;
             Announce.Enabled = false;
             Announcement.Enabled = false;
-            if ( !IsAdmin() )
+            if (File.Exists(DiscBotExePath.Text))
             {
-                StartDiscBot.Enabled = false;
-                StartDiscBot.Text = "Admin?";
-            }
-            if ( File.Exists(BotConfig.Text) )
-            {
-                if (File.Exists(DiscBotExePath.Text))
+                DiscBotExePath.Text = Path.GetFullPath(DiscBotExePath.Text).Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                if (IsAdmin() && File.Exists(BotConfig.Text))
                 {
-                    DiscBotExePath.Text = getDirectory(BotConfig.Text) + DiscBotExePath.Text;
-                    if (IsAdmin())
-                    {
-                        StartDiscBot.Enabled = true;
-                        StartDiscBot.Text = "Start";
-                    }
+                    StartDiscBot.Enabled = true;
+                    StartDiscBot.Text = "Start";
+                    LoadPointer.Visible = false;
+                    LauncherPathPointer.Visible = false;
+                    loadBotConfig();
                 }
-                LoadPointer.Visible = false;
-                LauncherPathPointer.Visible = false;
-                loadBotConfig();
             } else
             {
                 StartDiscBot.Enabled = false;
@@ -115,6 +126,14 @@ namespace MyDiscBotConfig
         }
 
         private void populateFormFromConfig() {
+            DebugLevel.Value = config.Debug;
+            if ( DebugLevel.Value > 0 )
+            {
+                debugEnableCheckbox.Checked = true;
+            } else
+            {
+                debugEnableCheckbox.Checked = false;
+            }
             GNBotDir.Text = config.GnBotDir;
             Launcher.Text = config.Launcher;
             LauncherFullPath.Text = config.GnBotDir + config.Launcher;
@@ -133,8 +152,8 @@ namespace MyDiscBotConfig
             MEMUC.Text = config.Memuc;
             MEMUInstances.Text = config.MemuInstances;
             BackupDir.Text = config.BackupDir;
-            DuplicateLogDirectory.Text = getDirectory(config.DuplicateLog);
             DuplicateLog.Text = config.DuplicateLog;
+            DuplicateLogDirectory.Text = getDirectory(config.DuplicateLog);
             screenshotDir.Text = config.ScreenshotDir;
             if (config.Screenshot > 0)
             {
@@ -152,6 +171,13 @@ namespace MyDiscBotConfig
             }
             ConfigsDir.Text = config.ConfigsDir;
             gatherCSV.Text = config.GatherCsv;
+            if (gatherCSV.Text == "")
+            {
+                EnableGatherCSV.Checked = false;
+            } else
+            {
+                EnableGatherCSV.Checked = true;
+            }
             nircmd.Text = config.Nircmd;
             ffmpeg.Text = config.Ffmpeg;
             if ( config.Token != "" )
@@ -213,6 +239,21 @@ namespace MyDiscBotConfig
             GNBotWindowY.Value = config.MoveGNBotWindow[1];
             GNBotWindowWidth.Value = config.MoveGNBotWindow[2];
             GNBotWindowHeight.Value = config.MoveGNBotWindow[3];
+            Day1Label.Text = config.GameDayMap["1"].Label;
+            Day2Label.Text = config.GameDayMap["2"].Label;
+            Day3Label.Text = config.GameDayMap["3"].Label;
+            Day4Label.Text = config.GameDayMap["4"].Label;
+            Day5Label.Text = config.GameDayMap["5"].Label;
+            Day6Label.Text = config.GameDayMap["6"].Label;
+            Day0Label.Text = config.GameDayMap["0"].Label;
+            Day1Profile.Text = config.GameDayMap["1"].Profile;
+            Day2Profile.Text = config.GameDayMap["2"].Profile;
+            Day3Profile.Text = config.GameDayMap["3"].Profile;
+            Day4Profile.Text = config.GameDayMap["4"].Profile;
+            Day5Profile.Text = config.GameDayMap["5"].Profile;
+            Day6Profile.Text = config.GameDayMap["6"].Profile;
+            Day0Profile.Text = config.GameDayMap["0"].Profile;
+            ActivateBaseTime.Value = config.ActiveBaseTimer;
         }
 
         void LaunchDiscBotProcess(string DiscBotExe = "MyBot-Win.exe")
@@ -282,17 +323,36 @@ namespace MyDiscBotConfig
 
         void DiscBotProcess_Exited(object sender, EventArgs e)
         {
-            DiscBotProcessOutput(string.Format("process exited with code {0}\n", DiscBotProcess.ExitCode.ToString()));
+            try
+            {
+                // race condition exists for some reason. The process can close before we get here and the reference won't exist
+                DiscBotProcessOutput(string.Format("process exited with code {0}\n", DiscBotProcess.ExitCode.ToString()));
+            } catch
+            {
+                // finish the conditions we care to handle
+            }
         }
 
         void DiscBotProcess_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
-            DiscBotProcessOutput(e.Data);
+            try
+            {
+                DiscBotProcessOutput(e.Data);
+            } catch
+            {
+
+            }
         }
 
         void DiscBotProcess_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            DiscBotProcessOutput(e.Data);
+            try
+            {
+                DiscBotProcessOutput(e.Data);
+            } catch
+            {
+
+            }
         }
 
         private void label6_Click(object sender, EventArgs e)
@@ -467,7 +527,7 @@ namespace MyDiscBotConfig
             if ( File.Exists(BotConfig.Text) )
             {
                 loadBotConfig();
-                DiscBotExePath.Text = getDirectory(BotConfig.Text) + DiscBotExePath.Text;
+                DiscBotExePath.Text = getDirectory(BotConfig.Text) + getFileName(DiscBotExePath.Text);
                 if (File.Exists(DiscBotExePath.Text) && IsAdmin())
                 {
                     StartDiscBot.Enabled = true;
@@ -790,7 +850,22 @@ namespace MyDiscBotConfig
 
         private void MyDiscBotConfigForm_Load(object sender, EventArgs e)
         {
-
+            if (!IsAdmin())
+            {
+                StartDiscBot.Enabled = false;
+                StartDiscBot.Text = "Admin?";
+            }
+            else
+            {
+                // running as admin, should we start?
+                if (args.Contains("-start"))
+                {
+                    DiscBotOutput.Items.Add("Automatic start requested");
+                    StartDiscBot.Enabled = true;
+                    ConfigurationTabs.SelectedTab = RunDiscBotTab;
+                    StartDiscBot.PerformClick();
+                }
+            }
         }
 
         private void label30_Click_1(object sender, EventArgs e)
@@ -1134,7 +1209,7 @@ namespace MyDiscBotConfig
                 return openFileDialog1.FileName.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
             } else
             {
-                return "Not found. Please enter manually.";
+                return "Not found. Please select the appropriate file.";
             }
         }
 
@@ -1272,7 +1347,7 @@ namespace MyDiscBotConfig
 
         private void DuplicateLogDirectory_TextChanged_1(object sender, EventArgs e)
         {
-            config.DuplicateLog = DuplicateLogDirectory.Text + Path.AltDirectorySeparatorChar + DuplicateLog.Text;
+            config.DuplicateLog = DuplicateLogDirectory.Text + Path.AltDirectorySeparatorChar + getFileName(DuplicateLog.Text);
             if (Directory.Exists(DuplicateLogDirectory.Text))
             {
                 DuplicateLogDirectory.BackColor = System.Drawing.Color.LightGreen;
@@ -1707,9 +1782,14 @@ namespace MyDiscBotConfig
             }
             if (File.Exists(DiscBotExePath.Text))
             {
+                
                 LaunchDiscBotProcess(DiscBotExePath.Text);
+                discBotRunning = true;
                 StopDiscBot.Enabled = true;
                 StartDiscBot.Enabled = false;
+                LoadButton.Enabled = false;
+                SaveButton.Enabled = false;
+                BotExeFileSelectButton.Enabled = false;
             }
         }
 
@@ -1728,12 +1808,16 @@ namespace MyDiscBotConfig
 
         private void StopDiscBot_Click(object sender, EventArgs e)
         {
+            DiscBotOutput.Items.Add("Shutting things down. Please be patient. ");
             StopDiscBot.Enabled = false;
+            StopDiscBot.Text = "Stopping";
+            StopDiscBot.UseVisualStyleBackColor = true;
             if (!DiscBotProcess.HasExited)
             {
                 DiscBotProcess.CloseMainWindow();
                 if (!DiscBotProcess.HasExited)
                 { // if it still lives kill it
+                    DiscBotOutput.Items.Add("Almost there kids. Not much longer now.");
                     DiscBotProcess.WaitForExit(30000);
                     if (!DiscBotProcess.HasExited)
                     {
@@ -1742,8 +1826,13 @@ namespace MyDiscBotConfig
                 }
                 DiscBotProcess.Close();
             }
-            Thread.Sleep(3000); // wait before allowing starting again
+            discBotRunning = false;
             StartDiscBot.Enabled = true;
+            LoadButton.Enabled = true;
+            SaveButton.Enabled = true;
+            BotExeFileSelectButton.Enabled = true;
+            StopDiscBot.Text = "Stop";
+            DiscBotOutput.Items.Add("Ready");
         }
 
         private void DiscBotExePath_Click(object sender, EventArgs e)
@@ -1760,8 +1849,6 @@ namespace MyDiscBotConfig
         {
             Uri uri = new Uri(ManifestLocation.Text);
             string filename = getFileName(uri.LocalPath);
-            //            WebClient myWebClient = new WebClient();
-            //            myWebClient.DownloadFile(uri.AbsoluteUri, filename);
             using (WebClient wc = new WebClient())
             {
                 wc.DownloadProgressChanged += wc_DownloadProgressChanged;
@@ -1782,17 +1869,53 @@ namespace MyDiscBotConfig
             progressBar.Value = e.ProgressPercentage;
         }
 
+        string getFileSha1(string file)
+        {
+            using (FileStream fs = new FileStream(file, FileMode.Open))
+            using (BufferedStream bs = new BufferedStream(fs))
+            {
+                using (SHA1Managed sha1 = new SHA1Managed())
+                {
+                    byte[] hash = sha1.ComputeHash(bs);
+                    StringBuilder formatted = new StringBuilder(2 * hash.Length);
+                    foreach (byte b in hash)
+                    {
+                        formatted.AppendFormat("{0:X2}", b);
+                    }
+                    return formatted.ToString();
+                }
+            }
+        }
         private void loadFileManifest()
         {
             FileGridView.Rows.Clear();
             Uri uri = new Uri(ManifestLocation.Text);
             string filename = getFileName(uri.LocalPath);
             dynamic filelist = JsonConvert.DeserializeObject(File.ReadAllText(filename));
-            string filestatus = File.Exists(filename) ? "Local File" : "No Local File";
             // int count = filelist.Count;
             foreach( var item in filelist ) 
             {
-                FileGridView.Rows.Add(filestatus, item.Name, item.Value);
+                string filestatus = "";
+                string fileSHA1 = "";
+                bool selected = false;
+                Uri fileURI = new Uri((string)item.Value.uri);
+                string file = getFileName(fileURI.LocalPath);
+                if (File.Exists(file))
+                {
+                    filestatus = "Current Local File";
+                    fileSHA1 = getFileSha1(file);
+                    if (fileSHA1 != (string)item.Value.SHA1)
+                    {
+                        filestatus = "Out of date";
+                        selected = true;
+                    }
+                } else
+                {
+                    fileSHA1 = (string)item.Value.SHA1;
+                    filestatus = "Not Downloaded";
+                    selected = true;
+                }
+                int rowNum = FileGridView.Rows.Add(selected, filestatus, item.Name, fileURI, file, fileSHA1);
             }
         }
 
@@ -1804,14 +1927,14 @@ namespace MyDiscBotConfig
                 int rowIndex = 0;
                 foreach (DataGridViewRow row in FileGridView.Rows)
                 {
-                    if (row.Cells[1].Value.ToString().Equals(targetFile)) {
+                    if (row.Cells["FileUrl"].Value.ToString().Equals(targetFile)) {
                         rowIndex = row.Index;
                     }
                 }
-                FileGridView.Rows[rowIndex].Cells[0].Value = "Downloading";
-                Uri uri = new Uri(FileGridView.Rows[rowIndex].Cells[2].Value.ToString());
+                FileGridView.Rows[rowIndex].Cells["DownloadStatus"].Value = "Downloading";
+                Uri uri = new Uri(FileGridView.Rows[rowIndex].Cells["FileUrl"].Value.ToString());
                 string filename = getFileName(uri.LocalPath);
-                DownloadStatusLabel.Text = _files.Count + " files remaining.";
+                DownloadStatusLabel.Text = "Downloading " + uri;
                 using (WebClient wc2 = new WebClient())
                 {
                     wc2.DownloadProgressChanged += Wc2_DownloadProgressChanged;
@@ -1830,7 +1953,10 @@ namespace MyDiscBotConfig
             DownloadAllButton.Enabled = false;
             foreach (DataGridViewRow row in FileGridView.Rows)
             {
-                _files.Enqueue(row.Cells[1].Value.ToString());
+                if ((bool)row.Cells["DownloadFile"].Value == true)
+                {
+                    _files.Enqueue(row.Cells["FileUrl"].Value.ToString());
+                }
             }
             DownloadFromQueue();
         }
@@ -1846,17 +1972,237 @@ namespace MyDiscBotConfig
             int rowIndex = 0;
             foreach (DataGridViewRow row in FileGridView.Rows)
             {
-                if (row.Cells[1].Value.ToString().Equals(targetFile))
+                if (row.Cells["FileUrl"].Value.ToString().Equals(targetFile))
                 {
                     rowIndex = row.Index;
                 }
             }
-            FileGridView.Rows[rowIndex].Cells[0].Value = "Downloaded";
+            FileGridView.Rows[rowIndex].Cells["DownloadStatus"].Value = "Downloaded";
             DownloadFromQueue();
         }
 
         private void FileGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+        }
+
+        private void DebugLevel_ValueChanged(object sender, EventArgs e)
+        {
+            config.Debug = (int)DebugLevel.Value;
+        }
+
+        private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if ( debugEnableCheckbox.Checked == true) {
+                DebugLevel.Enabled = true;
+            } else
+            {
+                DebugLevel.Enabled = false;
+                DebugLevel.Value = 0;
+            }
+            config.Debug = (int)DebugLevel.Value;
+        }
+
+        private void BasicConfig_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void BasicConfig_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void GoogleSheet_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void GoogleSheet_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void AdvancedConfig_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void AdvancedConfig_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void DownloadTab_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void DownloadTab_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void RunDiscBotTab_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void RunDiscBotTab_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            // If we are running capture the tab
+
+            if (discBotRunning)
+            {
+                ConfigurationTabs.SelectedTab = RunDiscBotTab;
+                StopDiscBot.BackColor = System.Drawing.Color.LightGreen;
+            }
+        }
+
+        private void label39_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EnableGatherCSV_CheckedChanged(object sender, EventArgs e)
+        {
+            if ( EnableGatherCSV.Checked == true )
+            {
+                gatherCSV.Enabled = true;
+                GatherCSVFilePicker.Enabled = true;
+            } else
+            {
+                gatherCSV.Enabled = false;
+                gatherCSV.Text = "";
+                GatherCSVFilePicker.Enabled = false;
+            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            config.GameDayMap["1"].Label = Day1Label.Text;
+        }
+
+        private void label29_Click(object sender, EventArgs e)
+        {
+            Day1Profile.Text = getFileName(FilePicker("GNBot Profile | *.json")).Replace(".json", "");
+        }
+
+        private void label57_Click(object sender, EventArgs e)
+        {
+            Day2Profile.Text = getFileName(FilePicker("GNBot Profile | *.json")).Replace(".json", "");
+        }
+
+        private void label65_Click(object sender, EventArgs e)
+        {
+            Day3Profile.Text = getFileName(FilePicker("GNBot Profile | *.json")).Replace(".json", "");
+        }
+
+        private void label67_Click(object sender, EventArgs e)
+        {
+            Day4Profile.Text = getFileName(FilePicker("GNBot Profile | *.json")).Replace(".json", "");
+        }
+
+        private void label69_Click(object sender, EventArgs e)
+        {
+            Day5Profile.Text = getFileName(FilePicker("GNBot Profile | *.json")).Replace(".json", "");
+        }
+
+        private void label71_Click(object sender, EventArgs e)
+        {
+            Day6Profile.Text = getFileName(FilePicker("GNBot Profile | *.json")).Replace(".json", "");
+        }
+
+        private void label73_Click(object sender, EventArgs e)
+        {
+            Day0Profile.Text = getFileName(FilePicker("GNBot Profile | *.json")).Replace(".json", "");
+        }
+
+        private void Day1Profile_TextChanged(object sender, EventArgs e)
+        {
+            config.GameDayMap["1"].Profile = Day1Profile.Text;
+        }
+
+        private void Day2Profile_TextChanged(object sender, EventArgs e)
+        {
+            config.GameDayMap["2"].Profile = Day2Profile.Text;
+        }
+
+        private void Day3Profile_TextChanged(object sender, EventArgs e)
+        {
+            config.GameDayMap["3"].Profile = Day3Profile.Text;
+        }
+
+        private void Day4Profile_TextChanged(object sender, EventArgs e)
+        {
+            config.GameDayMap["4"].Profile = Day4Profile.Text;
+        }
+
+        private void Day5Profile_TextChanged(object sender, EventArgs e)
+        {
+            config.GameDayMap["5"].Profile = Day5Profile.Text;
+        }
+
+        private void Day6Profile_TextChanged(object sender, EventArgs e)
+        {
+            config.GameDayMap["6"].Profile = Day6Profile.Text;
+        }
+
+        private void Day0Profile_TextChanged(object sender, EventArgs e)
+        {
+            config.GameDayMap["0"].Profile = Day0Profile.Text;
+        }
+
+        private void Day2Label_TextChanged(object sender, EventArgs e)
+        {
+            config.GameDayMap["2"].Label = Day2Label.Text;
+        }
+
+        private void Day3Label_TextChanged(object sender, EventArgs e)
+        {
+            config.GameDayMap["3"].Label = Day3Label.Text;
+        }
+
+        private void Day4Label_TextChanged(object sender, EventArgs e)
+        {
+            config.GameDayMap["4"].Label = Day4Label.Text;
+        }
+
+        private void Day5Label_TextChanged(object sender, EventArgs e)
+        {
+            config.GameDayMap["5"].Label = Day5Label.Text;
+        }
+
+        private void Day6Label_TextChanged(object sender, EventArgs e)
+        {
+            config.GameDayMap["6"].Label = Day6Label.Text;
+        }
+
+        private void Day0Label_TextChanged(object sender, EventArgs e)
+        {
+            config.GameDayMap["0"].Label = Day0Label.Text;
+        }
+
+        private void ActivateBaseTime_ValueChanged(object sender, EventArgs e)
+        {
+            config.ActiveBaseTimer = (long)ActivateBaseTime.Value;
+        }
+
+        private void label80_Click(object sender, EventArgs e)
+        {
+            PausedMasterFile.Text = getFileName(FilePicker("GNBot Profile | *.json")).Replace(".json", "");
+        }
+
+        private void checkBox1_CheckedChanged_2(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+            {
+                PausedMasterFile.Enabled = true;
+                ActivateBaseTime.Enabled = true;
+                ActivateBaseTime.Value = 60;
+                PausedMasterFilePicker.Enabled = true;
+            } else
+            {
+                PausedMasterFile.Enabled = false;
+                PausedMasterFile.Text = "";
+                ActivateBaseTime.Enabled = false;
+                ActivateBaseTime.Value = 0;
+                PausedMasterFilePicker.Enabled = false;
+            }
         }
     }
 }
