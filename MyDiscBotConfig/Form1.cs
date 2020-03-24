@@ -254,6 +254,15 @@ namespace MyDiscBotConfig
             Day6Profile.Text = config.GameDayMap["6"].Profile;
             Day0Profile.Text = config.GameDayMap["0"].Profile;
             ActivateBaseTime.Value = config.ActiveBaseTimer;
+            MaximumFailures.Value = config.MaxFailures;
+            PausedMasterFile.Text = config.PausedMaster;
+            if ( config.enableReboot > 0 )
+            {
+                EnableReboot.Checked = true;
+            } else
+            {
+                EnableReboot.Checked = false;
+            }
         }
 
         void LaunchDiscBotProcess(string DiscBotExe = "MyBot-Win.exe")
@@ -1399,6 +1408,7 @@ namespace MyDiscBotConfig
         private void gatherCSV_TextChanged_1(object sender, EventArgs e)
         {
             config.GatherCsv = gatherCSV.Text;
+            gatherCSVLabel.Text = gatherCSV.Text;
             if (File.Exists(gatherCSV.Text))
             {
                 gatherCSV.BackColor = System.Drawing.Color.LightGreen;
@@ -1716,6 +1726,10 @@ namespace MyDiscBotConfig
             {
                 minimumCycleTime.Value = GNBotRestartInterval.Value;
             }
+            if ( GNBotRestartInterval.Value > 0 )
+            {
+                RestartBaseCount.Value = 0;
+            }
         }
 
         private void GNBotRestartFullCycle_CheckedChanged_1(object sender, EventArgs e)
@@ -1725,9 +1739,11 @@ namespace MyDiscBotConfig
                 GNBotRestartInterval.Enabled = false;
                 config.GNBotRestartFullCycle = 1;
                 config.GNBotRestartInterval = 0;
+                RestartBaseCount.Enabled = false;
             } else
             {
                 GNBotRestartInterval.Enabled = true;
+                RestartBaseCount.Enabled = true;
                 config.GNBotRestartFullCycle = 0;
             }
         }
@@ -2184,7 +2200,8 @@ namespace MyDiscBotConfig
 
         private void label80_Click(object sender, EventArgs e)
         {
-            PausedMasterFile.Text = getFileName(FilePicker("GNBot Profile | *.json")).Replace(".json", "");
+            PausedMasterFile.Text = FilePicker("GNBot Profile | *.json");
+            config.PausedMaster = PausedMasterFile.Text;
         }
 
         private void checkBox1_CheckedChanged_2(object sender, EventArgs e)
@@ -2202,6 +2219,38 @@ namespace MyDiscBotConfig
                 ActivateBaseTime.Enabled = false;
                 ActivateBaseTime.Value = 0;
                 PausedMasterFilePicker.Enabled = false;
+            }
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            Form CSVEditorForm = new CSVEditor(this);
+            this.AddOwnedForm(CSVEditorForm);
+            CSVEditorForm.Show(this);
+            CSVEditorForm.SetDesktopLocation(this.Location.X + 10, this.Location.Y + 10);
+        }
+        private void PausedMasterFile_TextChanged(object sender, EventArgs e)
+        {
+            config.PausedMaster = PausedMasterFile.Text;
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked == true)
+            {
+                CSVEditButton.Enabled = true;
+            }
+            else
+            {
+                CSVEditButton.Enabled = false;
+            }
+        }
+
+        private void RestartBaseCount_ValueChanged(object sender, EventArgs e)
+        {
+            if ( RestartBaseCount.Value > 0 )
+            {
+                GNBotRestartInterval.Value = 0;
             }
         }
     }

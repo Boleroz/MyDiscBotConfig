@@ -96,6 +96,7 @@
             this.EnableGatherCSV = new System.Windows.Forms.CheckBox();
             this.ActivateBaseTime = new System.Windows.Forms.NumericUpDown();
             this.GNBotThreads = new System.Windows.Forms.NumericUpDown();
+            this.PausedMasterFile = new System.Windows.Forms.TextBox();
             this.LoadPointer = new System.Windows.Forms.Label();
             this.ConfigurationTabs = new System.Windows.Forms.TabControl();
             this.RunDiscBotTab = new System.Windows.Forms.TabPage();
@@ -173,6 +174,10 @@
             this.label24 = new System.Windows.Forms.Label();
             this.Day1Label = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label78 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.PausedMasterFilePicker = new System.Windows.Forms.Label();
+            this.label79 = new System.Windows.Forms.Label();
             this.label77 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -223,10 +228,13 @@
             this.Output = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.GatherCSVFilePicker = new System.Windows.Forms.Label();
-            this.PausedMasterFile = new System.Windows.Forms.TextBox();
-            this.label79 = new System.Windows.Forms.Label();
-            this.PausedMasterFilePicker = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.CSVEditButton = new System.Windows.Forms.Button();
+            this.gatherCSVLabel = new System.Windows.Forms.Label();
+            this.label80 = new System.Windows.Forms.Label();
+            this.RestartBaseCount = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.GNBotRestartInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaximumFailures)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimumCycleTime)).BeginInit();
@@ -255,6 +263,9 @@
             this.DiscordConfig.SuspendLayout();
             this.GoogleSheet.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RestartBaseCount)).BeginInit();
             this.SuspendLayout();
             // 
             // LoadButton
@@ -804,7 +815,7 @@
             // GNBotRestartFullCycle
             // 
             this.GNBotRestartFullCycle.AutoSize = true;
-            this.GNBotRestartFullCycle.Location = new System.Drawing.Point(8, 62);
+            this.GNBotRestartFullCycle.Location = new System.Drawing.Point(8, 83);
             this.GNBotRestartFullCycle.Name = "GNBotRestartFullCycle";
             this.GNBotRestartFullCycle.Size = new System.Drawing.Size(152, 17);
             this.GNBotRestartFullCycle.TabIndex = 1168;
@@ -815,7 +826,7 @@
             // 
             // GNBotRestartInterval
             // 
-            this.GNBotRestartInterval.Location = new System.Drawing.Point(119, 36);
+            this.GNBotRestartInterval.Location = new System.Drawing.Point(119, 58);
             this.GNBotRestartInterval.Maximum = new decimal(new int[] {
             1440,
             0,
@@ -844,7 +855,7 @@
             // 
             // MaximumFailures
             // 
-            this.MaximumFailures.Location = new System.Drawing.Point(104, 45);
+            this.MaximumFailures.Location = new System.Drawing.Point(104, 37);
             this.MaximumFailures.Maximum = new decimal(new int[] {
             1440,
             0,
@@ -1097,7 +1108,7 @@
             // ActivateBaseTime
             // 
             this.ActivateBaseTime.Enabled = false;
-            this.ActivateBaseTime.Location = new System.Drawing.Point(321, 64);
+            this.ActivateBaseTime.Location = new System.Drawing.Point(300, 64);
             this.ActivateBaseTime.Maximum = new decimal(new int[] {
             1440,
             0,
@@ -1126,6 +1137,18 @@
             this.toolTip1.SetToolTip(this.GNBotThreads, "This controls the number of sessions GNBot will use. ");
             this.GNBotThreads.ValueChanged += new System.EventHandler(this.GNBotThreads_ValueChanged_1);
             // 
+            // PausedMasterFile
+            // 
+            this.PausedMasterFile.Enabled = false;
+            this.PausedMasterFile.Location = new System.Drawing.Point(114, 37);
+            this.PausedMasterFile.Name = "PausedMasterFile";
+            this.PausedMasterFile.Size = new System.Drawing.Size(249, 20);
+            this.PausedMasterFile.TabIndex = 1192;
+            this.PausedMasterFile.Text = "paused";
+            this.toolTip1.SetToolTip(this.PausedMasterFile, "This is the GNBots config that has been saved with the desired paused/unpaused fo" +
+        "r all bases");
+            this.PausedMasterFile.TextChanged += new System.EventHandler(this.PausedMasterFile_TextChanged);
+            // 
             // LoadPointer
             // 
             this.LoadPointer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1149,6 +1172,7 @@
             this.ConfigurationTabs.Controls.Add(this.AdvancedConfig);
             this.ConfigurationTabs.Controls.Add(this.DiscordConfig);
             this.ConfigurationTabs.Controls.Add(this.GoogleSheet);
+            this.ConfigurationTabs.Controls.Add(this.tabPage1);
             this.ConfigurationTabs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.ConfigurationTabs.Location = new System.Drawing.Point(4, 31);
             this.ConfigurationTabs.Name = "ConfigurationTabs";
@@ -2058,6 +2082,7 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.label78);
             this.groupBox7.Controls.Add(this.checkBox1);
             this.groupBox7.Controls.Add(this.PausedMasterFilePicker);
             this.groupBox7.Controls.Add(this.label79);
@@ -2081,10 +2106,55 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Misc Advanced Settings";
             // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(345, 68);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(43, 13);
+            this.label78.TabIndex = 1194;
+            this.label78.Text = "minutes";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(7, 19);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(218, 17);
+            this.checkBox1.TabIndex = 1193;
+            this.checkBox1.Text = "Enable Active Pause State Management";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_2);
+            // 
+            // PausedMasterFilePicker
+            // 
+            this.PausedMasterFilePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PausedMasterFilePicker.AutoSize = true;
+            this.PausedMasterFilePicker.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.PausedMasterFilePicker.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PausedMasterFilePicker.Enabled = false;
+            this.PausedMasterFilePicker.Location = new System.Drawing.Point(370, 40);
+            this.PausedMasterFilePicker.Name = "PausedMasterFilePicker";
+            this.PausedMasterFilePicker.Size = new System.Drawing.Size(18, 15);
+            this.PausedMasterFilePicker.TabIndex = 1192;
+            this.PausedMasterFilePicker.Text = "...";
+            this.PausedMasterFilePicker.Click += new System.EventHandler(this.label80_Click);
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Location = new System.Drawing.Point(4, 41);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(109, 13);
+            this.label79.TabIndex = 1192;
+            this.label79.Text = "Master paused config";
+            // 
             // label77
             // 
             this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(125, 68);
+            this.label77.Location = new System.Drawing.Point(104, 68);
             this.label77.Name = "label77";
             this.label77.Size = new System.Drawing.Size(193, 13);
             this.label77.TabIndex = 1171;
@@ -2160,6 +2230,8 @@
             // groupBox5
             // 
             this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.label80);
+            this.groupBox5.Controls.Add(this.RestartBaseCount);
             this.groupBox5.Controls.Add(this.label43);
             this.groupBox5.Controls.Add(this.minimumCycleTime);
             this.groupBox5.Controls.Add(this.label58);
@@ -2167,7 +2239,7 @@
             this.groupBox5.Controls.Add(this.GNBotRestartFullCycle);
             this.groupBox5.Location = new System.Drawing.Point(418, 7);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(173, 88);
+            this.groupBox5.Size = new System.Drawing.Size(173, 105);
             this.groupBox5.TabIndex = 1187;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "GNBot Restart";
@@ -2184,7 +2256,7 @@
             // label58
             // 
             this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(7, 39);
+            this.label58.Location = new System.Drawing.Point(7, 60);
             this.label58.Name = "label58";
             this.label58.Size = new System.Drawing.Size(108, 13);
             this.label58.TabIndex = 1171;
@@ -2196,9 +2268,9 @@
             this.groupBox4.Controls.Add(this.label46);
             this.groupBox4.Controls.Add(this.MaximumFailures);
             this.groupBox4.Controls.Add(this.EnableReboot);
-            this.groupBox4.Location = new System.Drawing.Point(418, 97);
+            this.groupBox4.Location = new System.Drawing.Point(417, 113);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(173, 81);
+            this.groupBox4.Size = new System.Drawing.Size(173, 65);
             this.groupBox4.TabIndex = 1186;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Reboot";
@@ -2206,7 +2278,7 @@
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(8, 47);
+            this.label46.Location = new System.Drawing.Point(8, 39);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(92, 13);
             this.label46.TabIndex = 1164;
@@ -2712,52 +2784,88 @@
             this.GatherCSVFilePicker.Text = "...";
             this.GatherCSVFilePicker.Click += new System.EventHandler(this.label24_Click_1);
             // 
-            // PausedMasterFile
+            // tabPage1
             // 
-            this.PausedMasterFile.Enabled = false;
-            this.PausedMasterFile.Location = new System.Drawing.Point(296, 41);
-            this.PausedMasterFile.Name = "PausedMasterFile";
-            this.PausedMasterFile.Size = new System.Drawing.Size(66, 20);
-            this.PausedMasterFile.TabIndex = 1192;
-            this.PausedMasterFile.Text = "paused";
-            this.toolTip1.SetToolTip(this.PausedMasterFile, "This is the GNBots config that has been saved with the desired paused/unpaused fo" +
-        "r all bases");
+            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.checkBox2);
+            this.tabPage1.Controls.Add(this.groupBox9);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(748, 370);
+            this.tabPage1.TabIndex = 7;
+            this.tabPage1.Text = "Misc";
             // 
-            // label79
+            // checkBox2
             // 
-            this.label79.AutoSize = true;
-            this.label79.Location = new System.Drawing.Point(181, 45);
-            this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(109, 13);
-            this.label79.TabIndex = 1192;
-            this.label79.Text = "Master paused config";
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(17, 7);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(158, 17);
+            this.checkBox2.TabIndex = 1;
+            this.checkBox2.Text = "Enable experimental options";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
-            // PausedMasterFilePicker
+            // groupBox9
             // 
-            this.PausedMasterFilePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PausedMasterFilePicker.AutoSize = true;
-            this.PausedMasterFilePicker.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.PausedMasterFilePicker.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PausedMasterFilePicker.Enabled = false;
-            this.PausedMasterFilePicker.Location = new System.Drawing.Point(368, 44);
-            this.PausedMasterFilePicker.Name = "PausedMasterFilePicker";
-            this.PausedMasterFilePicker.Size = new System.Drawing.Size(18, 15);
-            this.PausedMasterFilePicker.TabIndex = 1192;
-            this.PausedMasterFilePicker.Text = "...";
-            this.PausedMasterFilePicker.Click += new System.EventHandler(this.label80_Click);
+            this.groupBox9.Controls.Add(this.CSVEditButton);
+            this.groupBox9.Controls.Add(this.gatherCSVLabel);
+            this.groupBox9.Location = new System.Drawing.Point(7, 32);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(719, 48);
+            this.groupBox9.TabIndex = 0;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Edit the CSV File";
             // 
-            // checkBox1
+            // CSVEditButton
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(175, 18);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(218, 17);
-            this.checkBox1.TabIndex = 1193;
-            this.checkBox1.Text = "Enable Active Pause State Management";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_2);
+            this.CSVEditButton.Enabled = false;
+            this.CSVEditButton.Location = new System.Drawing.Point(638, 16);
+            this.CSVEditButton.Name = "CSVEditButton";
+            this.CSVEditButton.Size = new System.Drawing.Size(75, 23);
+            this.CSVEditButton.TabIndex = 1;
+            this.CSVEditButton.Text = "Edit";
+            this.CSVEditButton.UseVisualStyleBackColor = true;
+            this.CSVEditButton.Click += new System.EventHandler(this.button1_Click_2);
+            // 
+            // gatherCSVLabel
+            // 
+            this.gatherCSVLabel.Location = new System.Drawing.Point(7, 19);
+            this.gatherCSVLabel.Name = "gatherCSVLabel";
+            this.gatherCSVLabel.Size = new System.Drawing.Size(628, 17);
+            this.gatherCSVLabel.TabIndex = 0;
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Location = new System.Drawing.Point(17, 38);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(99, 13);
+            this.label80.TabIndex = 1173;
+            this.label80.Text = "Restart Base Count";
+            // 
+            // RestartBaseCount
+            // 
+            this.RestartBaseCount.Enabled = false;
+            this.RestartBaseCount.Location = new System.Drawing.Point(119, 36);
+            this.RestartBaseCount.Maximum = new decimal(new int[] {
+            1440,
+            0,
+            0,
+            0});
+            this.RestartBaseCount.Name = "RestartBaseCount";
+            this.RestartBaseCount.Size = new System.Drawing.Size(41, 20);
+            this.RestartBaseCount.TabIndex = 1172;
+            this.toolTip1.SetToolTip(this.RestartBaseCount, "What is the minimum amount of time to cycle through all accounts? If all are proc" +
+        "essed faster than this the GNBot will be stopped to make sure accounts aren\'t ru" +
+        "nning too fast. ");
+            this.RestartBaseCount.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.RestartBaseCount.ValueChanged += new System.EventHandler(this.RestartBaseCount_ValueChanged);
             // 
             // MyDiscBotConfigForm
             // 
@@ -2818,6 +2926,10 @@
             this.GoogleSheet.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.RestartBaseCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3021,5 +3133,13 @@
         private System.Windows.Forms.Label label79;
         private System.Windows.Forms.TextBox PausedMasterFile;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.Button CSVEditButton;
+        private System.Windows.Forms.Label gatherCSVLabel;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Label label78;
+        private System.Windows.Forms.Label label80;
+        private System.Windows.Forms.NumericUpDown RestartBaseCount;
     }
 }
