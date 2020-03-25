@@ -12,28 +12,6 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace MyDiscBotConfig
 {
-    public partial class CSVDataRow 
-    {
-        public string name { get; set; }
-        public int gatherNum { get; set; }
-        public int x { get; set; }
-        public int y { get; set; }
-        public int farm { get; set; }
-        public bool fuel { get; set; }
-        public bool lumber { get; set; }
-        public bool iron { get; set; }
-        public bool monday { get; set; }
-        public bool tuesday { get; set; }
-        public bool wednesday { get; set; }
-        public bool thursday { get; set; }
-        public bool friday { get; set; }
-        public bool saturday { get; set; }
-        public bool sunday { get; set; }
-        public bool equalize { get; set; }
-        public bool ignoreOthers { get; set; }
-        public int skipAfterMarchFail { get; set; }
-
-    }
     public partial class CSVEditor : Form
     {
         private Form DiscBotForm;

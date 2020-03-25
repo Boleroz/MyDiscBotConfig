@@ -60,6 +60,10 @@ namespace MyDiscBotConfig
                     {  "6", new GameDayMap { Label="Day 6 KE", Profile="default"} }
                 };
             }
+            if ( config.cloudLogs == null )
+            {
+                config.cloudLogs = new cloudLogConfigEntry();
+            }
 
             InitializeComponent();
             BotConfig.Text = Directory.GetCurrentDirectory().Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + "/mybot.json";
@@ -121,6 +125,10 @@ namespace MyDiscBotConfig
                     {  "5", new GameDayMap { Label="Day 5 Training", Profile="default"} },
                     {  "6", new GameDayMap { Label="Day 6 KE", Profile="default"} }
                 };
+            }
+            if ( config.cloudLogs == null )
+            {
+                config.cloudLogs = new cloudLogConfigEntry();
             }
             populateFormFromConfig();
         }
@@ -263,6 +271,20 @@ namespace MyDiscBotConfig
             {
                 EnableReboot.Checked = false;
             }
+            if ( config.cloudLogs.Enabled > 0 )
+            {
+                CloudLogEnable.Checked = true;
+                CloudLogEndpoint.Text = config.cloudLogs.Endpoint;
+                CloudLogHost.Text = config.cloudLogs.Host;
+                CloudLogPort.Value = config.cloudLogs.Port;
+                CloudLogSource.Text = config.cloudLogs.Source;
+                CloudLogToken.Text = config.cloudLogs.Token;
+                CloudLogSubmitFunction.Text = config.cloudLogs.Submit;
+                CloudLogInitFunction.Text = config.cloudLogs.Init;
+            } else
+            {
+                CloudLogEnable.Checked = false;
+            }
         }
 
         void LaunchDiscBotProcess(string DiscBotExe = "MyBot-Win.exe")
@@ -278,10 +300,16 @@ namespace MyDiscBotConfig
             DiscBotProcess.StartInfo.Verb = "runas";
             DiscBotProcess.StartInfo.RedirectStandardError = true;
             DiscBotProcess.StartInfo.RedirectStandardOutput = true;
-            DiscBotProcess.StartInfo.CreateNoWindow = true;
+            if (ShowConsole.Checked == true)
+            {
+                DiscBotProcess.StartInfo.CreateNoWindow = false;
+            } else
+            {
+                DiscBotProcess.StartInfo.CreateNoWindow = true;
+            }
             DiscBotProcess.StartInfo.WorkingDirectory = getDirectory(DiscBotExe);
 
-            DiscBotProcess.Start();
+            discBotRunning = DiscBotProcess.Start();
             try
             {
                 DiscBotProcess.BeginErrorReadLine();
@@ -340,6 +368,8 @@ namespace MyDiscBotConfig
             {
                 // finish the conditions we care to handle
             }
+            discBotRunning = false;
+
         }
 
         void DiscBotProcess_ErrorDataReceived(object sender, DataReceivedEventArgs e)
@@ -1800,7 +1830,7 @@ namespace MyDiscBotConfig
             {
                 
                 LaunchDiscBotProcess(DiscBotExePath.Text);
-                discBotRunning = true;
+//                discBotRunning = true;
                 StopDiscBot.Enabled = true;
                 StartDiscBot.Enabled = false;
                 LoadButton.Enabled = false;
@@ -1821,21 +1851,18 @@ namespace MyDiscBotConfig
                 StartDiscBot.Text = "Admin?";
             }
         }
-
-        private void StopDiscBot_Click(object sender, EventArgs e)
+        private void stopDiscBot()
         {
-            DiscBotOutput.Items.Add("Shutting things down. Please be patient. ");
-            StopDiscBot.Enabled = false;
-            StopDiscBot.Text = "Stopping";
-            StopDiscBot.UseVisualStyleBackColor = true;
-            if (!DiscBotProcess.HasExited)
+            int patience = 0;
+            while (discBotRunning &&  !DiscBotProcess.HasExited)
             {
+                patience++;
                 DiscBotProcess.CloseMainWindow();
                 if (!DiscBotProcess.HasExited)
-                { // if it still lives kill it
+                { 
                     DiscBotOutput.Items.Add("Almost there kids. Not much longer now.");
-                    DiscBotProcess.WaitForExit(30000);
-                    if (!DiscBotProcess.HasExited)
+                    DiscBotProcess.WaitForExit(1000);
+                    if (!DiscBotProcess.HasExited && patience >= 30) // if it still lives kill it
                     {
                         DiscBotProcess.Kill();
                     }
@@ -1843,6 +1870,15 @@ namespace MyDiscBotConfig
                 DiscBotProcess.Close();
             }
             discBotRunning = false;
+
+        }
+        private void StopDiscBot_Click(object sender, EventArgs e)
+        {
+            DiscBotOutput.Items.Add("Shutting things down. Please be patient. ");
+            StopDiscBot.Enabled = false;
+            StopDiscBot.Text = "Stopping";
+            StopDiscBot.UseVisualStyleBackColor = true;
+            stopDiscBot();
             StartDiscBot.Enabled = true;
             LoadButton.Enabled = true;
             SaveButton.Enabled = true;
@@ -2252,6 +2288,95 @@ namespace MyDiscBotConfig
             {
                 GNBotRestartInterval.Value = 0;
             }
+        }
+
+        private void MyDiscBotConfigForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (discBotRunning)
+            {
+                DiscBotProcess.Kill();
+            }
+        }
+
+        private void label45_Click_1(object sender, EventArgs e)
+        {
+            if (label45.Text == "***")
+            {
+                GoogleSpreadsheetID.UseSystemPasswordChar = true;
+                label45.Text = "ABC";
+            }
+            else
+            {
+                GoogleSpreadsheetID.UseSystemPasswordChar = false;
+                label45.Text = "***";
+            }
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CloudLogEnable.Checked == true )
+            {
+                config.cloudLogs.Enabled = 1;
+                CloudLogSource.Enabled = true;
+                CloudLogToken.Enabled = true;
+                CloudLogHost.Enabled = true;
+                CloudLogEndpoint.Enabled = true;
+                CloudLogPort.Enabled = true;
+                CloudLogInitFunction.Enabled = true;
+                CloudLogSubmitFunction.Enabled = true;
+                CloudLogModuleSelector.Enabled = true;
+            } else
+            {
+                config.cloudLogs.Enabled = 0;
+                CloudLogSource.Enabled = false;
+                CloudLogToken.Enabled = false;
+                CloudLogHost.Enabled = false;
+                CloudLogEndpoint.Enabled = false;
+                CloudLogPort.Enabled = false;
+                CloudLogInitFunction.Enabled = false;
+                CloudLogSubmitFunction.Enabled = false;
+                CloudLogModuleSelector.Enabled = true;
+            }
+        }
+
+        private void label81_Click(object sender, EventArgs e)
+        {
+            CloudLogSource.Text = FilePicker("Module | *.js");
+        }
+
+        private void CloudLogToken_TextChanged(object sender, EventArgs e)
+        {
+            config.cloudLogs.Token = CloudLogToken.Text;
+        }
+
+        private void CloudLogSource_TextChanged(object sender, EventArgs e)
+        {
+            config.cloudLogs.Source = CloudLogSource.Text;
+        }
+
+        private void CloudLogHost_TextChanged(object sender, EventArgs e)
+        {
+            config.cloudLogs.Host = CloudLogHost.Text;
+        }
+
+        private void CloudLogPort_ValueChanged(object sender, EventArgs e)
+        {
+            config.cloudLogs.Port = (long)CloudLogPort.Value;
+        }
+
+        private void CloudLogEndpoint_TextChanged(object sender, EventArgs e)
+        {
+            config.cloudLogs.Endpoint = CloudLogEndpoint.Text;
+        }
+
+        private void CloudLogSubmitFunction_TextChanged(object sender, EventArgs e)
+        {
+            config.cloudLogs.Submit = CloudLogSubmitFunction.Text;
+        }
+
+        private void CloudLogInitFunction_TextChanged(object sender, EventArgs e)
+        {
+            config.cloudLogs.Init = CloudLogInitFunction.Text;
         }
     }
 }

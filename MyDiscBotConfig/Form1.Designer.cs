@@ -97,6 +97,7 @@
             this.ActivateBaseTime = new System.Windows.Forms.NumericUpDown();
             this.GNBotThreads = new System.Windows.Forms.NumericUpDown();
             this.PausedMasterFile = new System.Windows.Forms.TextBox();
+            this.RestartBaseCount = new System.Windows.Forms.NumericUpDown();
             this.LoadPointer = new System.Windows.Forms.Label();
             this.ConfigurationTabs = new System.Windows.Forms.TabControl();
             this.RunDiscBotTab = new System.Windows.Forms.TabPage();
@@ -187,6 +188,7 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label56 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label80 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -229,12 +231,27 @@
             this.label23 = new System.Windows.Forms.Label();
             this.GatherCSVFilePicker = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label87 = new System.Windows.Forms.Label();
+            this.label86 = new System.Windows.Forms.Label();
+            this.label85 = new System.Windows.Forms.Label();
+            this.label84 = new System.Windows.Forms.Label();
+            this.label83 = new System.Windows.Forms.Label();
+            this.label82 = new System.Windows.Forms.Label();
+            this.CloudLogPort = new System.Windows.Forms.NumericUpDown();
+            this.CloudLogEndpoint = new System.Windows.Forms.TextBox();
+            this.CloudLogHost = new System.Windows.Forms.TextBox();
+            this.CloudLogToken = new System.Windows.Forms.TextBox();
+            this.CloudLogInitFunction = new System.Windows.Forms.TextBox();
+            this.CloudLogSubmitFunction = new System.Windows.Forms.TextBox();
+            this.CloudLogModuleSelector = new System.Windows.Forms.Label();
+            this.CloudLogSource = new System.Windows.Forms.TextBox();
+            this.CloudLogEnable = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.CSVEditButton = new System.Windows.Forms.Button();
             this.gatherCSVLabel = new System.Windows.Forms.Label();
-            this.label80 = new System.Windows.Forms.Label();
-            this.RestartBaseCount = new System.Windows.Forms.NumericUpDown();
+            this.ShowConsole = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.GNBotRestartInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaximumFailures)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimumCycleTime)).BeginInit();
@@ -246,6 +263,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DebugLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ActivateBaseTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GNBotThreads)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RestartBaseCount)).BeginInit();
             this.ConfigurationTabs.SuspendLayout();
             this.RunDiscBotTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -264,8 +282,9 @@
             this.GoogleSheet.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CloudLogPort)).BeginInit();
             this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.RestartBaseCount)).BeginInit();
             this.SuspendLayout();
             // 
             // LoadButton
@@ -718,6 +737,7 @@
             this.label45.TabIndex = 1134;
             this.label45.Text = "***";
             this.toolTip1.SetToolTip(this.label45, "Toggle between text and password characters");
+            this.label45.Click += new System.EventHandler(this.label45_Click_1);
             // 
             // GoogleSpreadsheetID
             // 
@@ -1108,7 +1128,7 @@
             // ActivateBaseTime
             // 
             this.ActivateBaseTime.Enabled = false;
-            this.ActivateBaseTime.Location = new System.Drawing.Point(300, 64);
+            this.ActivateBaseTime.Location = new System.Drawing.Point(310, 15);
             this.ActivateBaseTime.Maximum = new decimal(new int[] {
             1440,
             0,
@@ -1149,6 +1169,28 @@
         "r all bases");
             this.PausedMasterFile.TextChanged += new System.EventHandler(this.PausedMasterFile_TextChanged);
             // 
+            // RestartBaseCount
+            // 
+            this.RestartBaseCount.Enabled = false;
+            this.RestartBaseCount.Location = new System.Drawing.Point(119, 36);
+            this.RestartBaseCount.Maximum = new decimal(new int[] {
+            1440,
+            0,
+            0,
+            0});
+            this.RestartBaseCount.Name = "RestartBaseCount";
+            this.RestartBaseCount.Size = new System.Drawing.Size(41, 20);
+            this.RestartBaseCount.TabIndex = 1172;
+            this.toolTip1.SetToolTip(this.RestartBaseCount, "What is the minimum amount of time to cycle through all accounts? If all are proc" +
+        "essed faster than this the GNBot will be stopped to make sure accounts aren\'t ru" +
+        "nning too fast. ");
+            this.RestartBaseCount.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.RestartBaseCount.ValueChanged += new System.EventHandler(this.RestartBaseCount_ValueChanged);
+            // 
             // LoadPointer
             // 
             this.LoadPointer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1184,6 +1226,7 @@
             // RunDiscBotTab
             // 
             this.RunDiscBotTab.BackColor = System.Drawing.SystemColors.Control;
+            this.RunDiscBotTab.Controls.Add(this.ShowConsole);
             this.RunDiscBotTab.Controls.Add(this.StopDiscBot);
             this.RunDiscBotTab.Controls.Add(this.BotExeFileSelectButton);
             this.RunDiscBotTab.Controls.Add(this.DiscBotExePath);
@@ -1203,7 +1246,7 @@
             // 
             this.StopDiscBot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.StopDiscBot.Enabled = false;
-            this.StopDiscBot.Location = new System.Drawing.Point(677, 8);
+            this.StopDiscBot.Location = new System.Drawing.Point(684, 8);
             this.StopDiscBot.Name = "StopDiscBot";
             this.StopDiscBot.Size = new System.Drawing.Size(58, 23);
             this.StopDiscBot.TabIndex = 1032;
@@ -1217,7 +1260,7 @@
             this.BotExeFileSelectButton.AutoSize = true;
             this.BotExeFileSelectButton.BackColor = System.Drawing.SystemColors.ControlDark;
             this.BotExeFileSelectButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.BotExeFileSelectButton.Location = new System.Drawing.Point(582, 13);
+            this.BotExeFileSelectButton.Location = new System.Drawing.Point(505, 13);
             this.BotExeFileSelectButton.Name = "BotExeFileSelectButton";
             this.BotExeFileSelectButton.Size = new System.Drawing.Size(18, 15);
             this.BotExeFileSelectButton.TabIndex = 1031;
@@ -1231,7 +1274,7 @@
             this.DiscBotExePath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.DiscBotExePath.Location = new System.Drawing.Point(184, 12);
             this.DiscBotExePath.Name = "DiscBotExePath";
-            this.DiscBotExePath.Size = new System.Drawing.Size(394, 18);
+            this.DiscBotExePath.Size = new System.Drawing.Size(318, 18);
             this.DiscBotExePath.TabIndex = 4;
             this.DiscBotExePath.Text = "MyBot-win.exe";
             this.DiscBotExePath.Click += new System.EventHandler(this.DiscBotExePath_Click);
@@ -1239,7 +1282,7 @@
             // StartDiscBot
             // 
             this.StartDiscBot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.StartDiscBot.Location = new System.Drawing.Point(613, 8);
+            this.StartDiscBot.Location = new System.Drawing.Point(624, 8);
             this.StartDiscBot.Name = "StartDiscBot";
             this.StartDiscBot.Size = new System.Drawing.Size(58, 23);
             this.StartDiscBot.TabIndex = 3;
@@ -2109,7 +2152,7 @@
             // label78
             // 
             this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(345, 68);
+            this.label78.Location = new System.Drawing.Point(353, 19);
             this.label78.Name = "label78";
             this.label78.Size = new System.Drawing.Size(43, 13);
             this.label78.TabIndex = 1194;
@@ -2154,11 +2197,11 @@
             // label77
             // 
             this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(104, 68);
+            this.label77.Location = new System.Drawing.Point(228, 19);
             this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(193, 13);
+            this.label77.Size = new System.Drawing.Size(80, 13);
             this.label77.TabIndex = 1171;
-            this.label77.Text = "Unpause base when skip expires within";
+            this.label77.Text = "Unpause within";
             // 
             // label10
             // 
@@ -2243,6 +2286,15 @@
             this.groupBox5.TabIndex = 1187;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "GNBot Restart";
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Location = new System.Drawing.Point(17, 38);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(99, 13);
+            this.label80.TabIndex = 1173;
+            this.label80.Text = "Restart Base Count";
             // 
             // label43
             // 
@@ -2787,6 +2839,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.groupBox10);
             this.tabPage1.Controls.Add(this.checkBox2);
             this.tabPage1.Controls.Add(this.groupBox9);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -2795,6 +2848,193 @@
             this.tabPage1.Size = new System.Drawing.Size(748, 370);
             this.tabPage1.TabIndex = 7;
             this.tabPage1.Text = "Misc";
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.label87);
+            this.groupBox10.Controls.Add(this.label86);
+            this.groupBox10.Controls.Add(this.label85);
+            this.groupBox10.Controls.Add(this.label84);
+            this.groupBox10.Controls.Add(this.label83);
+            this.groupBox10.Controls.Add(this.label82);
+            this.groupBox10.Controls.Add(this.CloudLogPort);
+            this.groupBox10.Controls.Add(this.CloudLogEndpoint);
+            this.groupBox10.Controls.Add(this.CloudLogHost);
+            this.groupBox10.Controls.Add(this.CloudLogToken);
+            this.groupBox10.Controls.Add(this.CloudLogInitFunction);
+            this.groupBox10.Controls.Add(this.CloudLogSubmitFunction);
+            this.groupBox10.Controls.Add(this.CloudLogModuleSelector);
+            this.groupBox10.Controls.Add(this.CloudLogSource);
+            this.groupBox10.Controls.Add(this.CloudLogEnable);
+            this.groupBox10.Location = new System.Drawing.Point(7, 87);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(322, 136);
+            this.groupBox10.TabIndex = 2;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Cloud Logging Module";
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Location = new System.Drawing.Point(14, 87);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(49, 13);
+            this.label87.TabIndex = 1072;
+            this.label87.Text = "Endpoint";
+            // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.Location = new System.Drawing.Point(204, 66);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(26, 13);
+            this.label86.TabIndex = 1071;
+            this.label86.Text = "Port";
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Location = new System.Drawing.Point(8, 65);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(55, 13);
+            this.label85.TabIndex = 1070;
+            this.label85.Text = "Hostname";
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Location = new System.Drawing.Point(25, 44);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(38, 13);
+            this.label84.TabIndex = 1069;
+            this.label84.Text = "Token";
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Location = new System.Drawing.Point(163, 109);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(21, 13);
+            this.label83.TabIndex = 1068;
+            this.label83.Text = "Init";
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = true;
+            this.label82.Location = new System.Drawing.Point(24, 109);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(39, 13);
+            this.label82.TabIndex = 1067;
+            this.label82.Text = "Submit";
+            // 
+            // CloudLogPort
+            // 
+            this.CloudLogPort.Location = new System.Drawing.Point(234, 62);
+            this.CloudLogPort.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.CloudLogPort.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.CloudLogPort.Name = "CloudLogPort";
+            this.CloudLogPort.Size = new System.Drawing.Size(54, 20);
+            this.CloudLogPort.TabIndex = 3;
+            this.CloudLogPort.Value = new decimal(new int[] {
+            443,
+            0,
+            0,
+            0});
+            this.CloudLogPort.ValueChanged += new System.EventHandler(this.CloudLogPort_ValueChanged);
+            // 
+            // CloudLogEndpoint
+            // 
+            this.CloudLogEndpoint.Enabled = false;
+            this.CloudLogEndpoint.Location = new System.Drawing.Point(66, 83);
+            this.CloudLogEndpoint.Name = "CloudLogEndpoint";
+            this.CloudLogEndpoint.Size = new System.Drawing.Size(222, 20);
+            this.CloudLogEndpoint.TabIndex = 1066;
+            this.CloudLogEndpoint.Text = "/path/to/submit";
+            this.CloudLogEndpoint.TextChanged += new System.EventHandler(this.CloudLogEndpoint_TextChanged);
+            // 
+            // CloudLogHost
+            // 
+            this.CloudLogHost.Enabled = false;
+            this.CloudLogHost.Location = new System.Drawing.Point(66, 62);
+            this.CloudLogHost.Name = "CloudLogHost";
+            this.CloudLogHost.Size = new System.Drawing.Size(134, 20);
+            this.CloudLogHost.TabIndex = 1065;
+            this.CloudLogHost.Text = "websitehostname";
+            this.CloudLogHost.TextChanged += new System.EventHandler(this.CloudLogHost_TextChanged);
+            // 
+            // CloudLogToken
+            // 
+            this.CloudLogToken.Enabled = false;
+            this.CloudLogToken.Location = new System.Drawing.Point(66, 40);
+            this.CloudLogToken.Name = "CloudLogToken";
+            this.CloudLogToken.Size = new System.Drawing.Size(222, 20);
+            this.CloudLogToken.TabIndex = 1064;
+            this.CloudLogToken.Text = "authtokenhere";
+            this.CloudLogToken.TextChanged += new System.EventHandler(this.CloudLogToken_TextChanged);
+            // 
+            // CloudLogInitFunction
+            // 
+            this.CloudLogInitFunction.Enabled = false;
+            this.CloudLogInitFunction.Location = new System.Drawing.Point(187, 105);
+            this.CloudLogInitFunction.Name = "CloudLogInitFunction";
+            this.CloudLogInitFunction.Size = new System.Drawing.Size(100, 20);
+            this.CloudLogInitFunction.TabIndex = 1063;
+            this.CloudLogInitFunction.Text = "cloudLogInit";
+            this.CloudLogInitFunction.TextChanged += new System.EventHandler(this.CloudLogInitFunction_TextChanged);
+            // 
+            // CloudLogSubmitFunction
+            // 
+            this.CloudLogSubmitFunction.Enabled = false;
+            this.CloudLogSubmitFunction.Location = new System.Drawing.Point(66, 105);
+            this.CloudLogSubmitFunction.Name = "CloudLogSubmitFunction";
+            this.CloudLogSubmitFunction.Size = new System.Drawing.Size(91, 20);
+            this.CloudLogSubmitFunction.TabIndex = 1062;
+            this.CloudLogSubmitFunction.Text = "cloudLogSubmit";
+            this.CloudLogSubmitFunction.TextChanged += new System.EventHandler(this.CloudLogSubmitFunction_TextChanged);
+            // 
+            // CloudLogModuleSelector
+            // 
+            this.CloudLogModuleSelector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CloudLogModuleSelector.AutoSize = true;
+            this.CloudLogModuleSelector.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.CloudLogModuleSelector.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CloudLogModuleSelector.Enabled = false;
+            this.CloudLogModuleSelector.Location = new System.Drawing.Point(291, 21);
+            this.CloudLogModuleSelector.Name = "CloudLogModuleSelector";
+            this.CloudLogModuleSelector.Size = new System.Drawing.Size(18, 15);
+            this.CloudLogModuleSelector.TabIndex = 1061;
+            this.CloudLogModuleSelector.Text = "...";
+            this.CloudLogModuleSelector.Click += new System.EventHandler(this.label81_Click);
+            // 
+            // CloudLogSource
+            // 
+            this.CloudLogSource.Enabled = false;
+            this.CloudLogSource.Location = new System.Drawing.Point(66, 18);
+            this.CloudLogSource.Name = "CloudLogSource";
+            this.CloudLogSource.Size = new System.Drawing.Size(222, 20);
+            this.CloudLogSource.TabIndex = 1;
+            this.CloudLogSource.Text = "./CloudLogModule.js";
+            this.CloudLogSource.TextChanged += new System.EventHandler(this.CloudLogSource_TextChanged);
+            // 
+            // CloudLogEnable
+            // 
+            this.CloudLogEnable.AutoSize = true;
+            this.CloudLogEnable.Location = new System.Drawing.Point(4, 20);
+            this.CloudLogEnable.Name = "CloudLogEnable";
+            this.CloudLogEnable.Size = new System.Drawing.Size(59, 17);
+            this.CloudLogEnable.TabIndex = 0;
+            this.CloudLogEnable.Text = "Enable";
+            this.CloudLogEnable.UseVisualStyleBackColor = true;
+            this.CloudLogEnable.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // checkBox2
             // 
@@ -2836,36 +3076,15 @@
             this.gatherCSVLabel.Size = new System.Drawing.Size(628, 17);
             this.gatherCSVLabel.TabIndex = 0;
             // 
-            // label80
+            // ShowConsole
             // 
-            this.label80.AutoSize = true;
-            this.label80.Location = new System.Drawing.Point(17, 38);
-            this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(99, 13);
-            this.label80.TabIndex = 1173;
-            this.label80.Text = "Restart Base Count";
-            // 
-            // RestartBaseCount
-            // 
-            this.RestartBaseCount.Enabled = false;
-            this.RestartBaseCount.Location = new System.Drawing.Point(119, 36);
-            this.RestartBaseCount.Maximum = new decimal(new int[] {
-            1440,
-            0,
-            0,
-            0});
-            this.RestartBaseCount.Name = "RestartBaseCount";
-            this.RestartBaseCount.Size = new System.Drawing.Size(41, 20);
-            this.RestartBaseCount.TabIndex = 1172;
-            this.toolTip1.SetToolTip(this.RestartBaseCount, "What is the minimum amount of time to cycle through all accounts? If all are proc" +
-        "essed faster than this the GNBot will be stopped to make sure accounts aren\'t ru" +
-        "nning too fast. ");
-            this.RestartBaseCount.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.RestartBaseCount.ValueChanged += new System.EventHandler(this.RestartBaseCount_ValueChanged);
+            this.ShowConsole.AutoSize = true;
+            this.ShowConsole.Location = new System.Drawing.Point(531, 11);
+            this.ShowConsole.Name = "ShowConsole";
+            this.ShowConsole.Size = new System.Drawing.Size(91, 17);
+            this.ShowConsole.TabIndex = 1033;
+            this.ShowConsole.Text = "ShowConsole";
+            this.ShowConsole.UseVisualStyleBackColor = true;
             // 
             // MyDiscBotConfigForm
             // 
@@ -2884,6 +3103,7 @@
             this.Name = "MyDiscBotConfigForm";
             this.ShowIcon = false;
             this.Text = "Discord Manager for Last Shelter: Survival GNBots";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MyDiscBotConfigForm_FormClosing);
             this.Load += new System.EventHandler(this.MyDiscBotConfigForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GNBotRestartInterval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaximumFailures)).EndInit();
@@ -2896,6 +3116,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DebugLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ActivateBaseTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GNBotThreads)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RestartBaseCount)).EndInit();
             this.ConfigurationTabs.ResumeLayout(false);
             this.RunDiscBotTab.ResumeLayout(false);
             this.RunDiscBotTab.PerformLayout();
@@ -2928,8 +3149,10 @@
             this.groupBox2.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CloudLogPort)).EndInit();
             this.groupBox9.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.RestartBaseCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3141,5 +3364,22 @@
         private System.Windows.Forms.Label label78;
         private System.Windows.Forms.Label label80;
         private System.Windows.Forms.NumericUpDown RestartBaseCount;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.CheckBox CloudLogEnable;
+        private System.Windows.Forms.Label CloudLogModuleSelector;
+        private System.Windows.Forms.TextBox CloudLogSource;
+        private System.Windows.Forms.Label label87;
+        private System.Windows.Forms.Label label86;
+        private System.Windows.Forms.Label label85;
+        private System.Windows.Forms.Label label84;
+        private System.Windows.Forms.Label label83;
+        private System.Windows.Forms.Label label82;
+        private System.Windows.Forms.NumericUpDown CloudLogPort;
+        private System.Windows.Forms.TextBox CloudLogEndpoint;
+        private System.Windows.Forms.TextBox CloudLogHost;
+        private System.Windows.Forms.TextBox CloudLogToken;
+        private System.Windows.Forms.TextBox CloudLogInitFunction;
+        private System.Windows.Forms.TextBox CloudLogSubmitFunction;
+        private System.Windows.Forms.CheckBox ShowConsole;
     }
 }

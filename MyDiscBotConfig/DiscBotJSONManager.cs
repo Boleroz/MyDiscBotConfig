@@ -24,6 +24,33 @@ namespace DiscBotJSONManager
         [JsonProperty("profile")]
         public string Profile { get; set; }
     }
+
+    public partial class cloudLogConfigEntry
+    {
+        [JsonProperty("source")]
+        public string Source { get; set; }
+
+        [JsonProperty("submit")]
+        public string Submit { get; set; }
+
+        [JsonProperty("init")]
+        public string Init { get; set; }
+
+        [JsonProperty("token")]
+        public string Token { get; set; }
+
+        [JsonProperty("host")]
+        public string Host { get; set; }
+
+        [JsonProperty("endpoint")]
+        public string Endpoint { get; set; }
+
+        [JsonProperty("port")]
+        public long Port { get; set; }
+
+        [JsonProperty("enabled")]
+        public long Enabled { get; set; }
+    }
     public partial class DiscBotConfig
     {
         [JsonProperty("token")]
@@ -206,6 +233,9 @@ namespace DiscBotJSONManager
 
         [JsonProperty("gameDayMap")]
         public Dictionary<string, GameDayMap> GameDayMap { get; set; }
+
+        [JsonProperty("cloudLogs")]
+        public cloudLogConfigEntry cloudLogs { get; set; }
 
         [JsonProperty("GNBotRestartFullCycle")]
         public long GNBotRestartFullCycle { get; set; } = 0;
