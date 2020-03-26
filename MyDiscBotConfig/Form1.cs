@@ -302,6 +302,7 @@ namespace MyDiscBotConfig
             DiscBotProcess.StartInfo.RedirectStandardOutput = true;
             if (ShowConsole.Checked == true)
             {
+                DiscBotProcess.StartInfo.RedirectStandardError = false;
                 DiscBotProcess.StartInfo.CreateNoWindow = false;
             } else
             {
@@ -1852,25 +1853,17 @@ namespace MyDiscBotConfig
             }
         }
         private void stopDiscBot()
-        {
-            int patience = 0;
-            while (discBotRunning &&  !DiscBotProcess.HasExited)
+        { // just kill it, there is nothing meaningful to wait for
+            try
             {
-                patience++;
-                DiscBotProcess.CloseMainWindow();
-                if (!DiscBotProcess.HasExited)
-                { 
-                    DiscBotOutput.Items.Add("Almost there kids. Not much longer now.");
-                    DiscBotProcess.WaitForExit(1000);
-                    if (!DiscBotProcess.HasExited && patience >= 30) // if it still lives kill it
-                    {
-                        DiscBotProcess.Kill();
-                    }
-                }
+//                if (discBotRunning) // Don't need this in a try block
+//                {
+                    DiscBotProcess.Kill();
+//                }
                 DiscBotProcess.Close();
             }
+            catch { }
             discBotRunning = false;
-
         }
         private void StopDiscBot_Click(object sender, EventArgs e)
         {
