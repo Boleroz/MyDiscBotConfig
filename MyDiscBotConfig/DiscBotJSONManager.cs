@@ -16,40 +16,69 @@ namespace DiscBotJSONManager
     using System.Globalization;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
+
     public partial class GameDayMap
     {
+        [JsonProperty("0")]
+        public GameDayEntry Day0 { get; set; }
+
+        [JsonProperty("1")]
+        public GameDayEntry Day1 { get; set; }
+
+        [JsonProperty("2")]
+        public GameDayEntry Day2 { get; set; }
+
+        [JsonProperty("3")]
+        public GameDayEntry Day3 { get; set; }
+
+        [JsonProperty("4")]
+        public GameDayEntry Day4 { get; set; }
+
+        [JsonProperty("5")]
+        public GameDayEntry Day5 { get; set; }
+
+        [JsonProperty("6")]
+        public GameDayEntry Day6 { get; set; }
+
+        [JsonProperty("active")]
+        public long Active { get; set; } = 0;
+
+    }
+    public partial class GameDayEntry
+    {
         [JsonProperty("label")]
-        public string Label { get; set; }
+        public string Label { get; set; } = "";
 
         [JsonProperty("profile")]
-        public string Profile { get; set; }
+        public string Profile { get; set; } = "";
     }
 
     public partial class cloudLogConfigEntry
     {
+
         [JsonProperty("source")]
-        public string Source { get; set; }
+        public string Source { get; set; } = "/path/to/module";
 
         [JsonProperty("submit")]
-        public string Submit { get; set; }
+        public string Submit { get; set; } = "cloudLogSubmit";
 
         [JsonProperty("init")]
-        public string Init { get; set; }
+        public string Init { get; set; } = "cloudLogInit";
 
         [JsonProperty("token")]
-        public string Token { get; set; }
+        public string Token { get; set; } = "authtokenhere";
 
         [JsonProperty("host")]
-        public string Host { get; set; }
+        public string Host { get; set; } = "websitehostnameorip";
 
         [JsonProperty("endpoint")]
-        public string Endpoint { get; set; }
+        public string Endpoint { get; set; } = "/path/to/submit";
 
         [JsonProperty("port")]
-        public long Port { get; set; }
+        public long Port { get; set; } = 443;
 
         [JsonProperty("enabled")]
-        public long Enabled { get; set; }
+        public long Enabled { get; set; } = 0;
     }
     public partial class DiscBotConfig
     {
@@ -232,7 +261,7 @@ namespace DiscBotJSONManager
         public long[] MoveGNBotWindow { get; set; } = { 0, 0, 500, 500 };
 
         [JsonProperty("gameDayMap")]
-        public Dictionary<string, GameDayMap> GameDayMap { get; set; }
+        public GameDayMap GameDayMap { get; set; }
 
         [JsonProperty("cloudLogs")]
         public cloudLogConfigEntry cloudLogs { get; set; }

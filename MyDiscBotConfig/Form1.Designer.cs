@@ -101,6 +101,7 @@
             this.LoadPointer = new System.Windows.Forms.Label();
             this.ConfigurationTabs = new System.Windows.Forms.TabControl();
             this.RunDiscBotTab = new System.Windows.Forms.TabPage();
+            this.ShowConsole = new System.Windows.Forms.CheckBox();
             this.StopDiscBot = new System.Windows.Forms.Button();
             this.BotExeFileSelectButton = new System.Windows.Forms.Label();
             this.DiscBotExePath = new System.Windows.Forms.Label();
@@ -143,7 +144,20 @@
             this.label1 = new System.Windows.Forms.Label();
             this.DownloadAllButton = new System.Windows.Forms.Button();
             this.AdvancedConfig = new System.Windows.Forms.TabPage();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.PausedMasterFilePicker = new System.Windows.Forms.Label();
+            this.label78 = new System.Windows.Forms.Label();
+            this.label79 = new System.Windows.Forms.Label();
+            this.PausedManagementCheckbox = new System.Windows.Forms.CheckBox();
+            this.label77 = new System.Windows.Forms.Label();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.EnableGameDayMap = new System.Windows.Forms.CheckBox();
             this.label76 = new System.Windows.Forms.Label();
             this.label75 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
@@ -174,17 +188,6 @@
             this.Day1Profile = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.Day1Label = new System.Windows.Forms.TextBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.label78 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.PausedMasterFilePicker = new System.Windows.Forms.Label();
-            this.label79 = new System.Windows.Forms.Label();
-            this.label77 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label56 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -231,6 +234,7 @@
             this.label23 = new System.Windows.Forms.Label();
             this.GatherCSVFilePicker = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.HourlyConfigsButton = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label87 = new System.Windows.Forms.Label();
             this.label86 = new System.Windows.Forms.Label();
@@ -251,7 +255,6 @@
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.CSVEditButton = new System.Windows.Forms.Button();
             this.gatherCSVLabel = new System.Windows.Forms.Label();
-            this.ShowConsole = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.GNBotRestartInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaximumFailures)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimumCycleTime)).BeginInit();
@@ -271,8 +274,9 @@
             this.DownloadTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FileGridView)).BeginInit();
             this.AdvancedConfig.SuspendLayout();
-            this.groupBox8.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -825,7 +829,7 @@
             // 
             // GNBotLogMask
             // 
-            this.GNBotLogMask.Location = new System.Drawing.Point(96, 168);
+            this.GNBotLogMask.Location = new System.Drawing.Point(89, 104);
             this.GNBotLogMask.Name = "GNBotLogMask";
             this.GNBotLogMask.Size = new System.Drawing.Size(292, 20);
             this.GNBotLogMask.TabIndex = 1169;
@@ -915,7 +919,7 @@
             // 
             // MEMUInstances
             // 
-            this.MEMUInstances.Location = new System.Drawing.Point(96, 190);
+            this.MEMUInstances.Location = new System.Drawing.Point(89, 126);
             this.MEMUInstances.Name = "MEMUInstances";
             this.MEMUInstances.Size = new System.Drawing.Size(292, 20);
             this.MEMUInstances.TabIndex = 1154;
@@ -925,7 +929,7 @@
             // 
             // GNBotLogMain
             // 
-            this.GNBotLogMain.Location = new System.Drawing.Point(96, 146);
+            this.GNBotLogMain.Location = new System.Drawing.Point(89, 82);
             this.GNBotLogMain.Name = "GNBotLogMain";
             this.GNBotLogMain.Size = new System.Drawing.Size(292, 20);
             this.GNBotLogMain.TabIndex = 1153;
@@ -934,7 +938,7 @@
             // 
             // MainLogName
             // 
-            this.MainLogName.Location = new System.Drawing.Point(231, 123);
+            this.MainLogName.Location = new System.Drawing.Point(224, 59);
             this.MainLogName.Name = "MainLogName";
             this.MainLogName.Size = new System.Drawing.Size(157, 20);
             this.MainLogName.TabIndex = 1152;
@@ -944,7 +948,7 @@
             // 
             // LogFileNameMask
             // 
-            this.LogFileNameMask.Location = new System.Drawing.Point(96, 123);
+            this.LogFileNameMask.Location = new System.Drawing.Point(89, 59);
             this.LogFileNameMask.Name = "LogFileNameMask";
             this.LogFileNameMask.Size = new System.Drawing.Size(69, 20);
             this.LogFileNameMask.TabIndex = 1151;
@@ -1128,7 +1132,7 @@
             // ActivateBaseTime
             // 
             this.ActivateBaseTime.Enabled = false;
-            this.ActivateBaseTime.Location = new System.Drawing.Point(310, 15);
+            this.ActivateBaseTime.Location = new System.Drawing.Point(307, 13);
             this.ActivateBaseTime.Maximum = new decimal(new int[] {
             1440,
             0,
@@ -1160,7 +1164,7 @@
             // PausedMasterFile
             // 
             this.PausedMasterFile.Enabled = false;
-            this.PausedMasterFile.Location = new System.Drawing.Point(114, 37);
+            this.PausedMasterFile.Location = new System.Drawing.Point(112, 35);
             this.PausedMasterFile.Name = "PausedMasterFile";
             this.PausedMasterFile.Size = new System.Drawing.Size(249, 20);
             this.PausedMasterFile.TabIndex = 1192;
@@ -1241,6 +1245,16 @@
             this.RunDiscBotTab.TabIndex = 4;
             this.RunDiscBotTab.Text = "Run Discord Bot";
             this.RunDiscBotTab.Click += new System.EventHandler(this.RunDiscBotTab_Click);
+            // 
+            // ShowConsole
+            // 
+            this.ShowConsole.AutoSize = true;
+            this.ShowConsole.Location = new System.Drawing.Point(531, 11);
+            this.ShowConsole.Name = "ShowConsole";
+            this.ShowConsole.Size = new System.Drawing.Size(91, 17);
+            this.ShowConsole.TabIndex = 1033;
+            this.ShowConsole.Text = "ShowConsole";
+            this.ShowConsole.UseVisualStyleBackColor = true;
             // 
             // StopDiscBot
             // 
@@ -1757,8 +1771,9 @@
             // AdvancedConfig
             // 
             this.AdvancedConfig.BackColor = System.Drawing.SystemColors.Control;
-            this.AdvancedConfig.Controls.Add(this.groupBox8);
+            this.AdvancedConfig.Controls.Add(this.groupBox11);
             this.AdvancedConfig.Controls.Add(this.groupBox7);
+            this.AdvancedConfig.Controls.Add(this.groupBox8);
             this.AdvancedConfig.Controls.Add(this.groupBox6);
             this.AdvancedConfig.Controls.Add(this.groupBox5);
             this.AdvancedConfig.Controls.Add(this.groupBox4);
@@ -1772,8 +1787,143 @@
             this.AdvancedConfig.Text = "Advanced Configuration";
             this.AdvancedConfig.Click += new System.EventHandler(this.AdvancedConfig_Click);
             // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.PausedMasterFilePicker);
+            this.groupBox11.Controls.Add(this.label78);
+            this.groupBox11.Controls.Add(this.label79);
+            this.groupBox11.Controls.Add(this.PausedManagementCheckbox);
+            this.groupBox11.Controls.Add(this.PausedMasterFile);
+            this.groupBox11.Controls.Add(this.label77);
+            this.groupBox11.Controls.Add(this.ActivateBaseTime);
+            this.groupBox11.Location = new System.Drawing.Point(7, 144);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(404, 66);
+            this.groupBox11.TabIndex = 1191;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "PauseManagement";
+            // 
+            // PausedMasterFilePicker
+            // 
+            this.PausedMasterFilePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PausedMasterFilePicker.AutoSize = true;
+            this.PausedMasterFilePicker.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.PausedMasterFilePicker.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PausedMasterFilePicker.Enabled = false;
+            this.PausedMasterFilePicker.Location = new System.Drawing.Point(368, 38);
+            this.PausedMasterFilePicker.Name = "PausedMasterFilePicker";
+            this.PausedMasterFilePicker.Size = new System.Drawing.Size(18, 15);
+            this.PausedMasterFilePicker.TabIndex = 1192;
+            this.PausedMasterFilePicker.Text = "...";
+            this.PausedMasterFilePicker.Click += new System.EventHandler(this.label80_Click);
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(355, 17);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(43, 13);
+            this.label78.TabIndex = 1194;
+            this.label78.Text = "minutes";
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Location = new System.Drawing.Point(2, 39);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(109, 13);
+            this.label79.TabIndex = 1192;
+            this.label79.Text = "Master paused config";
+            // 
+            // PausedManagementCheckbox
+            // 
+            this.PausedManagementCheckbox.AutoSize = true;
+            this.PausedManagementCheckbox.Location = new System.Drawing.Point(6, 15);
+            this.PausedManagementCheckbox.Name = "PausedManagementCheckbox";
+            this.PausedManagementCheckbox.Size = new System.Drawing.Size(218, 17);
+            this.PausedManagementCheckbox.TabIndex = 1193;
+            this.PausedManagementCheckbox.Text = "Enable Active Pause State Management";
+            this.PausedManagementCheckbox.UseVisualStyleBackColor = true;
+            this.PausedManagementCheckbox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_2);
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Location = new System.Drawing.Point(221, 17);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(80, 13);
+            this.label77.TabIndex = 1171;
+            this.label77.Text = "Unpause within";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.MEMUInstances);
+            this.groupBox7.Controls.Add(this.label10);
+            this.groupBox7.Controls.Add(this.LogFileNameMask);
+            this.groupBox7.Controls.Add(this.label11);
+            this.groupBox7.Controls.Add(this.MainLogName);
+            this.groupBox7.Controls.Add(this.label13);
+            this.groupBox7.Controls.Add(this.GNBotLogMask);
+            this.groupBox7.Controls.Add(this.GNBotLogMain);
+            this.groupBox7.Controls.Add(this.label12);
+            this.groupBox7.Controls.Add(this.label20);
+            this.groupBox7.Location = new System.Drawing.Point(7, 214);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(406, 151);
+            this.groupBox7.TabIndex = 1189;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Misc Advanced Settings";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(27, 63);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(54, 13);
+            this.label10.TabIndex = 1155;
+            this.label10.Text = "Log Mask";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(167, 63);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(51, 13);
+            this.label11.TabIndex = 1156;
+            this.label11.Text = "Log Main";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(5, 86);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(80, 13);
+            this.label13.TabIndex = 1158;
+            this.label13.Text = "GNBotLogMain";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(2, 107);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(83, 13);
+            this.label12.TabIndex = 1170;
+            this.label12.Text = "GNBotLogMask";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(20, 129);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(61, 13);
+            this.label20.TabIndex = 1161;
+            this.label20.Text = "Memu XML";
+            // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.EnableGameDayMap);
             this.groupBox8.Controls.Add(this.label76);
             this.groupBox8.Controls.Add(this.label75);
             this.groupBox8.Controls.Add(this.label73);
@@ -1804,17 +1954,28 @@
             this.groupBox8.Controls.Add(this.Day1Profile);
             this.groupBox8.Controls.Add(this.label24);
             this.groupBox8.Controls.Add(this.Day1Label);
-            this.groupBox8.Location = new System.Drawing.Point(418, 184);
+            this.groupBox8.Location = new System.Drawing.Point(418, 180);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(320, 183);
+            this.groupBox8.Size = new System.Drawing.Size(320, 187);
             this.groupBox8.TabIndex = 1190;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Configuation by day";
             // 
+            // EnableGameDayMap
+            // 
+            this.EnableGameDayMap.AutoSize = true;
+            this.EnableGameDayMap.Location = new System.Drawing.Point(230, 12);
+            this.EnableGameDayMap.Name = "EnableGameDayMap";
+            this.EnableGameDayMap.Size = new System.Drawing.Size(59, 17);
+            this.EnableGameDayMap.TabIndex = 1192;
+            this.EnableGameDayMap.Text = "Enable";
+            this.EnableGameDayMap.UseVisualStyleBackColor = true;
+            this.EnableGameDayMap.CheckedChanged += new System.EventHandler(this.EnableGameDayMap_CheckedChanged);
+            // 
             // label76
             // 
             this.label76.AutoSize = true;
-            this.label76.Location = new System.Drawing.Point(219, 13);
+            this.label76.Location = new System.Drawing.Point(171, 20);
             this.label76.Name = "label76";
             this.label76.Size = new System.Drawing.Size(23, 13);
             this.label76.TabIndex = 1191;
@@ -1823,7 +1984,7 @@
             // label75
             // 
             this.label75.AutoSize = true;
-            this.label75.Location = new System.Drawing.Point(91, 13);
+            this.label75.Location = new System.Drawing.Point(50, 20);
             this.label75.Name = "label75";
             this.label75.Size = new System.Drawing.Size(35, 13);
             this.label75.TabIndex = 1190;
@@ -1837,7 +1998,8 @@
             this.label73.AutoSize = true;
             this.label73.BackColor = System.Drawing.SystemColors.ControlDark;
             this.label73.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label73.Location = new System.Drawing.Point(296, 162);
+            this.label73.Enabled = false;
+            this.label73.Location = new System.Drawing.Point(296, 169);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(18, 15);
             this.label73.TabIndex = 1189;
@@ -1846,7 +2008,8 @@
             // 
             // Day0Profile
             // 
-            this.Day0Profile.Location = new System.Drawing.Point(170, 159);
+            this.Day0Profile.Enabled = false;
+            this.Day0Profile.Location = new System.Drawing.Point(170, 166);
             this.Day0Profile.Name = "Day0Profile";
             this.Day0Profile.Size = new System.Drawing.Size(121, 20);
             this.Day0Profile.TabIndex = 1188;
@@ -1856,7 +2019,7 @@
             // label74
             // 
             this.label74.AutoSize = true;
-            this.label74.Location = new System.Drawing.Point(9, 162);
+            this.label74.Location = new System.Drawing.Point(9, 169);
             this.label74.Name = "label74";
             this.label74.Size = new System.Drawing.Size(35, 13);
             this.label74.TabIndex = 1187;
@@ -1864,7 +2027,8 @@
             // 
             // Day0Label
             // 
-            this.Day0Label.Location = new System.Drawing.Point(48, 159);
+            this.Day0Label.Enabled = false;
+            this.Day0Label.Location = new System.Drawing.Point(48, 166);
             this.Day0Label.Name = "Day0Label";
             this.Day0Label.Size = new System.Drawing.Size(121, 20);
             this.Day0Label.TabIndex = 1186;
@@ -1879,7 +2043,8 @@
             this.label71.AutoSize = true;
             this.label71.BackColor = System.Drawing.SystemColors.ControlDark;
             this.label71.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label71.Location = new System.Drawing.Point(296, 140);
+            this.label71.Enabled = false;
+            this.label71.Location = new System.Drawing.Point(296, 147);
             this.label71.Name = "label71";
             this.label71.Size = new System.Drawing.Size(18, 15);
             this.label71.TabIndex = 1185;
@@ -1888,7 +2053,8 @@
             // 
             // Day6Profile
             // 
-            this.Day6Profile.Location = new System.Drawing.Point(170, 137);
+            this.Day6Profile.Enabled = false;
+            this.Day6Profile.Location = new System.Drawing.Point(170, 144);
             this.Day6Profile.Name = "Day6Profile";
             this.Day6Profile.Size = new System.Drawing.Size(121, 20);
             this.Day6Profile.TabIndex = 1184;
@@ -1898,7 +2064,7 @@
             // label72
             // 
             this.label72.AutoSize = true;
-            this.label72.Location = new System.Drawing.Point(9, 140);
+            this.label72.Location = new System.Drawing.Point(9, 147);
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(35, 13);
             this.label72.TabIndex = 1183;
@@ -1906,7 +2072,8 @@
             // 
             // Day6Label
             // 
-            this.Day6Label.Location = new System.Drawing.Point(48, 137);
+            this.Day6Label.Enabled = false;
+            this.Day6Label.Location = new System.Drawing.Point(48, 144);
             this.Day6Label.Name = "Day6Label";
             this.Day6Label.Size = new System.Drawing.Size(121, 20);
             this.Day6Label.TabIndex = 1182;
@@ -1921,7 +2088,8 @@
             this.label69.AutoSize = true;
             this.label69.BackColor = System.Drawing.SystemColors.ControlDark;
             this.label69.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label69.Location = new System.Drawing.Point(296, 118);
+            this.label69.Enabled = false;
+            this.label69.Location = new System.Drawing.Point(296, 125);
             this.label69.Name = "label69";
             this.label69.Size = new System.Drawing.Size(18, 15);
             this.label69.TabIndex = 1181;
@@ -1930,7 +2098,8 @@
             // 
             // Day5Profile
             // 
-            this.Day5Profile.Location = new System.Drawing.Point(170, 115);
+            this.Day5Profile.Enabled = false;
+            this.Day5Profile.Location = new System.Drawing.Point(170, 122);
             this.Day5Profile.Name = "Day5Profile";
             this.Day5Profile.Size = new System.Drawing.Size(121, 20);
             this.Day5Profile.TabIndex = 1180;
@@ -1940,7 +2109,7 @@
             // label70
             // 
             this.label70.AutoSize = true;
-            this.label70.Location = new System.Drawing.Point(9, 118);
+            this.label70.Location = new System.Drawing.Point(9, 125);
             this.label70.Name = "label70";
             this.label70.Size = new System.Drawing.Size(35, 13);
             this.label70.TabIndex = 1179;
@@ -1948,7 +2117,8 @@
             // 
             // Day5Label
             // 
-            this.Day5Label.Location = new System.Drawing.Point(48, 115);
+            this.Day5Label.Enabled = false;
+            this.Day5Label.Location = new System.Drawing.Point(48, 122);
             this.Day5Label.Name = "Day5Label";
             this.Day5Label.Size = new System.Drawing.Size(121, 20);
             this.Day5Label.TabIndex = 1178;
@@ -1963,7 +2133,8 @@
             this.label67.AutoSize = true;
             this.label67.BackColor = System.Drawing.SystemColors.ControlDark;
             this.label67.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label67.Location = new System.Drawing.Point(296, 96);
+            this.label67.Enabled = false;
+            this.label67.Location = new System.Drawing.Point(296, 103);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(18, 15);
             this.label67.TabIndex = 1177;
@@ -1972,7 +2143,8 @@
             // 
             // Day4Profile
             // 
-            this.Day4Profile.Location = new System.Drawing.Point(170, 93);
+            this.Day4Profile.Enabled = false;
+            this.Day4Profile.Location = new System.Drawing.Point(170, 100);
             this.Day4Profile.Name = "Day4Profile";
             this.Day4Profile.Size = new System.Drawing.Size(121, 20);
             this.Day4Profile.TabIndex = 1176;
@@ -1982,7 +2154,7 @@
             // label68
             // 
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(9, 96);
+            this.label68.Location = new System.Drawing.Point(9, 103);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(35, 13);
             this.label68.TabIndex = 1175;
@@ -1990,7 +2162,8 @@
             // 
             // Day4Label
             // 
-            this.Day4Label.Location = new System.Drawing.Point(48, 93);
+            this.Day4Label.Enabled = false;
+            this.Day4Label.Location = new System.Drawing.Point(48, 100);
             this.Day4Label.Name = "Day4Label";
             this.Day4Label.Size = new System.Drawing.Size(121, 20);
             this.Day4Label.TabIndex = 1174;
@@ -2005,7 +2178,8 @@
             this.label65.AutoSize = true;
             this.label65.BackColor = System.Drawing.SystemColors.ControlDark;
             this.label65.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label65.Location = new System.Drawing.Point(296, 74);
+            this.label65.Enabled = false;
+            this.label65.Location = new System.Drawing.Point(296, 81);
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(18, 15);
             this.label65.TabIndex = 1173;
@@ -2014,7 +2188,8 @@
             // 
             // Day3Profile
             // 
-            this.Day3Profile.Location = new System.Drawing.Point(170, 71);
+            this.Day3Profile.Enabled = false;
+            this.Day3Profile.Location = new System.Drawing.Point(170, 78);
             this.Day3Profile.Name = "Day3Profile";
             this.Day3Profile.Size = new System.Drawing.Size(121, 20);
             this.Day3Profile.TabIndex = 1172;
@@ -2024,7 +2199,7 @@
             // label66
             // 
             this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(9, 74);
+            this.label66.Location = new System.Drawing.Point(9, 81);
             this.label66.Name = "label66";
             this.label66.Size = new System.Drawing.Size(35, 13);
             this.label66.TabIndex = 1171;
@@ -2032,7 +2207,8 @@
             // 
             // Day3Label
             // 
-            this.Day3Label.Location = new System.Drawing.Point(48, 71);
+            this.Day3Label.Enabled = false;
+            this.Day3Label.Location = new System.Drawing.Point(48, 78);
             this.Day3Label.Name = "Day3Label";
             this.Day3Label.Size = new System.Drawing.Size(121, 20);
             this.Day3Label.TabIndex = 1170;
@@ -2047,7 +2223,8 @@
             this.label57.AutoSize = true;
             this.label57.BackColor = System.Drawing.SystemColors.ControlDark;
             this.label57.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label57.Location = new System.Drawing.Point(296, 52);
+            this.label57.Enabled = false;
+            this.label57.Location = new System.Drawing.Point(296, 59);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(18, 15);
             this.label57.TabIndex = 1169;
@@ -2056,7 +2233,8 @@
             // 
             // Day2Profile
             // 
-            this.Day2Profile.Location = new System.Drawing.Point(170, 49);
+            this.Day2Profile.Enabled = false;
+            this.Day2Profile.Location = new System.Drawing.Point(170, 56);
             this.Day2Profile.Name = "Day2Profile";
             this.Day2Profile.Size = new System.Drawing.Size(121, 20);
             this.Day2Profile.TabIndex = 1168;
@@ -2066,7 +2244,7 @@
             // label64
             // 
             this.label64.AutoSize = true;
-            this.label64.Location = new System.Drawing.Point(9, 52);
+            this.label64.Location = new System.Drawing.Point(9, 59);
             this.label64.Name = "label64";
             this.label64.Size = new System.Drawing.Size(35, 13);
             this.label64.TabIndex = 1167;
@@ -2074,7 +2252,8 @@
             // 
             // Day2Label
             // 
-            this.Day2Label.Location = new System.Drawing.Point(48, 49);
+            this.Day2Label.Enabled = false;
+            this.Day2Label.Location = new System.Drawing.Point(48, 56);
             this.Day2Label.Name = "Day2Label";
             this.Day2Label.Size = new System.Drawing.Size(121, 20);
             this.Day2Label.TabIndex = 1166;
@@ -2089,7 +2268,8 @@
             this.label29.AutoSize = true;
             this.label29.BackColor = System.Drawing.SystemColors.ControlDark;
             this.label29.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label29.Location = new System.Drawing.Point(296, 30);
+            this.label29.Enabled = false;
+            this.label29.Location = new System.Drawing.Point(296, 37);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(18, 15);
             this.label29.TabIndex = 1165;
@@ -2098,7 +2278,8 @@
             // 
             // Day1Profile
             // 
-            this.Day1Profile.Location = new System.Drawing.Point(170, 27);
+            this.Day1Profile.Enabled = false;
+            this.Day1Profile.Location = new System.Drawing.Point(170, 34);
             this.Day1Profile.Name = "Day1Profile";
             this.Day1Profile.Size = new System.Drawing.Size(121, 20);
             this.Day1Profile.TabIndex = 2;
@@ -2108,7 +2289,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(9, 30);
+            this.label24.Location = new System.Drawing.Point(9, 37);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(35, 13);
             this.label24.TabIndex = 1;
@@ -2116,137 +2297,13 @@
             // 
             // Day1Label
             // 
-            this.Day1Label.Location = new System.Drawing.Point(48, 27);
+            this.Day1Label.Enabled = false;
+            this.Day1Label.Location = new System.Drawing.Point(48, 34);
             this.Day1Label.Name = "Day1Label";
             this.Day1Label.Size = new System.Drawing.Size(121, 20);
             this.Day1Label.TabIndex = 0;
             this.Day1Label.Text = "Day 1 Gather";
             this.Day1Label.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.label78);
-            this.groupBox7.Controls.Add(this.checkBox1);
-            this.groupBox7.Controls.Add(this.PausedMasterFilePicker);
-            this.groupBox7.Controls.Add(this.label79);
-            this.groupBox7.Controls.Add(this.PausedMasterFile);
-            this.groupBox7.Controls.Add(this.label77);
-            this.groupBox7.Controls.Add(this.ActivateBaseTime);
-            this.groupBox7.Controls.Add(this.MEMUInstances);
-            this.groupBox7.Controls.Add(this.label10);
-            this.groupBox7.Controls.Add(this.LogFileNameMask);
-            this.groupBox7.Controls.Add(this.label11);
-            this.groupBox7.Controls.Add(this.MainLogName);
-            this.groupBox7.Controls.Add(this.label13);
-            this.groupBox7.Controls.Add(this.GNBotLogMask);
-            this.groupBox7.Controls.Add(this.GNBotLogMain);
-            this.groupBox7.Controls.Add(this.label12);
-            this.groupBox7.Controls.Add(this.label20);
-            this.groupBox7.Location = new System.Drawing.Point(6, 149);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(406, 218);
-            this.groupBox7.TabIndex = 1189;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Misc Advanced Settings";
-            // 
-            // label78
-            // 
-            this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(353, 19);
-            this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(43, 13);
-            this.label78.TabIndex = 1194;
-            this.label78.Text = "minutes";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(7, 19);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(218, 17);
-            this.checkBox1.TabIndex = 1193;
-            this.checkBox1.Text = "Enable Active Pause State Management";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_2);
-            // 
-            // PausedMasterFilePicker
-            // 
-            this.PausedMasterFilePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PausedMasterFilePicker.AutoSize = true;
-            this.PausedMasterFilePicker.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.PausedMasterFilePicker.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PausedMasterFilePicker.Enabled = false;
-            this.PausedMasterFilePicker.Location = new System.Drawing.Point(370, 40);
-            this.PausedMasterFilePicker.Name = "PausedMasterFilePicker";
-            this.PausedMasterFilePicker.Size = new System.Drawing.Size(18, 15);
-            this.PausedMasterFilePicker.TabIndex = 1192;
-            this.PausedMasterFilePicker.Text = "...";
-            this.PausedMasterFilePicker.Click += new System.EventHandler(this.label80_Click);
-            // 
-            // label79
-            // 
-            this.label79.AutoSize = true;
-            this.label79.Location = new System.Drawing.Point(4, 41);
-            this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(109, 13);
-            this.label79.TabIndex = 1192;
-            this.label79.Text = "Master paused config";
-            // 
-            // label77
-            // 
-            this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(228, 19);
-            this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(80, 13);
-            this.label77.TabIndex = 1171;
-            this.label77.Text = "Unpause within";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(34, 127);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(54, 13);
-            this.label10.TabIndex = 1155;
-            this.label10.Text = "Log Mask";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(174, 127);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(51, 13);
-            this.label11.TabIndex = 1156;
-            this.label11.Text = "Log Main";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(12, 150);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(80, 13);
-            this.label13.TabIndex = 1158;
-            this.label13.Text = "GNBotLogMain";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(9, 171);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(83, 13);
-            this.label12.TabIndex = 1170;
-            this.label12.Text = "GNBotLogMask";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(27, 193);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(61, 13);
-            this.label20.TabIndex = 1161;
-            this.label20.Text = "Memu XML";
             // 
             // groupBox6
             // 
@@ -2839,6 +2896,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.HourlyConfigsButton);
             this.tabPage1.Controls.Add(this.groupBox10);
             this.tabPage1.Controls.Add(this.checkBox2);
             this.tabPage1.Controls.Add(this.groupBox9);
@@ -2848,6 +2906,17 @@
             this.tabPage1.Size = new System.Drawing.Size(748, 370);
             this.tabPage1.TabIndex = 7;
             this.tabPage1.Text = "Misc";
+            // 
+            // HourlyConfigsButton
+            // 
+            this.HourlyConfigsButton.Enabled = false;
+            this.HourlyConfigsButton.Location = new System.Drawing.Point(618, 87);
+            this.HourlyConfigsButton.Name = "HourlyConfigsButton";
+            this.HourlyConfigsButton.Size = new System.Drawing.Size(102, 23);
+            this.HourlyConfigsButton.TabIndex = 3;
+            this.HourlyConfigsButton.Text = "Hourly Configs";
+            this.HourlyConfigsButton.UseVisualStyleBackColor = true;
+            this.HourlyConfigsButton.Click += new System.EventHandler(this.HourlyConfigsButton_Click);
             // 
             // groupBox10
             // 
@@ -3076,16 +3145,6 @@
             this.gatherCSVLabel.Size = new System.Drawing.Size(628, 17);
             this.gatherCSVLabel.TabIndex = 0;
             // 
-            // ShowConsole
-            // 
-            this.ShowConsole.AutoSize = true;
-            this.ShowConsole.Location = new System.Drawing.Point(531, 11);
-            this.ShowConsole.Name = "ShowConsole";
-            this.ShowConsole.Size = new System.Drawing.Size(91, 17);
-            this.ShowConsole.TabIndex = 1033;
-            this.ShowConsole.Text = "ShowConsole";
-            this.ShowConsole.UseVisualStyleBackColor = true;
-            // 
             // MyDiscBotConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3127,10 +3186,12 @@
             this.DownloadTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FileGridView)).EndInit();
             this.AdvancedConfig.ResumeLayout(false);
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -3355,7 +3416,7 @@
         private System.Windows.Forms.Label PausedMasterFilePicker;
         private System.Windows.Forms.Label label79;
         private System.Windows.Forms.TextBox PausedMasterFile;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox PausedManagementCheckbox;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.Button CSVEditButton;
@@ -3381,5 +3442,8 @@
         private System.Windows.Forms.TextBox CloudLogInitFunction;
         private System.Windows.Forms.TextBox CloudLogSubmitFunction;
         private System.Windows.Forms.CheckBox ShowConsole;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.Button HourlyConfigsButton;
+        private System.Windows.Forms.CheckBox EnableGameDayMap;
     }
 }

@@ -49,16 +49,14 @@ namespace MyDiscBotConfig
             args = Environment.GetCommandLineArgs();
             if (config.GameDayMap == null)
             {
-                config.GameDayMap = new Dictionary<string, GameDayMap>()
-                {
-                    {  "0", new GameDayMap { Label="Day 7 DD KE", Profile="default"} },
-                    {  "1", new GameDayMap { Label="Day 1 Gather", Profile="default"} },
-                    {  "2", new GameDayMap { Label="Day 2 Build", Profile="default"} },
-                    {  "3", new GameDayMap { Label="Day 3 Research", Profile="default"} },
-                    {  "4", new GameDayMap { Label="Day 4 Hero", Profile="default"} },
-                    {  "5", new GameDayMap { Label="Day 5 Training", Profile="default"} },
-                    {  "6", new GameDayMap { Label="Day 6 KE", Profile="default"} }
-                };
+                config.GameDayMap = new GameDayMap();
+                config.GameDayMap.Day0 = new GameDayEntry();
+                config.GameDayMap.Day1 = new GameDayEntry();
+                config.GameDayMap.Day2 = new GameDayEntry();
+                config.GameDayMap.Day3 = new GameDayEntry();
+                config.GameDayMap.Day4 = new GameDayEntry();
+                config.GameDayMap.Day5 = new GameDayEntry();
+                config.GameDayMap.Day6 = new GameDayEntry();
             }
             if ( config.cloudLogs == null )
             {
@@ -113,18 +111,16 @@ namespace MyDiscBotConfig
         {
             config = DiscBotConfig.FromJson(File.ReadAllText(BotConfig.Text));
             // new configurations won't have this
-            if ( config.GameDayMap == null )
+            if (config.GameDayMap == null)
             {
-                config.GameDayMap = new Dictionary<string, GameDayMap>() 
-                {
-                    {  "0", new GameDayMap { Label="Day 7 DD KE", Profile="default"} },
-                    {  "1", new GameDayMap { Label="Day 1 Gather", Profile="default"} },
-                    {  "2", new GameDayMap { Label="Day 2 Build", Profile="default"} },
-                    {  "3", new GameDayMap { Label="Day 3 Research", Profile="default"} },
-                    {  "4", new GameDayMap { Label="Day 4 Hero", Profile="default"} },
-                    {  "5", new GameDayMap { Label="Day 5 Training", Profile="default"} },
-                    {  "6", new GameDayMap { Label="Day 6 KE", Profile="default"} }
-                };
+                config.GameDayMap = new GameDayMap();
+                config.GameDayMap.Day0 = new GameDayEntry();
+                config.GameDayMap.Day1 = new GameDayEntry();
+                config.GameDayMap.Day2 = new GameDayEntry();
+                config.GameDayMap.Day3 = new GameDayEntry();
+                config.GameDayMap.Day4 = new GameDayEntry();
+                config.GameDayMap.Day5 = new GameDayEntry();
+                config.GameDayMap.Day6 = new GameDayEntry();
             }
             if ( config.cloudLogs == null )
             {
@@ -247,21 +243,60 @@ namespace MyDiscBotConfig
             GNBotWindowY.Value = config.MoveGNBotWindow[1];
             GNBotWindowWidth.Value = config.MoveGNBotWindow[2];
             GNBotWindowHeight.Value = config.MoveGNBotWindow[3];
-            Day1Label.Text = config.GameDayMap["1"].Label;
-            Day2Label.Text = config.GameDayMap["2"].Label;
-            Day3Label.Text = config.GameDayMap["3"].Label;
-            Day4Label.Text = config.GameDayMap["4"].Label;
-            Day5Label.Text = config.GameDayMap["5"].Label;
-            Day6Label.Text = config.GameDayMap["6"].Label;
-            Day0Label.Text = config.GameDayMap["0"].Label;
-            Day1Profile.Text = config.GameDayMap["1"].Profile;
-            Day2Profile.Text = config.GameDayMap["2"].Profile;
-            Day3Profile.Text = config.GameDayMap["3"].Profile;
-            Day4Profile.Text = config.GameDayMap["4"].Profile;
-            Day5Profile.Text = config.GameDayMap["5"].Profile;
-            Day6Profile.Text = config.GameDayMap["6"].Profile;
-            Day0Profile.Text = config.GameDayMap["0"].Profile;
+            Day1Label.Text = config.GameDayMap.Day1.Label;
+            Day2Label.Text = config.GameDayMap.Day2.Label;
+            Day3Label.Text = config.GameDayMap.Day3.Label;
+            Day4Label.Text = config.GameDayMap.Day4.Label;
+            Day5Label.Text = config.GameDayMap.Day5.Label;
+            Day6Label.Text = config.GameDayMap.Day6.Label;
+            Day0Label.Text = config.GameDayMap.Day0.Label;
+            Day1Profile.Text = config.GameDayMap.Day1.Profile;
+            Day2Profile.Text = config.GameDayMap.Day2.Profile;
+            Day3Profile.Text = config.GameDayMap.Day3.Profile;
+            Day4Profile.Text = config.GameDayMap.Day4.Profile;
+            Day5Profile.Text = config.GameDayMap.Day5.Profile;
+            Day6Profile.Text = config.GameDayMap.Day6.Profile;
+            Day0Profile.Text = config.GameDayMap.Day0.Profile;
+            if (config.GameDayMap.Active > 0 )
+            {
+                EnableGameDayMap.Checked = true;
+                Day0Label.Enabled = true;
+                Day0Profile.Enabled = true;
+                Day1Label.Enabled = true;
+                Day1Profile.Enabled = true;
+                Day2Label.Enabled = true;
+                Day2Profile.Enabled = true;
+                Day3Label.Enabled = true;
+                Day3Profile.Enabled = true;
+                Day4Label.Enabled = true;
+                Day4Profile.Enabled = true;
+                Day5Label.Enabled = true;
+                Day5Profile.Enabled = true;
+                Day6Label.Enabled = true;
+                Day6Profile.Enabled = true;
+            } else
+            {
+                EnableGameDayMap.Checked = false;
+                Day0Label.Enabled = false;
+                Day0Profile.Enabled = false;
+                Day1Label.Enabled = false;
+                Day1Profile.Enabled = false;
+                Day2Label.Enabled = false;
+                Day2Profile.Enabled = false;
+                Day3Label.Enabled = false;
+                Day3Profile.Enabled = false;
+                Day4Label.Enabled = false;
+                Day4Profile.Enabled = false;
+                Day5Label.Enabled = false;
+                Day5Profile.Enabled = false;
+                Day6Label.Enabled = false;
+                Day6Profile.Enabled = false;
+            }
             ActivateBaseTime.Value = config.ActiveBaseTimer;
+            if ( config.ActiveBaseTimer > 0 )
+            {
+                PausedManagementCheckbox.Checked = true;
+            }
             MaximumFailures.Value = config.MaxFailures;
             PausedMasterFile.Text = config.PausedMaster;
             if ( config.enableReboot > 0 )
@@ -2119,7 +2154,7 @@ namespace MyDiscBotConfig
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            config.GameDayMap["1"].Label = Day1Label.Text;
+            config.GameDayMap.Day1.Label = Day1Label.Text;
         }
 
         private void label29_Click(object sender, EventArgs e)
@@ -2159,67 +2194,67 @@ namespace MyDiscBotConfig
 
         private void Day1Profile_TextChanged(object sender, EventArgs e)
         {
-            config.GameDayMap["1"].Profile = Day1Profile.Text;
+            config.GameDayMap.Day1.Profile = Day1Profile.Text;
         }
 
         private void Day2Profile_TextChanged(object sender, EventArgs e)
         {
-            config.GameDayMap["2"].Profile = Day2Profile.Text;
+            config.GameDayMap.Day2.Profile = Day2Profile.Text;
         }
 
         private void Day3Profile_TextChanged(object sender, EventArgs e)
         {
-            config.GameDayMap["3"].Profile = Day3Profile.Text;
+            config.GameDayMap.Day3.Profile = Day3Profile.Text;
         }
 
         private void Day4Profile_TextChanged(object sender, EventArgs e)
         {
-            config.GameDayMap["4"].Profile = Day4Profile.Text;
+            config.GameDayMap.Day4.Profile = Day4Profile.Text;
         }
 
         private void Day5Profile_TextChanged(object sender, EventArgs e)
         {
-            config.GameDayMap["5"].Profile = Day5Profile.Text;
+            config.GameDayMap.Day5.Profile = Day5Profile.Text;
         }
 
         private void Day6Profile_TextChanged(object sender, EventArgs e)
         {
-            config.GameDayMap["6"].Profile = Day6Profile.Text;
+            config.GameDayMap.Day6.Profile = Day6Profile.Text;
         }
 
         private void Day0Profile_TextChanged(object sender, EventArgs e)
         {
-            config.GameDayMap["0"].Profile = Day0Profile.Text;
+            config.GameDayMap.Day0.Profile = Day0Profile.Text;
         }
 
         private void Day2Label_TextChanged(object sender, EventArgs e)
         {
-            config.GameDayMap["2"].Label = Day2Label.Text;
+            config.GameDayMap.Day2.Label = Day2Label.Text;
         }
 
         private void Day3Label_TextChanged(object sender, EventArgs e)
         {
-            config.GameDayMap["3"].Label = Day3Label.Text;
+            config.GameDayMap.Day3.Label = Day3Label.Text;
         }
 
         private void Day4Label_TextChanged(object sender, EventArgs e)
         {
-            config.GameDayMap["4"].Label = Day4Label.Text;
+            config.GameDayMap.Day4.Label = Day4Label.Text;
         }
 
         private void Day5Label_TextChanged(object sender, EventArgs e)
         {
-            config.GameDayMap["5"].Label = Day5Label.Text;
+            config.GameDayMap.Day5.Label = Day5Label.Text;
         }
 
         private void Day6Label_TextChanged(object sender, EventArgs e)
         {
-            config.GameDayMap["6"].Label = Day6Label.Text;
+            config.GameDayMap.Day6.Label = Day6Label.Text;
         }
 
         private void Day0Label_TextChanged(object sender, EventArgs e)
         {
-            config.GameDayMap["0"].Label = Day0Label.Text;
+            config.GameDayMap.Day0.Label = Day0Label.Text;
         }
 
         private void ActivateBaseTime_ValueChanged(object sender, EventArgs e)
@@ -2235,11 +2270,10 @@ namespace MyDiscBotConfig
 
         private void checkBox1_CheckedChanged_2(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true)
+            if (PausedManagementCheckbox.Checked == true)
             {
                 PausedMasterFile.Enabled = true;
                 ActivateBaseTime.Enabled = true;
-                ActivateBaseTime.Value = 60;
                 PausedMasterFilePicker.Enabled = true;
             } else
             {
@@ -2268,10 +2302,12 @@ namespace MyDiscBotConfig
             if (checkBox2.Checked == true)
             {
                 CSVEditButton.Enabled = true;
+                HourlyConfigsButton.Enabled = true;
             }
             else
             {
                 CSVEditButton.Enabled = false;
+                HourlyConfigsButton.Enabled = false;
             }
         }
 
@@ -2370,6 +2406,54 @@ namespace MyDiscBotConfig
         private void CloudLogInitFunction_TextChanged(object sender, EventArgs e)
         {
             config.cloudLogs.Init = CloudLogInitFunction.Text;
+        }
+
+        private void HourlyConfigsButton_Click(object sender, EventArgs e)
+        {
+            Form HourlyConfigs = new HourlyConfigForm();
+            this.AddOwnedForm(HourlyConfigs);
+            HourlyConfigs.Show(this);
+            HourlyConfigs.SetDesktopLocation(this.Location.X + 10, this.Location.Y + 10);
+        }
+
+        private void EnableGameDayMap_CheckedChanged(object sender, EventArgs e)
+        {
+            if ( EnableGameDayMap.Checked == true )
+            {
+                config.GameDayMap.Active = 1;
+                Day0Label.Enabled = true;
+                Day0Profile.Enabled = true;
+                Day1Label.Enabled = true;
+                Day1Profile.Enabled = true;
+                Day2Label.Enabled = true;
+                Day2Profile.Enabled = true;
+                Day3Label.Enabled = true;
+                Day3Profile.Enabled = true;
+                Day4Label.Enabled = true;
+                Day4Profile.Enabled = true;
+                Day5Label.Enabled = true;
+                Day5Profile.Enabled = true;
+                Day6Label.Enabled = true;
+                Day6Profile.Enabled = true;
+            }
+            else
+            {
+                config.GameDayMap.Active = 0;
+                Day0Label.Enabled = false;
+                Day0Profile.Enabled = false;
+                Day1Label.Enabled = false;
+                Day1Profile.Enabled = false;
+                Day2Label.Enabled = false;
+                Day2Profile.Enabled = false;
+                Day3Label.Enabled = false;
+                Day3Profile.Enabled = false;
+                Day4Label.Enabled = false;
+                Day4Profile.Enabled = false;
+                Day5Label.Enabled = false;
+                Day5Profile.Enabled = false;
+                Day6Label.Enabled = false;
+                Day6Profile.Enabled = false;
+            }
         }
     }
 }
