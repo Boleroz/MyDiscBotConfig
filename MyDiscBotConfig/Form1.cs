@@ -29,6 +29,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 
 namespace MyDiscBotConfig
@@ -96,6 +97,14 @@ namespace MyDiscBotConfig
                 LoadPointer.Visible = true;
                 LauncherPathPointer.Visible = true;
             }
+            DiscBotProcess.EnableRaisingEvents = true;
+            DiscBotProcess.OutputDataReceived += new System.Diagnostics.DataReceivedEventHandler(DiscBotProcess_OutputDataReceived);
+            DiscBotProcess.ErrorDataReceived += new System.Diagnostics.DataReceivedEventHandler(DiscBotProcess_ErrorDataReceived);
+            DiscBotProcess.Exited += new System.EventHandler(DiscBotProcess_Exited);
+            DiscBotProcess.StartInfo.UseShellExecute = false;
+            DiscBotProcess.StartInfo.Verb = "runas";
+            DiscBotProcess.StartInfo.RedirectStandardError = true;
+            DiscBotProcess.StartInfo.RedirectStandardOutput = true;
         }
 
         private bool IsAdmin()
@@ -320,28 +329,47 @@ namespace MyDiscBotConfig
             {
                 CloudLogEnable.Checked = false;
             }
+            if ( config.SaveMyLogs > 0 )
+            {
+                SaveMyLogs.Checked = true;
+            } else
+            {
+                SaveMyLogs.Checked = false;
+            }
+            if ( config.ProcessMainLog > 0 )
+            {
+                ProcessMainLogsCheckbox.Checked = true;
+            } else
+            {
+                ProcessMainLogsCheckbox.Checked = false;
+            }
+            if ( config.CheckForAPK > 0 )
+            {
+                CheckForAPKCheckbox.Checked = true;
+            } else
+            {
+                CheckForAPKCheckbox.Checked = false;
+            }
+            apkStatsFile.Text = config.apkStatsFile;
+            apkDestinationFile.Text = config.apkDest;
+            apkStartURL.Text = config.apkStartURL;
+            APKPath.Text = config.apkPath;
         }
 
-        void LaunchDiscBotProcess(string DiscBotExe = "MyBot-Win.exe")
+        void LaunchDiscBotProcess(string DiscBotExe = "MyBot-Win.exe", string configFile = "./mybot.json")
         {
-            DiscBotProcess.EnableRaisingEvents = true;
-            DiscBotProcess.OutputDataReceived += new System.Diagnostics.DataReceivedEventHandler(DiscBotProcess_OutputDataReceived);
-            DiscBotProcess.ErrorDataReceived += new System.Diagnostics.DataReceivedEventHandler(DiscBotProcess_ErrorDataReceived);
-            DiscBotProcess.Exited += new System.EventHandler(DiscBotProcess_Exited);
-
             DiscBotProcess.StartInfo.FileName = DiscBotExe;
-            DiscBotProcess.StartInfo.Arguments = null;
-            DiscBotProcess.StartInfo.UseShellExecute = false;
-            DiscBotProcess.StartInfo.Verb = "runas";
-            DiscBotProcess.StartInfo.RedirectStandardError = true;
-            DiscBotProcess.StartInfo.RedirectStandardOutput = true;
+            DiscBotProcess.StartInfo.Arguments = configFile;
             if (ShowConsole.Checked == true)
             {
                 DiscBotProcess.StartInfo.RedirectStandardError = false;
+                DiscBotProcess.StartInfo.RedirectStandardOutput = false;
                 DiscBotProcess.StartInfo.CreateNoWindow = false;
             } else
             {
                 DiscBotProcess.StartInfo.CreateNoWindow = true;
+                DiscBotProcess.StartInfo.RedirectStandardError = true;
+                DiscBotProcess.StartInfo.RedirectStandardOutput = true;
             }
             DiscBotProcess.StartInfo.WorkingDirectory = getDirectory(DiscBotExe);
 
@@ -399,7 +427,25 @@ namespace MyDiscBotConfig
             try
             {
                 // race condition exists for some reason. The process can close before we get here and the reference won't exist
-                DiscBotProcessOutput(string.Format("process exited with code {0}\n", DiscBotProcess.ExitCode.ToString()));
+                if (DiscBotProcess.ExitCode == 0)
+                {
+                    DiscBotProcessOutput(string.Format("Clean exit {0}\n", DiscBotProcess.ExitCode.ToString()));
+                } else
+                {
+                    DiscBotProcessOutput(string.Format("process exited with code {0} : restarting in 30 seconds\n", DiscBotProcess.ExitCode.ToString()));
+                    async Task startIn30sec()
+                    {
+                        await Task.Delay(30000);
+                        if (discBotRunning) // we can stop along the way
+                        {
+                            DiscBotProcess.Start();
+                        }
+                    }
+                    if (discBotRunning) // race condition that is unlikely but possible to happen when heavily loaded
+                    {
+                        startIn30sec(); 
+                    }
+                }
             } catch
             {
                 // finish the conditions we care to handle
@@ -1865,9 +1911,10 @@ namespace MyDiscBotConfig
             if (File.Exists(DiscBotExePath.Text))
             {
                 
-                LaunchDiscBotProcess(DiscBotExePath.Text);
-//                discBotRunning = true;
+                LaunchDiscBotProcess(DiscBotExePath.Text, BotConfig.Text);
+                //                discBotRunning = true;
                 StopDiscBot.Enabled = true;
+                SaveLogButton.Enabled = true;
                 StartDiscBot.Enabled = false;
                 LoadButton.Enabled = false;
                 SaveButton.Enabled = false;
@@ -2454,6 +2501,98 @@ namespace MyDiscBotConfig
                 Day6Label.Enabled = false;
                 Day6Profile.Enabled = false;
             }
+        }
+
+        private void SaveLogWindow_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                System.IO.StreamWriter SaveFile = new System.IO.StreamWriter(saveFileDialog1.FileName);
+                foreach (var item in DiscBotOutput.Items)
+                {
+                    SaveFile.WriteLine(item);
+                }
+
+                SaveFile.Close();
+
+                MessageBox.Show("Logs saved!");
+            }
+        }
+
+        private void ProcessMainLogsCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ProcessMainLogsCheckbox.Checked == true )
+            {
+                config.ProcessMainLog = 1;
+            } else
+            {
+                config.ProcessMainLog = 0;
+            }
+        }
+
+        private void SaveMyLogs_CheckedChanged(object sender, EventArgs e)
+        {
+            if ( SaveMyLogs.Checked == true)
+            {
+                config.SaveMyLogs = 1;
+            } else
+            {
+                config.SaveMyLogs = 0;
+            }
+        }
+
+        private void ShowConsole_CheckedChanged(object sender, EventArgs e)
+        {
+            if ( ShowConsole.Checked == true )
+            {
+                DiscBotProcess.StartInfo.RedirectStandardError = false;
+                DiscBotProcess.StartInfo.RedirectStandardOutput = false;
+                DiscBotProcess.StartInfo.CreateNoWindow = false;
+            } else
+            {
+                DiscBotProcess.StartInfo.RedirectStandardError = true;
+                DiscBotProcess.StartInfo.RedirectStandardOutput = true;
+                DiscBotProcess.StartInfo.CreateNoWindow = true;
+            }
+        }
+
+        private void CheckForAPKCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if ( CheckForAPKCheckbox.Checked == true )
+            {
+                config.CheckForAPK = 1;
+                apkStartURL.Enabled = true;
+                APKPath.Enabled = true;
+                apkDestinationFile.Enabled = true;
+                apkStatsFile.Enabled = true;
+            } else
+            {
+                config.CheckForAPK = 0;
+                apkStartURL.Enabled = false;
+                APKPath.Enabled = false;
+                apkDestinationFile.Enabled = false;
+                apkStatsFile.Enabled = false;
+            }
+        }
+
+        private void apkStartURL_TextChanged(object sender, EventArgs e)
+        {
+            config.apkStartURL = apkStartURL.Text;
+        }
+
+        private void APKPath_TextChanged(object sender, EventArgs e)
+        {
+            config.apkPath = APKPath.Text;
+        }
+
+        private void apkDestinationFile_TextChanged(object sender, EventArgs e)
+        {
+            config.apkDest = apkDestinationFile.Text;
+        }
+
+        private void apkStatsFile_TextChanged(object sender, EventArgs e)
+        {
+            config.apkStatsFile = apkStatsFile.Text;
         }
     }
 }

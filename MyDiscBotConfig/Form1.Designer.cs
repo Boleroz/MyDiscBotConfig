@@ -98,9 +98,11 @@
             this.GNBotThreads = new System.Windows.Forms.NumericUpDown();
             this.PausedMasterFile = new System.Windows.Forms.TextBox();
             this.RestartBaseCount = new System.Windows.Forms.NumericUpDown();
+            this.ProcessMainLogsCheckbox = new System.Windows.Forms.CheckBox();
             this.LoadPointer = new System.Windows.Forms.Label();
             this.ConfigurationTabs = new System.Windows.Forms.TabControl();
             this.RunDiscBotTab = new System.Windows.Forms.TabPage();
+            this.SaveLogButton = new System.Windows.Forms.Button();
             this.ShowConsole = new System.Windows.Forms.CheckBox();
             this.StopDiscBot = new System.Windows.Forms.Button();
             this.BotExeFileSelectButton = new System.Windows.Forms.Label();
@@ -156,6 +158,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.EnableGameDayMap = new System.Windows.Forms.CheckBox();
             this.label76 = new System.Windows.Forms.Label();
@@ -189,6 +192,7 @@
             this.label24 = new System.Windows.Forms.Label();
             this.Day1Label = new System.Windows.Forms.TextBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.SaveMyLogs = new System.Windows.Forms.CheckBox();
             this.label56 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label80 = new System.Windows.Forms.Label();
@@ -203,7 +207,6 @@
             this.label34 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label63 = new System.Windows.Forms.Label();
             this.label62 = new System.Windows.Forms.Label();
@@ -234,6 +237,16 @@
             this.label23 = new System.Windows.Forms.Label();
             this.GatherCSVFilePicker = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.label90 = new System.Windows.Forms.Label();
+            this.apkStatsFile = new System.Windows.Forms.TextBox();
+            this.label89 = new System.Windows.Forms.Label();
+            this.apkDestinationFile = new System.Windows.Forms.TextBox();
+            this.label88 = new System.Windows.Forms.Label();
+            this.APKPath = new System.Windows.Forms.TextBox();
+            this.label81 = new System.Windows.Forms.Label();
+            this.apkStartURL = new System.Windows.Forms.TextBox();
+            this.CheckForAPKCheckbox = new System.Windows.Forms.CheckBox();
             this.HourlyConfigsButton = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label87 = new System.Windows.Forms.Label();
@@ -255,6 +268,7 @@
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.CSVEditButton = new System.Windows.Forms.Button();
             this.gatherCSVLabel = new System.Windows.Forms.Label();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.GNBotRestartInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaximumFailures)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimumCycleTime)).BeginInit();
@@ -286,6 +300,7 @@
             this.GoogleSheet.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox12.SuspendLayout();
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CloudLogPort)).BeginInit();
             this.groupBox9.SuspendLayout();
@@ -506,7 +521,7 @@
             this.ffmpeg.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ffmpeg.Location = new System.Drawing.Point(112, 85);
+            this.ffmpeg.Location = new System.Drawing.Point(112, 81);
             this.ffmpeg.Name = "ffmpeg";
             this.ffmpeg.Size = new System.Drawing.Size(250, 20);
             this.ffmpeg.TabIndex = 1080;
@@ -518,7 +533,7 @@
             this.nircmd.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.nircmd.Location = new System.Drawing.Point(112, 61);
+            this.nircmd.Location = new System.Drawing.Point(112, 57);
             this.nircmd.Name = "nircmd";
             this.nircmd.Size = new System.Drawing.Size(250, 20);
             this.nircmd.TabIndex = 1076;
@@ -531,7 +546,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.screenshotToggle.AutoSize = true;
-            this.screenshotToggle.Location = new System.Drawing.Point(15, 18);
+            this.screenshotToggle.Location = new System.Drawing.Point(15, 15);
             this.screenshotToggle.Name = "screenshotToggle";
             this.screenshotToggle.Size = new System.Drawing.Size(59, 17);
             this.screenshotToggle.TabIndex = 1068;
@@ -545,7 +560,7 @@
             this.screenshotDir.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.screenshotDir.Location = new System.Drawing.Point(112, 38);
+            this.screenshotDir.Location = new System.Drawing.Point(112, 34);
             this.screenshotDir.Name = "screenshotDir";
             this.screenshotDir.Size = new System.Drawing.Size(250, 20);
             this.screenshotDir.TabIndex = 1070;
@@ -620,9 +635,9 @@
             this.DuplicateLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DuplicateLog.Location = new System.Drawing.Point(113, 109);
+            this.DuplicateLog.Location = new System.Drawing.Point(89, 121);
             this.DuplicateLog.Name = "DuplicateLog";
-            this.DuplicateLog.Size = new System.Drawing.Size(249, 20);
+            this.DuplicateLog.Size = new System.Drawing.Size(292, 20);
             this.DuplicateLog.TabIndex = 1050;
             this.DuplicateLog.Text = "LssSessions.log";
             this.toolTip1.SetToolTip(this.DuplicateLog, "The name of the duplicate log");
@@ -829,7 +844,7 @@
             // 
             // GNBotLogMask
             // 
-            this.GNBotLogMask.Location = new System.Drawing.Point(89, 104);
+            this.GNBotLogMask.Location = new System.Drawing.Point(89, 77);
             this.GNBotLogMask.Name = "GNBotLogMask";
             this.GNBotLogMask.Size = new System.Drawing.Size(292, 20);
             this.GNBotLogMask.TabIndex = 1169;
@@ -919,7 +934,7 @@
             // 
             // MEMUInstances
             // 
-            this.MEMUInstances.Location = new System.Drawing.Point(89, 126);
+            this.MEMUInstances.Location = new System.Drawing.Point(89, 99);
             this.MEMUInstances.Name = "MEMUInstances";
             this.MEMUInstances.Size = new System.Drawing.Size(292, 20);
             this.MEMUInstances.TabIndex = 1154;
@@ -929,7 +944,7 @@
             // 
             // GNBotLogMain
             // 
-            this.GNBotLogMain.Location = new System.Drawing.Point(89, 82);
+            this.GNBotLogMain.Location = new System.Drawing.Point(89, 55);
             this.GNBotLogMain.Name = "GNBotLogMain";
             this.GNBotLogMain.Size = new System.Drawing.Size(292, 20);
             this.GNBotLogMain.TabIndex = 1153;
@@ -938,7 +953,7 @@
             // 
             // MainLogName
             // 
-            this.MainLogName.Location = new System.Drawing.Point(224, 59);
+            this.MainLogName.Location = new System.Drawing.Point(224, 32);
             this.MainLogName.Name = "MainLogName";
             this.MainLogName.Size = new System.Drawing.Size(157, 20);
             this.MainLogName.TabIndex = 1152;
@@ -948,7 +963,7 @@
             // 
             // LogFileNameMask
             // 
-            this.LogFileNameMask.Location = new System.Drawing.Point(89, 59);
+            this.LogFileNameMask.Location = new System.Drawing.Point(89, 32);
             this.LogFileNameMask.Name = "LogFileNameMask";
             this.LogFileNameMask.Size = new System.Drawing.Size(69, 20);
             this.LogFileNameMask.TabIndex = 1151;
@@ -984,7 +999,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.postStatusScreenshots.AutoSize = true;
             this.postStatusScreenshots.Enabled = false;
-            this.postStatusScreenshots.Location = new System.Drawing.Point(112, 18);
+            this.postStatusScreenshots.Location = new System.Drawing.Point(112, 15);
             this.postStatusScreenshots.Name = "postStatusScreenshots";
             this.postStatusScreenshots.Size = new System.Drawing.Size(174, 17);
             this.postStatusScreenshots.TabIndex = 1164;
@@ -1091,7 +1106,7 @@
             // DebugLevel
             // 
             this.DebugLevel.Enabled = false;
-            this.DebugLevel.Location = new System.Drawing.Point(95, 45);
+            this.DebugLevel.Location = new System.Drawing.Point(98, 12);
             this.DebugLevel.Maximum = new decimal(new int[] {
             1440,
             0,
@@ -1106,7 +1121,7 @@
             // debugEnableCheckbox
             // 
             this.debugEnableCheckbox.AutoSize = true;
-            this.debugEnableCheckbox.Location = new System.Drawing.Point(10, 18);
+            this.debugEnableCheckbox.Location = new System.Drawing.Point(6, 15);
             this.debugEnableCheckbox.Name = "debugEnableCheckbox";
             this.debugEnableCheckbox.Size = new System.Drawing.Size(59, 17);
             this.debugEnableCheckbox.TabIndex = 1184;
@@ -1195,6 +1210,20 @@
             0});
             this.RestartBaseCount.ValueChanged += new System.EventHandler(this.RestartBaseCount_ValueChanged);
             // 
+            // ProcessMainLogsCheckbox
+            // 
+            this.ProcessMainLogsCheckbox.AutoSize = true;
+            this.ProcessMainLogsCheckbox.Location = new System.Drawing.Point(226, 11);
+            this.ProcessMainLogsCheckbox.Name = "ProcessMainLogsCheckbox";
+            this.ProcessMainLogsCheckbox.Size = new System.Drawing.Size(155, 17);
+            this.ProcessMainLogsCheckbox.TabIndex = 1171;
+            this.ProcessMainLogsCheckbox.Text = "Process main log as events";
+            this.toolTip1.SetToolTip(this.ProcessMainLogsCheckbox, "When checked all log entries from the main log will be sent through the processin" +
+        "g loop. This allows you to elevate them into messages posted to discord and the " +
+        "cloud.");
+            this.ProcessMainLogsCheckbox.UseVisualStyleBackColor = true;
+            this.ProcessMainLogsCheckbox.CheckedChanged += new System.EventHandler(this.ProcessMainLogsCheckbox_CheckedChanged);
+            // 
             // LoadPointer
             // 
             this.LoadPointer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1230,6 +1259,7 @@
             // RunDiscBotTab
             // 
             this.RunDiscBotTab.BackColor = System.Drawing.SystemColors.Control;
+            this.RunDiscBotTab.Controls.Add(this.SaveLogButton);
             this.RunDiscBotTab.Controls.Add(this.ShowConsole);
             this.RunDiscBotTab.Controls.Add(this.StopDiscBot);
             this.RunDiscBotTab.Controls.Add(this.BotExeFileSelectButton);
@@ -1246,23 +1276,36 @@
             this.RunDiscBotTab.Text = "Run Discord Bot";
             this.RunDiscBotTab.Click += new System.EventHandler(this.RunDiscBotTab_Click);
             // 
+            // SaveLogButton
+            // 
+            this.SaveLogButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveLogButton.Enabled = false;
+            this.SaveLogButton.Location = new System.Drawing.Point(703, 7);
+            this.SaveLogButton.Name = "SaveLogButton";
+            this.SaveLogButton.Size = new System.Drawing.Size(41, 23);
+            this.SaveLogButton.TabIndex = 1034;
+            this.SaveLogButton.Text = "Save";
+            this.SaveLogButton.UseVisualStyleBackColor = true;
+            this.SaveLogButton.Click += new System.EventHandler(this.SaveLogWindow_Click);
+            // 
             // ShowConsole
             // 
             this.ShowConsole.AutoSize = true;
-            this.ShowConsole.Location = new System.Drawing.Point(531, 11);
+            this.ShowConsole.Location = new System.Drawing.Point(529, 12);
             this.ShowConsole.Name = "ShowConsole";
             this.ShowConsole.Size = new System.Drawing.Size(91, 17);
             this.ShowConsole.TabIndex = 1033;
             this.ShowConsole.Text = "ShowConsole";
             this.ShowConsole.UseVisualStyleBackColor = true;
+            this.ShowConsole.CheckedChanged += new System.EventHandler(this.ShowConsole_CheckedChanged);
             // 
             // StopDiscBot
             // 
             this.StopDiscBot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.StopDiscBot.Enabled = false;
-            this.StopDiscBot.Location = new System.Drawing.Point(684, 8);
+            this.StopDiscBot.Location = new System.Drawing.Point(662, 7);
             this.StopDiscBot.Name = "StopDiscBot";
-            this.StopDiscBot.Size = new System.Drawing.Size(58, 23);
+            this.StopDiscBot.Size = new System.Drawing.Size(41, 23);
             this.StopDiscBot.TabIndex = 1032;
             this.StopDiscBot.Text = "Stop";
             this.StopDiscBot.UseVisualStyleBackColor = true;
@@ -1296,9 +1339,9 @@
             // StartDiscBot
             // 
             this.StartDiscBot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.StartDiscBot.Location = new System.Drawing.Point(624, 8);
+            this.StartDiscBot.Location = new System.Drawing.Point(620, 7);
             this.StartDiscBot.Name = "StartDiscBot";
-            this.StartDiscBot.Size = new System.Drawing.Size(58, 23);
+            this.StartDiscBot.Size = new System.Drawing.Size(41, 23);
             this.StartDiscBot.TabIndex = 3;
             this.StartDiscBot.Text = "Start";
             this.StartDiscBot.UseVisualStyleBackColor = true;
@@ -1796,7 +1839,7 @@
             this.groupBox11.Controls.Add(this.PausedMasterFile);
             this.groupBox11.Controls.Add(this.label77);
             this.groupBox11.Controls.Add(this.ActivateBaseTime);
-            this.groupBox11.Location = new System.Drawing.Point(7, 144);
+            this.groupBox11.Location = new System.Drawing.Point(8, 112);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(404, 66);
             this.groupBox11.TabIndex = 1191;
@@ -1859,6 +1902,7 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.ProcessMainLogsCheckbox);
             this.groupBox7.Controls.Add(this.MEMUInstances);
             this.groupBox7.Controls.Add(this.label10);
             this.groupBox7.Controls.Add(this.LogFileNameMask);
@@ -1869,9 +1913,11 @@
             this.groupBox7.Controls.Add(this.GNBotLogMain);
             this.groupBox7.Controls.Add(this.label12);
             this.groupBox7.Controls.Add(this.label20);
-            this.groupBox7.Location = new System.Drawing.Point(7, 214);
+            this.groupBox7.Controls.Add(this.DuplicateLog);
+            this.groupBox7.Controls.Add(this.label15);
+            this.groupBox7.Location = new System.Drawing.Point(7, 180);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(406, 151);
+            this.groupBox7.Size = new System.Drawing.Size(406, 185);
             this.groupBox7.TabIndex = 1189;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Misc Advanced Settings";
@@ -1879,7 +1925,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(27, 63);
+            this.label10.Location = new System.Drawing.Point(27, 36);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(54, 13);
             this.label10.TabIndex = 1155;
@@ -1888,7 +1934,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(167, 63);
+            this.label11.Location = new System.Drawing.Point(167, 36);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(51, 13);
             this.label11.TabIndex = 1156;
@@ -1897,7 +1943,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(5, 86);
+            this.label13.Location = new System.Drawing.Point(5, 59);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(80, 13);
             this.label13.TabIndex = 1158;
@@ -1906,7 +1952,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(2, 107);
+            this.label12.Location = new System.Drawing.Point(2, 80);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(83, 13);
             this.label12.TabIndex = 1170;
@@ -1915,11 +1961,23 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(20, 129);
+            this.label20.Location = new System.Drawing.Point(20, 102);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(61, 13);
             this.label20.TabIndex = 1161;
             this.label20.Text = "Memu XML";
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(21, 124);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(64, 13);
+            this.label15.TabIndex = 1071;
+            this.label15.Text = "Archive Log";
             // 
             // groupBox8
             // 
@@ -2308,20 +2366,32 @@
             // groupBox6
             // 
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.SaveMyLogs);
             this.groupBox6.Controls.Add(this.debugEnableCheckbox);
             this.groupBox6.Controls.Add(this.label56);
             this.groupBox6.Controls.Add(this.DebugLevel);
-            this.groupBox6.Location = new System.Drawing.Point(596, 97);
+            this.groupBox6.Location = new System.Drawing.Point(596, 113);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(142, 81);
+            this.groupBox6.Size = new System.Drawing.Size(142, 65);
             this.groupBox6.TabIndex = 1188;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Debug";
             // 
+            // SaveMyLogs
+            // 
+            this.SaveMyLogs.AutoSize = true;
+            this.SaveMyLogs.Location = new System.Drawing.Point(6, 36);
+            this.SaveMyLogs.Name = "SaveMyLogs";
+            this.SaveMyLogs.Size = new System.Drawing.Size(123, 17);
+            this.SaveMyLogs.TabIndex = 1185;
+            this.SaveMyLogs.Text = "Save logs to archive";
+            this.SaveMyLogs.UseVisualStyleBackColor = true;
+            this.SaveMyLogs.CheckedChanged += new System.EventHandler(this.SaveMyLogs_CheckedChanged);
+            // 
             // label56
             // 
             this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(56, 47);
+            this.label56.Location = new System.Drawing.Point(63, 16);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(33, 13);
             this.label56.TabIndex = 1183;
@@ -2406,11 +2476,9 @@
             this.groupBox3.Controls.Add(this.nircmd);
             this.groupBox3.Controls.Add(this.label32);
             this.groupBox3.Controls.Add(this.label33);
-            this.groupBox3.Controls.Add(this.DuplicateLog);
-            this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Location = new System.Drawing.Point(6, 7);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(406, 136);
+            this.groupBox3.Size = new System.Drawing.Size(406, 105);
             this.groupBox3.TabIndex = 1185;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Screenshot and Video";
@@ -2421,7 +2489,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(4, 42);
+            this.label55.Location = new System.Drawing.Point(4, 38);
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(106, 13);
             this.label55.TabIndex = 1128;
@@ -2435,7 +2503,7 @@
             this.ScreenshotDirSelector.AutoSize = true;
             this.ScreenshotDirSelector.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ScreenshotDirSelector.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ScreenshotDirSelector.Location = new System.Drawing.Point(370, 41);
+            this.ScreenshotDirSelector.Location = new System.Drawing.Point(370, 37);
             this.ScreenshotDirSelector.Name = "ScreenshotDirSelector";
             this.ScreenshotDirSelector.Size = new System.Drawing.Size(18, 15);
             this.ScreenshotDirSelector.TabIndex = 1072;
@@ -2448,7 +2516,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(49, 89);
+            this.label35.Location = new System.Drawing.Point(49, 85);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(59, 13);
             this.label35.TabIndex = 1097;
@@ -2462,7 +2530,7 @@
             this.label34.AutoSize = true;
             this.label34.BackColor = System.Drawing.SystemColors.ControlDark;
             this.label34.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label34.Location = new System.Drawing.Point(370, 88);
+            this.label34.Location = new System.Drawing.Point(370, 84);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(18, 15);
             this.label34.TabIndex = 1081;
@@ -2477,7 +2545,7 @@
             this.label32.AutoSize = true;
             this.label32.BackColor = System.Drawing.SystemColors.ControlDark;
             this.label32.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label32.Location = new System.Drawing.Point(370, 64);
+            this.label32.Location = new System.Drawing.Point(370, 60);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(18, 15);
             this.label32.TabIndex = 1077;
@@ -2490,23 +2558,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(50, 65);
+            this.label33.Location = new System.Drawing.Point(50, 61);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(58, 13);
             this.label33.TabIndex = 1096;
             this.label33.Text = "nircmd.exe";
-            // 
-            // label15
-            // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(45, 112);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(64, 13);
-            this.label15.TabIndex = 1071;
-            this.label15.Text = "Archive Log";
             // 
             // groupBox1
             // 
@@ -2521,7 +2577,7 @@
             this.groupBox1.Controls.Add(this.label60);
             this.groupBox1.Location = new System.Drawing.Point(596, 7);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(142, 88);
+            this.groupBox1.Size = new System.Drawing.Size(142, 105);
             this.groupBox1.TabIndex = 1181;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "GNBot window location";
@@ -2896,6 +2952,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.groupBox12);
             this.tabPage1.Controls.Add(this.HourlyConfigsButton);
             this.tabPage1.Controls.Add(this.groupBox10);
             this.tabPage1.Controls.Add(this.checkBox2);
@@ -2907,10 +2964,118 @@
             this.tabPage1.TabIndex = 7;
             this.tabPage1.Text = "Misc";
             // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.label90);
+            this.groupBox12.Controls.Add(this.apkStatsFile);
+            this.groupBox12.Controls.Add(this.label89);
+            this.groupBox12.Controls.Add(this.apkDestinationFile);
+            this.groupBox12.Controls.Add(this.label88);
+            this.groupBox12.Controls.Add(this.APKPath);
+            this.groupBox12.Controls.Add(this.label81);
+            this.groupBox12.Controls.Add(this.apkStartURL);
+            this.groupBox12.Controls.Add(this.CheckForAPKCheckbox);
+            this.groupBox12.Location = new System.Drawing.Point(336, 87);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(390, 136);
+            this.groupBox12.TabIndex = 4;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "APK Management";
+            // 
+            // label90
+            // 
+            this.label90.AutoSize = true;
+            this.label90.Location = new System.Drawing.Point(6, 103);
+            this.label90.Name = "label90";
+            this.label90.Size = new System.Drawing.Size(72, 13);
+            this.label90.TabIndex = 1079;
+            this.label90.Text = "APK Stats fIle";
+            // 
+            // apkStatsFile
+            // 
+            this.apkStatsFile.Enabled = false;
+            this.apkStatsFile.Location = new System.Drawing.Point(122, 102);
+            this.apkStatsFile.Name = "apkStatsFile";
+            this.apkStatsFile.Size = new System.Drawing.Size(262, 20);
+            this.apkStatsFile.TabIndex = 1078;
+            this.toolTip1.SetToolTip(this.apkStatsFile, "this is the json file to use for server headers to determine if a new file is ava" +
+        "ilable");
+            this.apkStatsFile.TextChanged += new System.EventHandler(this.apkStatsFile_TextChanged);
+            // 
+            // label89
+            // 
+            this.label89.AutoSize = true;
+            this.label89.Location = new System.Drawing.Point(6, 82);
+            this.label89.Name = "label89";
+            this.label89.Size = new System.Drawing.Size(84, 13);
+            this.label89.TabIndex = 1077;
+            this.label89.Text = "APK Destination";
+            // 
+            // apkDestinationFile
+            // 
+            this.apkDestinationFile.Enabled = false;
+            this.apkDestinationFile.Location = new System.Drawing.Point(122, 81);
+            this.apkDestinationFile.Name = "apkDestinationFile";
+            this.apkDestinationFile.Size = new System.Drawing.Size(262, 20);
+            this.apkDestinationFile.TabIndex = 1076;
+            this.toolTip1.SetToolTip(this.apkDestinationFile, "This is what the apk is saved as");
+            this.apkDestinationFile.TextChanged += new System.EventHandler(this.apkDestinationFile_TextChanged);
+            // 
+            // label88
+            // 
+            this.label88.AutoSize = true;
+            this.label88.Location = new System.Drawing.Point(6, 61);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(53, 13);
+            this.label88.TabIndex = 1075;
+            this.label88.Text = "APK Path";
+            // 
+            // APKPath
+            // 
+            this.APKPath.Enabled = false;
+            this.APKPath.Location = new System.Drawing.Point(122, 60);
+            this.APKPath.Name = "APKPath";
+            this.APKPath.Size = new System.Drawing.Size(262, 20);
+            this.APKPath.TabIndex = 1074;
+            this.toolTip1.SetToolTip(this.APKPath, "This is the path to the APK file once redirected");
+            this.APKPath.TextChanged += new System.EventHandler(this.APKPath_TextChanged);
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Location = new System.Drawing.Point(6, 42);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(78, 13);
+            this.label81.TabIndex = 1073;
+            this.label81.Text = "APK Start URL";
+            // 
+            // apkStartURL
+            // 
+            this.apkStartURL.Enabled = false;
+            this.apkStartURL.Location = new System.Drawing.Point(122, 39);
+            this.apkStartURL.Name = "apkStartURL";
+            this.apkStartURL.Size = new System.Drawing.Size(262, 20);
+            this.apkStartURL.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.apkStartURL, "If there is a redirect in place, this is the URL that lands you on the redirect. " +
+        "If not, this is the root portion of the URL to the apk file");
+            this.apkStartURL.TextChanged += new System.EventHandler(this.apkStartURL_TextChanged);
+            // 
+            // CheckForAPKCheckbox
+            // 
+            this.CheckForAPKCheckbox.AutoSize = true;
+            this.CheckForAPKCheckbox.Location = new System.Drawing.Point(9, 19);
+            this.CheckForAPKCheckbox.Name = "CheckForAPKCheckbox";
+            this.CheckForAPKCheckbox.Size = new System.Drawing.Size(59, 17);
+            this.CheckForAPKCheckbox.TabIndex = 0;
+            this.CheckForAPKCheckbox.Text = "Enable";
+            this.toolTip1.SetToolTip(this.CheckForAPKCheckbox, "Enable an hourly check for a new APK");
+            this.CheckForAPKCheckbox.UseVisualStyleBackColor = true;
+            this.CheckForAPKCheckbox.CheckedChanged += new System.EventHandler(this.CheckForAPKCheckbox_CheckedChanged);
+            // 
             // HourlyConfigsButton
             // 
             this.HourlyConfigsButton.Enabled = false;
-            this.HourlyConfigsButton.Location = new System.Drawing.Point(618, 87);
+            this.HourlyConfigsButton.Location = new System.Drawing.Point(640, 344);
             this.HourlyConfigsButton.Name = "HourlyConfigsButton";
             this.HourlyConfigsButton.Size = new System.Drawing.Size(102, 23);
             this.HourlyConfigsButton.TabIndex = 3;
@@ -3210,6 +3375,8 @@
             this.groupBox2.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CloudLogPort)).EndInit();
@@ -3445,5 +3612,19 @@
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.Button HourlyConfigsButton;
         private System.Windows.Forms.CheckBox EnableGameDayMap;
+        private System.Windows.Forms.Button SaveLogButton;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.CheckBox ProcessMainLogsCheckbox;
+        private System.Windows.Forms.CheckBox SaveMyLogs;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.CheckBox CheckForAPKCheckbox;
+        private System.Windows.Forms.Label label81;
+        private System.Windows.Forms.TextBox apkStartURL;
+        private System.Windows.Forms.Label label88;
+        private System.Windows.Forms.TextBox APKPath;
+        private System.Windows.Forms.Label label90;
+        private System.Windows.Forms.TextBox apkStatsFile;
+        private System.Windows.Forms.Label label89;
+        private System.Windows.Forms.TextBox apkDestinationFile;
     }
 }

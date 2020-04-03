@@ -133,6 +133,27 @@ namespace DiscBotJSONManager
         [JsonProperty("DuplicateLog")]
         public string DuplicateLog { get; set; } = "LssSessions.log";
 
+        [JsonProperty("process_main")]
+        public long ProcessMainLog { get; set; } = 0;
+
+        [JsonProperty("saveMyLogs")]
+        public long SaveMyLogs { get; set; } = 0;
+
+        [JsonProperty("checkforAPK")]
+        public long CheckForAPK { get; set; } = 0;
+
+        [JsonProperty("apkStart")]
+        public string apkStartURL { get; set; } = "https://www.gnbots.com/apk";
+
+        [JsonProperty("apkPath")]
+        public string apkPath { get; set; } = "Last%20Shelter%20Survival/game.apk";
+
+        [JsonProperty("apkDest")]
+        public string apkDest { get; set; } = "./downloaded.apk";
+
+        [JsonProperty("apkStatsFile")]
+        public string apkStatsFile { get; set; } = "./apkstats.json";
+
         [JsonProperty("gatherCSV")]
         public string GatherCsv { get; set; } = "";
 
@@ -173,7 +194,6 @@ namespace DiscBotJSONManager
         public long Offline { get; set; } = 0;
 
         [JsonProperty("GNBotThreads")]
-//        [JsonConverter(typeof(ParseStringConverter))]
         public long GnBotThreads { get; set; } = 1;
 
         [JsonProperty("WatchThreads")]
