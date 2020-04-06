@@ -99,6 +99,11 @@
             this.PausedMasterFile = new System.Windows.Forms.TextBox();
             this.RestartBaseCount = new System.Windows.Forms.NumericUpDown();
             this.ProcessMainLogsCheckbox = new System.Windows.Forms.CheckBox();
+            this.apkStatsFile = new System.Windows.Forms.TextBox();
+            this.apkDestinationFile = new System.Windows.Forms.TextBox();
+            this.APKPath = new System.Windows.Forms.TextBox();
+            this.apkStartURL = new System.Windows.Forms.TextBox();
+            this.CheckForAPKCheckbox = new System.Windows.Forms.CheckBox();
             this.LoadPointer = new System.Windows.Forms.Label();
             this.ConfigurationTabs = new System.Windows.Forms.TabControl();
             this.RunDiscBotTab = new System.Windows.Forms.TabPage();
@@ -239,14 +244,9 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.label90 = new System.Windows.Forms.Label();
-            this.apkStatsFile = new System.Windows.Forms.TextBox();
             this.label89 = new System.Windows.Forms.Label();
-            this.apkDestinationFile = new System.Windows.Forms.TextBox();
             this.label88 = new System.Windows.Forms.Label();
-            this.APKPath = new System.Windows.Forms.TextBox();
             this.label81 = new System.Windows.Forms.Label();
-            this.apkStartURL = new System.Windows.Forms.TextBox();
-            this.CheckForAPKCheckbox = new System.Windows.Forms.CheckBox();
             this.HourlyConfigsButton = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label87 = new System.Windows.Forms.Label();
@@ -269,6 +269,7 @@
             this.CSVEditButton = new System.Windows.Forms.Button();
             this.gatherCSVLabel = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.killstop = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.GNBotRestartInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaximumFailures)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimumCycleTime)).BeginInit();
@@ -854,7 +855,7 @@
             // GNBotRestartFullCycle
             // 
             this.GNBotRestartFullCycle.AutoSize = true;
-            this.GNBotRestartFullCycle.Location = new System.Drawing.Point(8, 83);
+            this.GNBotRestartFullCycle.Location = new System.Drawing.Point(9, 82);
             this.GNBotRestartFullCycle.Name = "GNBotRestartFullCycle";
             this.GNBotRestartFullCycle.Size = new System.Drawing.Size(152, 17);
             this.GNBotRestartFullCycle.TabIndex = 1168;
@@ -882,7 +883,7 @@
             this.EnableReboot.AutoSize = true;
             this.EnableReboot.Checked = true;
             this.EnableReboot.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.EnableReboot.Location = new System.Drawing.Point(11, 20);
+            this.EnableReboot.Location = new System.Drawing.Point(11, 16);
             this.EnableReboot.Name = "EnableReboot";
             this.EnableReboot.Size = new System.Drawing.Size(59, 17);
             this.EnableReboot.TabIndex = 1166;
@@ -1223,6 +1224,60 @@
         "cloud.");
             this.ProcessMainLogsCheckbox.UseVisualStyleBackColor = true;
             this.ProcessMainLogsCheckbox.CheckedChanged += new System.EventHandler(this.ProcessMainLogsCheckbox_CheckedChanged);
+            // 
+            // apkStatsFile
+            // 
+            this.apkStatsFile.Enabled = false;
+            this.apkStatsFile.Location = new System.Drawing.Point(122, 102);
+            this.apkStatsFile.Name = "apkStatsFile";
+            this.apkStatsFile.Size = new System.Drawing.Size(262, 20);
+            this.apkStatsFile.TabIndex = 1078;
+            this.toolTip1.SetToolTip(this.apkStatsFile, "this is the json file to use for server headers to determine if a new file is ava" +
+        "ilable");
+            this.apkStatsFile.TextChanged += new System.EventHandler(this.apkStatsFile_TextChanged);
+            // 
+            // apkDestinationFile
+            // 
+            this.apkDestinationFile.Enabled = false;
+            this.apkDestinationFile.Location = new System.Drawing.Point(122, 81);
+            this.apkDestinationFile.Name = "apkDestinationFile";
+            this.apkDestinationFile.Size = new System.Drawing.Size(262, 20);
+            this.apkDestinationFile.TabIndex = 1076;
+            this.toolTip1.SetToolTip(this.apkDestinationFile, "This is what the apk is saved as");
+            this.apkDestinationFile.TextChanged += new System.EventHandler(this.apkDestinationFile_TextChanged);
+            // 
+            // APKPath
+            // 
+            this.APKPath.Enabled = false;
+            this.APKPath.Location = new System.Drawing.Point(122, 60);
+            this.APKPath.Name = "APKPath";
+            this.APKPath.Size = new System.Drawing.Size(262, 20);
+            this.APKPath.TabIndex = 1074;
+            this.toolTip1.SetToolTip(this.APKPath, "This is the path to the APK file once redirected");
+            this.APKPath.TextChanged += new System.EventHandler(this.APKPath_TextChanged);
+            // 
+            // apkStartURL
+            // 
+            this.apkStartURL.Enabled = false;
+            this.apkStartURL.Location = new System.Drawing.Point(122, 39);
+            this.apkStartURL.Name = "apkStartURL";
+            this.apkStartURL.Size = new System.Drawing.Size(262, 20);
+            this.apkStartURL.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.apkStartURL, "If there is a redirect in place, this is the URL that lands you on the redirect. " +
+        "If not, this is the root portion of the URL to the apk file");
+            this.apkStartURL.TextChanged += new System.EventHandler(this.apkStartURL_TextChanged);
+            // 
+            // CheckForAPKCheckbox
+            // 
+            this.CheckForAPKCheckbox.AutoSize = true;
+            this.CheckForAPKCheckbox.Location = new System.Drawing.Point(9, 19);
+            this.CheckForAPKCheckbox.Name = "CheckForAPKCheckbox";
+            this.CheckForAPKCheckbox.Size = new System.Drawing.Size(59, 17);
+            this.CheckForAPKCheckbox.TabIndex = 0;
+            this.CheckForAPKCheckbox.Text = "Enable";
+            this.toolTip1.SetToolTip(this.CheckForAPKCheckbox, "Enable an hourly check for a new APK");
+            this.CheckForAPKCheckbox.UseVisualStyleBackColor = true;
+            this.CheckForAPKCheckbox.CheckedChanged += new System.EventHandler(this.CheckForAPKCheckbox_CheckedChanged);
             // 
             // LoadPointer
             // 
@@ -2573,6 +2628,7 @@
             this.groupBox1.Controls.Add(this.label62);
             this.groupBox1.Controls.Add(this.GNBotWindowY);
             this.groupBox1.Controls.Add(this.label61);
+            this.groupBox1.Controls.Add(this.killstop);
             this.groupBox1.Controls.Add(this.GNBotWindowWidth);
             this.groupBox1.Controls.Add(this.label60);
             this.groupBox1.Location = new System.Drawing.Point(596, 7);
@@ -2580,7 +2636,7 @@
             this.groupBox1.Size = new System.Drawing.Size(142, 105);
             this.groupBox1.TabIndex = 1181;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "GNBot window location";
+            this.groupBox1.Text = "GNBot Window";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // label63
@@ -2991,17 +3047,6 @@
             this.label90.TabIndex = 1079;
             this.label90.Text = "APK Stats fIle";
             // 
-            // apkStatsFile
-            // 
-            this.apkStatsFile.Enabled = false;
-            this.apkStatsFile.Location = new System.Drawing.Point(122, 102);
-            this.apkStatsFile.Name = "apkStatsFile";
-            this.apkStatsFile.Size = new System.Drawing.Size(262, 20);
-            this.apkStatsFile.TabIndex = 1078;
-            this.toolTip1.SetToolTip(this.apkStatsFile, "this is the json file to use for server headers to determine if a new file is ava" +
-        "ilable");
-            this.apkStatsFile.TextChanged += new System.EventHandler(this.apkStatsFile_TextChanged);
-            // 
             // label89
             // 
             this.label89.AutoSize = true;
@@ -3010,16 +3055,6 @@
             this.label89.Size = new System.Drawing.Size(84, 13);
             this.label89.TabIndex = 1077;
             this.label89.Text = "APK Destination";
-            // 
-            // apkDestinationFile
-            // 
-            this.apkDestinationFile.Enabled = false;
-            this.apkDestinationFile.Location = new System.Drawing.Point(122, 81);
-            this.apkDestinationFile.Name = "apkDestinationFile";
-            this.apkDestinationFile.Size = new System.Drawing.Size(262, 20);
-            this.apkDestinationFile.TabIndex = 1076;
-            this.toolTip1.SetToolTip(this.apkDestinationFile, "This is what the apk is saved as");
-            this.apkDestinationFile.TextChanged += new System.EventHandler(this.apkDestinationFile_TextChanged);
             // 
             // label88
             // 
@@ -3030,16 +3065,6 @@
             this.label88.TabIndex = 1075;
             this.label88.Text = "APK Path";
             // 
-            // APKPath
-            // 
-            this.APKPath.Enabled = false;
-            this.APKPath.Location = new System.Drawing.Point(122, 60);
-            this.APKPath.Name = "APKPath";
-            this.APKPath.Size = new System.Drawing.Size(262, 20);
-            this.APKPath.TabIndex = 1074;
-            this.toolTip1.SetToolTip(this.APKPath, "This is the path to the APK file once redirected");
-            this.APKPath.TextChanged += new System.EventHandler(this.APKPath_TextChanged);
-            // 
             // label81
             // 
             this.label81.AutoSize = true;
@@ -3048,29 +3073,6 @@
             this.label81.Size = new System.Drawing.Size(78, 13);
             this.label81.TabIndex = 1073;
             this.label81.Text = "APK Start URL";
-            // 
-            // apkStartURL
-            // 
-            this.apkStartURL.Enabled = false;
-            this.apkStartURL.Location = new System.Drawing.Point(122, 39);
-            this.apkStartURL.Name = "apkStartURL";
-            this.apkStartURL.Size = new System.Drawing.Size(262, 20);
-            this.apkStartURL.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.apkStartURL, "If there is a redirect in place, this is the URL that lands you on the redirect. " +
-        "If not, this is the root portion of the URL to the apk file");
-            this.apkStartURL.TextChanged += new System.EventHandler(this.apkStartURL_TextChanged);
-            // 
-            // CheckForAPKCheckbox
-            // 
-            this.CheckForAPKCheckbox.AutoSize = true;
-            this.CheckForAPKCheckbox.Location = new System.Drawing.Point(9, 19);
-            this.CheckForAPKCheckbox.Name = "CheckForAPKCheckbox";
-            this.CheckForAPKCheckbox.Size = new System.Drawing.Size(59, 17);
-            this.CheckForAPKCheckbox.TabIndex = 0;
-            this.CheckForAPKCheckbox.Text = "Enable";
-            this.toolTip1.SetToolTip(this.CheckForAPKCheckbox, "Enable an hourly check for a new APK");
-            this.CheckForAPKCheckbox.UseVisualStyleBackColor = true;
-            this.CheckForAPKCheckbox.CheckedChanged += new System.EventHandler(this.CheckForAPKCheckbox_CheckedChanged);
             // 
             // HourlyConfigsButton
             // 
@@ -3309,6 +3311,18 @@
             this.gatherCSVLabel.Name = "gatherCSVLabel";
             this.gatherCSVLabel.Size = new System.Drawing.Size(628, 17);
             this.gatherCSVLabel.TabIndex = 0;
+            // 
+            // killstop
+            // 
+            this.killstop.AutoSize = true;
+            this.killstop.Location = new System.Drawing.Point(11, 81);
+            this.killstop.Name = "killstop";
+            this.killstop.Size = new System.Drawing.Size(114, 17);
+            this.killstop.TabIndex = 1172;
+            this.killstop.Text = "Kill GNBot to close";
+            this.toolTip1.SetToolTip(this.killstop, "Use kill instead of close for stopping GNBot");
+            this.killstop.UseVisualStyleBackColor = true;
+            this.killstop.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_3);
             // 
             // MyDiscBotConfigForm
             // 
@@ -3626,5 +3640,6 @@
         private System.Windows.Forms.TextBox apkStatsFile;
         private System.Windows.Forms.Label label89;
         private System.Windows.Forms.TextBox apkDestinationFile;
+        private System.Windows.Forms.CheckBox killstop;
     }
 }

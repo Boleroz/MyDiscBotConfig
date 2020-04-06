@@ -354,6 +354,13 @@ namespace MyDiscBotConfig
             apkDestinationFile.Text = config.apkDest;
             apkStartURL.Text = config.apkStartURL;
             APKPath.Text = config.apkPath;
+            if ( config.killstop > 0 )
+            {
+                killstop.Checked = true;
+            } else
+            {
+                killstop.Checked = false;
+            }
         }
 
         void LaunchDiscBotProcess(string DiscBotExe = "MyBot-Win.exe", string configFile = "./mybot.json")
@@ -2593,6 +2600,17 @@ namespace MyDiscBotConfig
         private void apkStatsFile_TextChanged(object sender, EventArgs e)
         {
             config.apkStatsFile = apkStatsFile.Text;
+        }
+
+        private void checkBox1_CheckedChanged_3(object sender, EventArgs e)
+        {
+            if ( killstop.Checked == true )
+            {
+                config.killstop = 1;
+            } else
+            {
+                config.killstop = 0;
+            }
         }
     }
 }
